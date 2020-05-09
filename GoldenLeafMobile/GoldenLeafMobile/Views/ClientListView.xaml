@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GoldenLeafMobile.Views.ClientListView">
+
+    <AbsoluteLayout>
+        <ListView x:Name="listViewClient" ItemsSource="{Binding Clients}" Margin="25">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Clicked="OnEdit"  CommandParameter="{Binding Id}" Text="Editar"/>
+                            <MenuItem Clicked="OnViewDetails" CommandParameter="{Binding .}" Text="Detalhes"/>
+                            <MenuItem Clicked="OnNewOrder" CommandParameter="{Binding Id}" Text="Novo pedido"/>
+                        </ViewCell.ContextActions>
+                        <ViewCell.View>
+                            <StackLayout Orientation="Horizontal" >
+                                <Label Text="{Binding Name}" FontSize="15" VerticalTextAlignment="Center"></Label>
+                                <Label Text=" - " VerticalTextAlignment="Center"></Label>
+                                <Label Text="{Binding PhoneNumber}" FontAttributes="Bold" VerticalTextAlignment="Center"></Label>
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+        <ImageButton Source="plus.xml" 
+            BackgroundColor="Transparent"
+            AbsoluteLayout.LayoutFlags="PositionProportional"  
+            AbsoluteLayout.LayoutBounds=".95,.95,80,80" 
+            Clicked="ImageButton_Clicked" />
+
+    </AbsoluteLayout>
+
+</ContentPage>

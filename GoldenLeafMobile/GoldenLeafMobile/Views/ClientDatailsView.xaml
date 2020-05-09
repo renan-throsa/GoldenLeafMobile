@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GoldenLeafMobile.Views.ClientDatailsView"
+              Title="{Binding Client.Name}">
+
+    <ContentPage.Content>
+        <StackLayout Padding="25">
+            <TableView Intent="Data">
+                <TableRoot>
+                    <TableSection Title="Dados">
+                        <TextCell Detail="Nome" TextColor="Black" Text="{Binding Client.Name}"></TextCell>
+                        <TextCell Detail="Telefone" TextColor="Black" Text="{Binding Client.PhoneNumber}"></TextCell>
+                        <TextCell Detail="Identificação" TextColor="Black" Text="{Binding Client.Identification}"></TextCell>
+                    </TableSection>
+                    <TableSection Title="Configurações">
+                        <TextCell Detail="Notificável" TextColor="Black" Text="{Binding Client.Notifiable}"></TextCell>
+                        <TextCell Detail="Status" TextColor="Black" Text="{Binding Client.Status}"></TextCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            <Button x:Name="buttonEdit" Text="Editar" Clicked="buttonEdit_Clicked" VerticalOptions="End"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
