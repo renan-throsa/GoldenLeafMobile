@@ -11,7 +11,7 @@ namespace GoldenLeafMobile
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new ClientListView());
+            MainPage = new NavigationPage(new ClientsPage());
         }
 
         protected override void OnStart()

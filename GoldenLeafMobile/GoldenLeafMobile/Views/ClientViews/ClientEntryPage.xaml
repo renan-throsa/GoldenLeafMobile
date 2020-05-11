@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GoldenLeafMobile.Views.ClientViews.ClientEntryPage"
+             Title="Novo Cliente">
+
+    <ContentPage.Resources>
+        <!-- Implicit styles -->
+        <Style TargetType="{x:Type Editor}">
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource AppBackgroundColor}" />
+        </Style>
+
+        <Style TargetType="Button"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor" Value="#1976D2" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+    </ContentPage.Resources>
+
+
+    <ContentPage.Content>
+        <StackLayout Margin="{StaticResource PageMargin}">
+            <TableView Intent="Form">
+                <TableRoot>
+                    <TableSection Title="Dados">
+                        <EntryCell Keyboard="Text" Label="Nome" Text="{Binding Client.Name,Mode=TwoWay}"></EntryCell>
+                        <EntryCell Keyboard="Telephone" Label="Telefone" Text="{Binding Client.PhoneNumber
+                            ,Mode=TwoWay}"></EntryCell>
+                        <EntryCell Keyboard="Numeric" Label="Identificação" Text="{Binding Client.Identification
+                            ,Mode=TwoWay}"></EntryCell>
+                    </TableSection>
+                    <TableSection Title="Configurações">
+                        <SwitchCell Text="Notificável" On="{Binding Client.Notifiable,Mode=TwoWay}"></SwitchCell>
+                        <SwitchCell Text="Status" On="{Binding Client.Status,Mode=TwoWay}"></SwitchCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            <Button x:Name="buttonSave" Text="Salvar" Clicked="buttonSave_Clicked"  VerticalOptions="EndAndExpand"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

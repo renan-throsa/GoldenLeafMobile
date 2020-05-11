@@ -6,11 +6,11 @@ using Xamarin.Forms.Xaml;
 namespace GoldenLeafMobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ClientEditView : ContentPage
+    public partial class EditPage : ContentPage
     {
         public Client Client { get; set; }
 
-        public ClientEditView(Client client)
+        public EditPage(Client client)
         {
             InitializeComponent();
             Client = client;
@@ -19,7 +19,7 @@ namespace GoldenLeafMobile.Views
 
         private void buttonSave_Clicked(object sender, EventArgs e)
         {
-            DisplayAlert("Cliente salvo", Client.ToString(), "ok");
+            MessagingCenter.Send(Client, "ClientSaved");
         }
     }
 }

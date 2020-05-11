@@ -11,21 +11,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\ClientListView.xaml.cs">
-      <DependentUpon>ClientListView.xaml</DependentUpon>
+    <Compile Update="Views\ClientViews\EditPage.xaml.cs">
+      <DependentUpon>EditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ClientViews\DatailsPage.xaml.cs">
+      <DependentUpon>DatailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ClientViews\ClientsPage.xaml.cs">
+      <DependentUpon>ClientsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ClientViews\ClientEntryPage.xaml.cs">
+      <DependentUpon>ClientEntryPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\ClientDatailsView.xaml">
+    <EmbeddedResource Update="Views\ClientViews\DatailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ClientEditView.xaml">
+    <EmbeddedResource Update="Views\ClientViews\EditPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ClientViews\ClientEntryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

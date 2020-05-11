@@ -4,16 +4,32 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="GoldenLeafMobile.Views.ClientListView">
+             x:Class="GoldenLeafMobile.Views.ClientsPage"
+             Title="Clientes">
+
+
+    <ContentPage.Resources>
+        <!-- Implicit styles -->
+        <Style TargetType="{x:Type ListView}">
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource AppBackgroundColor}" />
+        </Style>
+    </ContentPage.Resources>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+                     IconImageSource="plus.xml"             
+                     Clicked="ToolbarNewClient_Clicked" />
+    </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
-        <ListView x:Name="listViewClient" ItemsSource="{Binding Clients}" Margin="25">
+        <ListView x:Name="clientsListView" ItemsSource="{Binding Clients}" Margin="{StaticResource PageMargin}"
+                  SelectedItem="{Binding SelectedClient,Mode=TwoWay}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
-                            <MenuItem Clicked="OnEdit"  CommandParameter="{Binding Id}" Text="Editar"/>
-                            <MenuItem Clicked="OnViewDetails" CommandParameter="{Binding .}" Text="Detalhes"/>
+                            <MenuItem Clicked="OnEdit"  CommandParameter="{Binding .}" Text="Editar"/>
                             <MenuItem Clicked="OnNewOrder" CommandParameter="{Binding Id}" Text="Novo pedido"/>
                         </ViewCell.ContextActions>
                         <ViewCell.View>
@@ -26,14 +42,7 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-        </ListView>
-        <ImageButton Source="plus.xml" 
-            BackgroundColor="Transparent"
-            AbsoluteLayout.LayoutFlags="PositionProportional"  
-            AbsoluteLayout.LayoutBounds=".95,.95,80,80" 
-            Clicked="ImageButton_Clicked" />
-
+        </ListView>     
     </AbsoluteLayout>
 
 </ContentPage>

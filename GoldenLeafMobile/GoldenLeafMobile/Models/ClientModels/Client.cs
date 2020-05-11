@@ -1,12 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using GoldenLeafMobile.Models.ClientModels;
+using System.Collections.Generic;
 
 namespace GoldenLeafMobile.Models
 {
     public class Client : User
     {
         public string Identification { get; set; }
+        public string Address { get; set; }
         public bool Status { get; set; }
         public bool Notifiable { get; set; }
+
+        public Client()
+        {
+            Identification = "";
+        }
+
+        public Client(ClientJson clientJson)
+        {
+            Id = clientJson.id;
+            Name = clientJson.name;
+            Address = clientJson.address;
+            PhoneNumber = clientJson.phone_number;
+            Identification = clientJson.identification;
+            Notifiable = clientJson.notifiable;
+            Status = clientJson.status;
+        }
 
         public override bool Equals(object obj)
         {

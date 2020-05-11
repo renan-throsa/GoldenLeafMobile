@@ -4,12 +4,29 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="GoldenLeafMobile.Views.ClientEditView"
+             x:Class="GoldenLeafMobile.Views.EditPage"
              Title="{Binding Client.Name}">
 
+    <ContentPage.Resources>
+        <!-- Implicit styles -->
+        <Style TargetType="{x:Type Editor}">
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource AppBackgroundColor}" />
+        </Style>
+
+        <Style TargetType="Button"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor" Value="#1976D2" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
-        <StackLayout>
-            <TableView Intent="Settings">
+        <StackLayout Margin="{StaticResource PageMargin}">
+            <TableView Intent="Form">
                 <TableRoot>
                     <TableSection Title="Dados">
                         <EntryCell Keyboard="Text" Label="Nome" Text="{Binding Client.Name,Mode=TwoWay}"></EntryCell>
@@ -22,7 +39,7 @@
                     </TableSection>
                 </TableRoot>
             </TableView>
-            <Button x:Name="buttonSave" Text="Salvar" Clicked="buttonSave_Clicked" VerticalOptions="End"></Button>
+            <Button x:Name="buttonSave" Text="Salvar" Clicked="buttonSave_Clicked" VerticalOptions="EndAndExpand"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

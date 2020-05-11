@@ -6,19 +6,20 @@ using Xamarin.Forms.Xaml;
 namespace GoldenLeafMobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ClientDatailsView : ContentPage
+    public partial class DatailsPage : ContentPage
     {
         public Client Client { get; set; }
-        public ClientDatailsView(Client _client)
+        public DatailsPage(Client _client)
         {
             InitializeComponent();
             Client = _client;
             BindingContext = this;
+           
         }
 
         private void buttonEdit_Clicked(object sender, EventArgs e)
         {
-
+            Navigation.PushAsync(new EditPage(Client));
         }
     }
 }
