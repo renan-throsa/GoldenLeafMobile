@@ -40,7 +40,7 @@
                     </TableSection>
                 </TableRoot>
             </TableView>
-            <Button x:Name="buttonEdit" Text="Editar" Clicked="buttonEdit_Clicked" VerticalOptions="End"></Button>
+            <Button x:Name="buttonEdit" Text="Editar" Clicked="buttonEdit_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

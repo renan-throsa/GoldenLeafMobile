@@ -17,7 +17,7 @@ namespace GoldenLeafMobile.Views
         {
             InitializeComponent();
             ViewModel = new ListViewModel();
-            BindingContext = this;
+            BindingContext = ViewModel;
         }
 
         protected async override void OnAppearing()
@@ -25,10 +25,12 @@ namespace GoldenLeafMobile.Views
             base.OnAppearing();
             clientsListView.SelectedItem = false;
             MessagingCenter.Subscribe<Client>(this, "SelectedClient",
-                (_client) => Navigation.PushAsync(new EditPage(_client)));
+                (_client) => Navigation.PushAsync(new DatailsPage(_client)));
 
             await ViewModel.GetClients();
         }
+
+
 
         protected override void OnDisappearing()
         {

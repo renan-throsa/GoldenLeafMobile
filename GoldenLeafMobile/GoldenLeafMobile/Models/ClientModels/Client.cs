@@ -1,4 +1,5 @@
 ﻿using GoldenLeafMobile.Models.ClientModels;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace GoldenLeafMobile.Models
@@ -13,6 +14,8 @@ namespace GoldenLeafMobile.Models
         public Client()
         {
             Identification = "";
+            Status = true;
+            Notifiable = true;
         }
 
         public Client(ClientJson clientJson)
@@ -44,6 +47,22 @@ namespace GoldenLeafMobile.Models
         public override string ToString()
         {
             return $"Nome: {Name} Telefone: {PhoneNumber} Rg: {Identification} Notificável{Notifiable} Status: {Status}";
+        }
+
+        public string ToJson()
+        {            
+            return JsonConvert.SerializeObject(
+                new
+                {
+                    id = Id,
+                    name = Name,
+                    address = Address,
+                    identification = Identification,
+                    phone_number = PhoneNumber,
+                    notifiable = Notifiable,
+                    status = Status
+                }
+                );
         }
     }
 }

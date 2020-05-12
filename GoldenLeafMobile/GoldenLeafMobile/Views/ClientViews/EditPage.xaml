@@ -23,14 +23,16 @@
             <Setter Property="CornerRadius" Value="5" />
         </Style>
     </ContentPage.Resources>
-    
+
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource PageMargin}">
             <TableView Intent="Form">
                 <TableRoot>
                     <TableSection Title="Dados">
-                        <EntryCell Keyboard="Text" Label="Nome" Text="{Binding Client.Name,Mode=TwoWay}"></EntryCell>
-                        <EntryCell Keyboard="Telephone" Label="Telefone" Text="{Binding Client.PhoneNumber
+                        <EntryCell Keyboard="Text" Label="Nome" Text="{Binding Name,Mode=TwoWay}"></EntryCell>
+                        <EntryCell Keyboard="Telephone" Label="Telefone" Text="{Binding PhoneNumber
+                            ,Mode=TwoWay}"></EntryCell>
+                        <EntryCell Keyboard="Default" Label="Endereço" Text="{Binding Address
                             ,Mode=TwoWay}"></EntryCell>
                     </TableSection>
                     <TableSection Title="Configurações">
@@ -39,7 +41,7 @@
                     </TableSection>
                 </TableRoot>
             </TableView>
-            <Button x:Name="buttonSave" Text="Salvar" Clicked="buttonSave_Clicked" VerticalOptions="EndAndExpand"></Button>
+            <Button Text="Salvar" Command="{Binding SaveEditedClientComand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

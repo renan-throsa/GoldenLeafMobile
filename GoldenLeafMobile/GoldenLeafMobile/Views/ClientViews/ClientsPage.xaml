@@ -15,34 +15,42 @@
                     Value="{StaticResource AppBackgroundColor}" />
         </Style>
     </ContentPage.Resources>
-    
+
     <ContentPage.ToolbarItems>
         <ToolbarItem 
                      IconImageSource="plus.xml"             
                      Clicked="ToolbarNewClient_Clicked" />
     </ContentPage.ToolbarItems>
 
-    <AbsoluteLayout>
-        <ListView x:Name="clientsListView" ItemsSource="{Binding Clients}" Margin="{StaticResource PageMargin}"
+    <Grid>
+
+        <StackLayout Margin="{StaticResource PageMargin}">
+
+            <ListView x:Name="clientsListView" ItemsSource="{Binding Clients}" 
                   SelectedItem="{Binding SelectedClient,Mode=TwoWay}" >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.ContextActions>
-                            <MenuItem Clicked="OnEdit"  CommandParameter="{Binding .}" Text="Editar"/>
-                            <MenuItem Clicked="OnNewOrder" CommandParameter="{Binding Id}" Text="Novo pedido"/>
-                        </ViewCell.ContextActions>
-                        <ViewCell.View>
-                            <StackLayout Orientation="Horizontal" >
-                                <Label Text="{Binding Name}" FontSize="15" VerticalTextAlignment="Center"></Label>
-                                <Label Text=" - " VerticalTextAlignment="Center"></Label>
-                                <Label Text="{Binding PhoneNumber}" FontAttributes="Bold" VerticalTextAlignment="Center"></Label>
-                            </StackLayout>
-                        </ViewCell.View>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>     
-    </AbsoluteLayout>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnEdit"  CommandParameter="{Binding .}" Text="Editar"/>
+                                <MenuItem Clicked="OnNewOrder" CommandParameter="{Binding Id}" Text="Novo pedido"/>
+                            </ViewCell.ContextActions>
+                            <ViewCell.View>
+                                <StackLayout Orientation="Horizontal" >
+                                    <Label Text="{Binding Name}" FontSize="15" VerticalTextAlignment="Center"></Label>
+                                    <Label Text=" - " VerticalTextAlignment="Center"></Label>
+                                    <Label Text="{Binding PhoneNumber}" FontAttributes="Bold" VerticalTextAlignment="Center"></Label>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+        <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}" 
+                           VerticalOptions="Center" HorizontalOptions="Center"/>
+    </Grid>
+
 
 </ContentPage>
