@@ -16,24 +16,24 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
         public string Name
         {
             get { return Client.Name; }
-            set { Client.Name = value; OnPropertyChanged(); ((Command)SaveClientComand).ChangeCanExecute(); }
+            set { Client.Name = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
         public string Address
         {
             get { return Client.Address; }
-            set { Client.Address = value; OnPropertyChanged(); ((Command)SaveClientComand).ChangeCanExecute(); }
+            set { Client.Address = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
 
         public string Identification
         {
             get { return Client.Identification; }
-            set { Client.Identification = value; OnPropertyChanged(); ((Command)SaveClientComand).ChangeCanExecute(); }
+            set { Client.Identification = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
 
         public string PhoneNumber
         {
             get { return Client.PhoneNumber; }
-            set { Client.PhoneNumber = value; OnPropertyChanged(); ((Command)SaveClientComand).ChangeCanExecute(); }
+            set { Client.PhoneNumber = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
 
         public ClientEntryViewModel()
@@ -44,6 +44,7 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
                     () =>
                     {
                         MessagingCenter.Send<Client>(Client, "SavingClient");
+
                     },
                     () =>
                     {
@@ -57,23 +58,25 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
 
         public async void SaveClient()
         {
-            HttpClient httpClient = new HttpClient();
-            var stringContent = new StringContent(Client.ToJson(), Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync(URL_POST_CLIENT, stringContent);
-            if (response.IsSuccessStatusCode)
+            using (HttpClient httpClient = new HttpClient())
             {
-                MessagingCenter.Send<Client>(Client, "SuccessPostClient");
-            }
-            else
-            {
-                var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                if (response.Content != null)
-                    response.Content.Dispose();
+                var stringContent = new StringContent(Client.ToJson(), Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync(URL_POST_CLIENT, stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    MessagingCenter.Send<Client>(Client, "SuccessPostClient");
+                }
+                else
+                {
+                    var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    if (response.Content != null)
+                        response.Content.Dispose();
 
 
-                MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
-                    "FailedPostClient");
+                    MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
+                        "FailedPostClient");
 
+                }
             }
 
         }

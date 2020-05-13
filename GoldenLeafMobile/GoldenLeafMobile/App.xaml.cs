@@ -1,7 +1,7 @@
-﻿using GoldenLeafMobile.Views;
-using System;
+﻿using GoldenLeafMobile.Models.ClerkModels;
+using GoldenLeafMobile.Views;
+using GoldenLeafMobile.Views.ClerkViews;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace GoldenLeafMobile
 {
@@ -11,11 +11,15 @@ namespace GoldenLeafMobile
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new ClientsPage());
+            MainPage = new LoginPage();
         }
 
         protected override void OnStart()
         {
+            MessagingCenter.Subscribe<Clerk>(this, "SuccessLogin", (_mgs) =>
+            {
+                MainPage = new NavigationPage(new ClientsPage());
+            });
         }
 
         protected override void OnSleep()

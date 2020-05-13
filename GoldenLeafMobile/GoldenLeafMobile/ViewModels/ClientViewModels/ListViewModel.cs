@@ -14,15 +14,6 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
 
         public ObservableCollection<Client> Clients { get; set; }
 
-        private bool _wait;
-
-        public bool Wait
-        {
-            get { return _wait; }
-            set { _wait = value;
-                OnPropertyChanged();
-            }
-        }
 
         private Client _selectedClient;
         public Client SelectedClient
@@ -38,7 +29,7 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
 
         public ListViewModel()
         {
-            Clients = new ObservableCollection<Client>();            
+            Clients = new ObservableCollection<Client>();
         }
 
         public async Task GetClients()
@@ -46,10 +37,10 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
             Wait = true;
             HttpClient httpClient = new HttpClient();
             var result = await httpClient.GetStringAsync(URL_GET_CLIENTS);
-            
+
             var ClientsJson = JsonConvert.DeserializeObject<ClientJson[]>(result);
 
-         
+
             foreach (var clientJson in ClientsJson)
             {
                 Clients.Add(new Client(clientJson));
