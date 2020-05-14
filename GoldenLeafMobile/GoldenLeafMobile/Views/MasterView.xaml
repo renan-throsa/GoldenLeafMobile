@@ -3,13 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:GoldenLeafMobile.ViewModels.ClerkViewModels"
              mc:Ignorable="d"
-             x:Class="GoldenLeafMobile.Views.ClerkViews.LoginPage">
-
-    <ContentPage.BindingContext>
-        <vm:LoginViewModel/>
-    </ContentPage.BindingContext>
+             x:Class="GoldenLeafMobile.Views.MasterView"
+             Title="Perfil">
 
     <ContentPage.Resources>
         <!-- Implicit styles -->
@@ -28,18 +24,15 @@
         </Style>
     </ContentPage.Resources>
 
+
     <ContentPage.Content>
-        <Frame OutlineColor="Silver">
-            <Grid>
-                <StackLayout VerticalOptions="Center" Margin="40">
-                    <Image Source="PalmadeOuro.png"></Image>
-                    <Entry Text="{Binding Email}" Placeholder="Email do atendente" ></Entry>
-                    <Entry Text="{Binding Password}" Placeholder="Senha do atendente" IsPassword="True"></Entry>
-                    <Button Text="Entrar" Command="{Binding LoginCommand}"></Button>
-                </StackLayout>
-                <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}" 
-                           VerticalOptions="Center" HorizontalOptions="Center"/>
-            </Grid>
+        <Frame OutlineColor="Silver"  Margin="15">
+            <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="{Binding Name}"></Label>
+                <Label Text="{Binding Email}"></Label>
+                <Label Text="{Binding Phone}"></Label>
+                <Button ></Button>
+            </StackLayout>
         </Frame>
     </ContentPage.Content>
 </ContentPage>

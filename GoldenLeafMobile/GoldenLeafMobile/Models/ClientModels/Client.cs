@@ -1,14 +1,20 @@
-﻿using GoldenLeafMobile.Models.ClientModels;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace GoldenLeafMobile.Models
 {
     public class Client : User
     {
+        [JsonProperty("identification")]
         public string Identification { get; set; }
+
+        [JsonProperty("address")]
         public string Address { get; set; }
+
+        [JsonProperty("status")]
         public bool Status { get; set; }
+
+        [JsonProperty("notifiable")]
         public bool Notifiable { get; set; }
 
         public Client()
@@ -18,17 +24,7 @@ namespace GoldenLeafMobile.Models
             Notifiable = true;
         }
 
-        public Client(ClientJson clientJson)
-        {
-            Id = clientJson.id;
-            Name = clientJson.name;
-            Address = clientJson.address;
-            PhoneNumber = clientJson.phone_number;
-            Identification = clientJson.identification;
-            Notifiable = clientJson.notifiable;
-            Status = clientJson.status;
-        }
-
+       
         public override bool Equals(object obj)
         {
             var another = obj as Client;

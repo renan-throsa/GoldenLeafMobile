@@ -1,5 +1,6 @@
 ﻿using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Models.ClerkModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -49,45 +50,30 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
 
         private async Task Login()
         {
+
+            HttpClient httpClient = new HttpClient();
+            Wait = true;
+            var form = new FormUrlEncodedContent(new[]
+            {
+                   new KeyValuePair<string,string>("username",Email),
+                   new KeyValuePair<string,string>("password",Password),
+            });
+
+
+            /*
+             * HTTP Basic Authentication --> https://en.wikipedia.org/wiki/Basic_access_authentication
+             * While encoding the user name and password with the Base64 algorithm typically makes
+             * them unreadable by the naked eye, they are as easily decoded as they are encoded.
+             * Security is not the intent of the encoding step. Rather, the intent of the encoding 
+             * is to encode non-HTTP-compatible characters that may be in the user name or password
+             * into those that are HTTP-compatible.
+             */
+            var encoded = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(Email + ":" + Password));
+            httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {encoded}");
+            HttpResponseMessage response = null;
             try
             {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    Wait = true;
-                    var form = new FormUrlEncodedContent(new[]
-                    {
-                                    new KeyValuePair<string,string>("username",Email),
-                                    new KeyValuePair<string,string>("password",Password),
-                                });
-
-
-                    /*
-                     * HTTP Basic Authentication --> https://en.wikipedia.org/wiki/Basic_access_authentication
-                     * While encoding the user name and password with the Base64 algorithm typically makes
-                     * them unreadable by the naked eye, they are as easily decoded as they are encoded.
-                     * Security is not the intent of the encoding step. Rather, the intent of the encoding 
-                     * is to encode non-HTTP-compatible characters that may be in the user name or password
-                     * into those that are HTTP-compatible.
-                     */
-                    var encoded = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(Email + ":" + Password));
-                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {encoded}");
-
-                    var response = await httpClient.PostAsync(URL_POST_CLERK, form);
-                    Wait = false;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        MessagingCenter.Send(new Clerk(Email, Password), "SuccessLogin");
-                    }
-                    else
-                    {
-                        var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                        if (response.Content != null)
-                            response.Content.Dispose();
-
-                        MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
-                            "FailedPostClerk");
-                    }
-                }
+                response = await httpClient.PostAsync(URL_POST_CLERK, form);
             }
             catch (Exception)
             {
@@ -97,6 +83,23 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
 
 
                 MessagingCenter.Send(new LoginException(reasonPhrase, message), "FailedConnection"); ;
+            }
+
+            Wait = false;
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var clerk = JsonConvert.DeserializeObject<Clerk>(content);
+                MessagingCenter.Send(clerk, "SuccessLogin");
+            }
+            else
+            {
+                var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                if (response.Content != null)
+                    response.Content.Dispose();
+
+                MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
+                    "FailedPostClerk");
             }
         }
     }
