@@ -7,8 +7,7 @@
              x:Class="GoldenLeafMobile.App">
     <Application.Resources>
 
-        <Thickness x:Key="PageMargin">20</Thickness>
-
+        <Thickness x:Key="PageMargin" Left="20" Top="20" Right="20" Bottom="20"/>
         <!-- Colors -->
         <Color x:Key="AppBackgroundColor">AliceBlue</Color>
         <Color x:Key="NavigationBarColor">#1976D2</Color>

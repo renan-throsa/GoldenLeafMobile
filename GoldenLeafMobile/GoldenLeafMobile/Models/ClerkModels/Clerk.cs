@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GoldenLeafMobile.Models.ClerkModels
 {
@@ -10,6 +7,8 @@ namespace GoldenLeafMobile.Models.ClerkModels
         [JsonProperty("email")]
         public string Email { get; set; }
 
-       
+        public string ProfileImage { get; set; }
+
+
     }
 }

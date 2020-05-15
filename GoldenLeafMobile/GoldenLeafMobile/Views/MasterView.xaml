@@ -1,38 +1,91 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:GoldenLeafMobile.Converters"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.MasterView"
-             Title="Perfil">
+            Title="Perfil">
 
-    <ContentPage.Resources>
-        <!-- Implicit styles -->
-        <Style TargetType="{x:Type Editor}">
-            <Setter Property="BackgroundColor"
+    <TabbedPage.Children>
+        <ContentPage Title="Atendente">
+            <ContentPage.Resources>
+                <!-- Implicit styles -->
+                <Style TargetType="{x:Type Editor}">
+                    <Setter Property="BackgroundColor"
                     Value="{StaticResource AppBackgroundColor}" />
-        </Style>
+                </Style>
 
-        <Style TargetType="Button"
+                <Style TargetType="Button"
                ApplyToDerivedTypes="True"
                CanCascade="True">
-            <Setter Property="FontSize" Value="Medium" />
-            <Setter Property="BackgroundColor" Value="#1976D2" />
-            <Setter Property="TextColor" Value="White" />
-            <Setter Property="CornerRadius" Value="5" />
-        </Style>
-    </ContentPage.Resources>
+                    <Setter Property="FontSize" Value="Medium" />
+                    <Setter Property="BackgroundColor" Value="#1976D2" />
+                    <Setter Property="TextColor" Value="White" />
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </ContentPage.Resources>
 
+            <Frame OutlineColor="Silver"  Margin="15">
+                <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label Text="{Binding Name}"></Label>
+                    <Label Text="{Binding Email}"></Label>
+                    <Label Text="{Binding PhoneNumber}"></Label>
+                    <Button Text="Perfil" Command="{Binding EditPerfilCommand}" ></Button>
+                    <Button Text="Pedidos"></Button>
+                    <Button Text="Estoque"></Button>
+                </StackLayout>
+            </Frame>
+        </ContentPage>
 
-    <ContentPage.Content>
-        <Frame OutlineColor="Silver"  Margin="15">
-            <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="{Binding Name}"></Label>
-                <Label Text="{Binding Email}"></Label>
-                <Label Text="{Binding Phone}"></Label>
-                <Button ></Button>
-            </StackLayout>
-        </Frame>
-    </ContentPage.Content>
-</ContentPage>
+        <ContentPage Title="Editar">
+            <ContentPage.Resources>
+                <!-- Implicit styles -->
+                <Style TargetType="{x:Type Editor}">
+                    <Setter Property="BackgroundColor"
+                    Value="{StaticResource AppBackgroundColor}" />
+                </Style>
+
+                <Style TargetType="Button"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+                    <Setter Property="FontSize" Value="Medium" />
+                    <Setter Property="BackgroundColor" Value="#1976D2" />
+                    <Setter Property="TextColor" Value="White" />
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+
+                <ResourceDictionary>
+                    <converters:NegativeConverter x:Key="negative"/>
+                </ResourceDictionary>
+            </ContentPage.Resources>
+
+            <Frame OutlineColor="Silver"  Margin="15">
+                <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
+                    <TableView Intent="Form">
+                        <TableRoot>
+
+                            <TableSection Title="Dados">
+                                <EntryCell Keyboard="Text" Label="Nome" Text="{Binding Name,Mode=TwoWay}" 
+                                           IsEnabled="{Binding Editing}"/>
+                                <EntryCell Keyboard="Telephone" Label="Telefone" Text="{Binding PhoneNumber
+                            ,Mode=TwoWay}" IsEnabled="{Binding Editing}" />
+                                <EntryCell Keyboard="Email" Label="Email" Text="{Binding Email
+                            ,Mode=TwoWay}" IsEnabled="{Binding Editing}" />
+                            </TableSection>
+
+                            <TableSection Title="Configurações">
+
+                            </TableSection>
+                        </TableRoot>
+                    </TableView>
+                    <Button Text="Salvar" Command="{Binding SaveCommand}" IsVisible="{Binding Editing}"/>
+                    <Button Text="Editar" Command="{Binding EditCommand}" IsVisible="{Binding Editing,
+                        Converter={StaticResource Key=negative}}" />
+                </StackLayout>
+            </Frame>
+        </ContentPage>
+    </TabbedPage.Children>
+
+</TabbedPage>
