@@ -9,6 +9,6 @@ namespace GoldenLeafMobile.Models
     {
         [JsonProperty("id")]
         public int Id { get; set; }        
-        public bool syncronized { get; set; }
+        public bool Syncronized { get; set; }
     }
 }

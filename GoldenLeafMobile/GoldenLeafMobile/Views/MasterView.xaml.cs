@@ -18,7 +18,13 @@ namespace GoldenLeafMobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            MessagingCenter.Subscribe<Clerk>(this, "EditingClerk", (_mgs) => 
+            SignUpMessages();       
+
+        }
+
+        private void SignUpMessages()
+        {
+            MessagingCenter.Subscribe<Clerk>(this, "EditingClerk", (_mgs) =>
             {
                 this.CurrentPage = this.Children[1];
             });
@@ -26,7 +32,6 @@ namespace GoldenLeafMobile.Views
             {
                 this.CurrentPage = this.Children[0];
             });
-            
         }
 
         protected override void OnDisappearing()

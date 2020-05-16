@@ -14,6 +14,7 @@ namespace GoldenLeafMobile
             MainPage = new LoginPage();
         }
 
+
         protected override void OnStart()
         {
             MessagingCenter.Subscribe<Clerk>(this, "SuccessLogin", (_clerk) =>

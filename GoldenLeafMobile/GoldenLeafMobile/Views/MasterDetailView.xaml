@@ -6,7 +6,6 @@
              xmlns:view="clr-namespace:GoldenLeafMobile.Views"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.MasterDetailView">
-
     
     <MasterDetailPage.Detail>
         <NavigationPage>

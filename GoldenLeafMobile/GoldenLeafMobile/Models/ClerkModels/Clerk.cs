@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Xamarin.Forms;
 
 namespace GoldenLeafMobile.Models.ClerkModels
 {
@@ -7,8 +8,12 @@ namespace GoldenLeafMobile.Models.ClerkModels
         [JsonProperty("email")]
         public string Email { get; set; }
 
-        public string ProfileImage { get; set; }
+        public ImageSource ProfileImage { get; set; }
 
+        public Clerk()
+        {
+            ProfileImage = "noimage.png";
+        }
 
     }
 }

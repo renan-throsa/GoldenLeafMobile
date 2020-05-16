@@ -1,4 +1,5 @@
-﻿using GoldenLeafMobile.Models;
+﻿using GoldenLeafMobile.Data;
+using GoldenLeafMobile.Models;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
@@ -11,29 +12,29 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
         private readonly string URL_POST_CLIENT = "https://golden-leaf.herokuapp.com/api/client";
         public ICommand SaveClientComand { get; set; }
 
-        public Client Client { get; set; }
+        public Client Client { get; private set; }
 
         public string Name
         {
             get { return Client.Name; }
-            set { Client.Name = value; ((Command)SaveClientComand).ChangeCanExecute(); }
+            private set { Client.Name = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
         public string Address
         {
             get { return Client.Address; }
-            set { Client.Address = value; ((Command)SaveClientComand).ChangeCanExecute(); }
+            private set { Client.Address = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
 
         public string Identification
         {
             get { return Client.Identification; }
-            set { Client.Identification = value; ((Command)SaveClientComand).ChangeCanExecute(); }
+            private set { Client.Identification = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
 
         public string PhoneNumber
         {
             get { return Client.PhoneNumber; }
-            set { Client.PhoneNumber = value; ((Command)SaveClientComand).ChangeCanExecute(); }
+            private set { Client.PhoneNumber = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
 
         public ClientEntryViewModel()
@@ -58,27 +59,38 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
 
         public async void SaveClient()
         {
-            using (HttpClient httpClient = new HttpClient())
+            HttpClient httpClient = new HttpClient();
+            var stringContent = new StringContent(Client.ToJson(), Encoding.UTF8, "application/json");
+
+
+            var response = await httpClient.PostAsync(URL_POST_CLIENT, stringContent);
+
+            if (response.IsSuccessStatusCode)
             {
-                var stringContent = new StringContent(Client.ToJson(), Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync(URL_POST_CLIENT, stringContent);
-                if (response.IsSuccessStatusCode)
-                {
-                    MessagingCenter.Send<Client>(Client, "SuccessPostClient");
-                }
-                else
-                {
-                    var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    if (response.Content != null)
-                        response.Content.Dispose();
+                Client.Syncronized = true;                
+                MessagingCenter.Send<Client>(Client, "SuccessPostClient");
+            }
+            else
+            {
+                var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                if (response.Content != null)
+                    response.Content.Dispose();
 
+                Client.Syncronized = false;
+                MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
+                    "FailedPostClient");
 
-                    MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
-                        "FailedPostClient");
-
-                }
             }
 
+            SaveCLientInternaly();
+
+        }
+
+        private void SaveCLientInternaly()
+        {
+            var connection = DependencyService.Get<ISQLite>().GetConnection();
+            var dao = new ClientDAO(connection);
+            dao.Save(this.Client);
         }
     }
 }

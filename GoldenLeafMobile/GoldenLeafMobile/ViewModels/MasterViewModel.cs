@@ -1,7 +1,8 @@
-﻿using GoldenLeafMobile.Models.ClerkModels;
+﻿using GoldenLeafMobile.Media;
+using GoldenLeafMobile.Models.ClerkModels;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -12,16 +13,18 @@ namespace GoldenLeafMobile.ViewModels
         private readonly Clerk _clerk;
         private bool _editing = false;
 
+
+        public ICommand EditPerfilCommand { get; private set; }
+        public ICommand SaveCommand { get; private set; }
+        public ICommand EditCommand { get; private set; }
+        public ICommand TakePictureCommand { get; private set; }
+
+
         public bool Editing
         {
             get { return _editing; }
             set { _editing = value; OnPropertyChanged(); }
         }
-
-        public ICommand EditPerfilCommand { get; private set; }
-        public ICommand SaveCommand { get; private set; }
-        public ICommand EditCommand { get; private set; }
-
 
         public string Name
         {
@@ -41,6 +44,11 @@ namespace GoldenLeafMobile.ViewModels
             set { _clerk.PhoneNumber = value; }
         }
 
+        public ImageSource ProfileImage
+        {
+            get { return _clerk.ProfileImage; }
+            set { _clerk.ProfileImage = value; OnPropertyChanged(); }
+        }
 
         public MasterViewModel(Clerk clerk)
         {
@@ -60,6 +68,17 @@ namespace GoldenLeafMobile.ViewModels
             {
                 Editing = true;
             });
+
+            TakePictureCommand = new Command(() =>
+            {
+                DependencyService.Get<ICamera>().TakePicture();
+            });
+
+            MessagingCenter.Subscribe<byte[]>(this, "ProfilePicture",
+                (_bytes) =>
+                {
+                    ProfileImage = ImageSource.FromStream(() => new MemoryStream(_bytes));                    
+                });
         }
 
     }
