@@ -20,24 +20,41 @@ namespace GoldenLeafMobile.Views
         {
             base.OnAppearing();
           
-            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
-            if (status != PermissionStatus.Granted)
+            var CameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
+            if (CameraStatus != PermissionStatus.Granted)
             {
-                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Camera))
+                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage))
                 {
-                    await DisplayAlert("Acesso à Câmera", "É preciso dar permissão para acessar a câmera", "OK","Cancelar");
+                    await DisplayAlert("Acesso à Câmera", "É preciso dar permissão acessar à Câmera", "OK", "Cancelar");
                 }
 
                 var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Camera);
-                status = results[Permission.Camera];
+                CameraStatus = results[Permission.Camera];
             }
                         
-            else if (status != PermissionStatus.Denied || status != PermissionStatus.Unknown)
+            else if (CameraStatus == PermissionStatus.Denied || CameraStatus == PermissionStatus.Unknown)
             {
                 await DisplayAlert("Acesso à Câmera Negado", "Não é possível continuar", "OK");
                 IsPresented = false;
             }
 
+            var StorageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+            if (StorageStatus != PermissionStatus.Granted)
+            {
+                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage))
+                {
+                    await DisplayAlert("Acesso ao Armazenamento Externo", "É preciso dar permissão para Armazenamento Externo", "OK", "Cancelar");
+                }
+
+                var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Storage);
+                StorageStatus = results[Permission.Storage];
+            }
+
+            if (StorageStatus == PermissionStatus.Unknown || StorageStatus == PermissionStatus.Denied)
+            {
+                await DisplayAlert("Armazenamento Externo Negado", "Não é possível continuar", "OK");
+                await Navigation.PopToRootAsync();
+            }
         }
 
     }

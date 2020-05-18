@@ -19,28 +19,10 @@ namespace GoldenLeafMobile.Views.ClientViews
             BindingContext = ViewModel;
         }
 
-        protected async override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-            SignUpMessages();
-
-            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-            if (status != PermissionStatus.Granted)
-            {
-                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage))
-                {
-                    await DisplayAlert("Acesso ao Armazenamento Externo", "É preciso dar permissão para Armazenamento Externo", "OK","Cancelar");
-                }
-
-                var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Storage);
-                status = results[Permission.Storage];
-            }
-
-            if (status != PermissionStatus.Unknown)
-            {
-                await DisplayAlert("Armazenamento Externo Negado", "Não é possível continuar", "OK");
-                await Navigation.PopToRootAsync();
-            }
+            SignUpMessages();                
 
         }
 

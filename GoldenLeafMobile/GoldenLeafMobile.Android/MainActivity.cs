@@ -8,6 +8,8 @@ using Android.Content;
 using Android.Provider;
 using Xamarin.Forms;
 using Plugin.Permissions;
+using Android.Support.V4.Content;
+using Com.Xamarin.Formsviewgroup;
 
 [assembly: Dependency(typeof(MainActivity))]
 namespace GoldenLeafMobile.Droid
@@ -15,14 +17,14 @@ namespace GoldenLeafMobile.Droid
     [Activity(Label = "Palma de Ouro", Icon = "@drawable/appIcon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, ICamera
     {
-        static Java.IO.File ImageFile;
+        static Java.IO.File FileImagePath;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-            StrictMode.SetVmPolicy(builder.Build());
+            //StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            //StrictMode.SetVmPolicy(builder.Build());
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
@@ -30,7 +32,7 @@ namespace GoldenLeafMobile.Droid
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -42,31 +44,35 @@ namespace GoldenLeafMobile.Droid
             if (resultCode == Result.Ok)
             {
                 byte[] bytes;
-                
-                using (var stram = new Java.IO.FileInputStream(ImageFile))
+
+                using (var stream = new Java.IO.FileInputStream(FileImagePath))
                 {
-                    bytes = new byte[ImageFile.Length()];
-                    stram.Read(bytes);
+                    bytes = new byte[FileImagePath.Length()];
+                    stream.Read(bytes);
                 }
                 MessagingCenter.Send<byte[]>(bytes, "ProfilePicture");
             }
 
         }
+
         public void TakePicture()
         {
             Intent intent = new Intent(MediaStore.ActionImageCapture);
-            var file = CreateFileImage();
-            intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(file));
+            FileImagePath = CreateFileImage();
+            Android.Net.Uri photoUri = FileProvider.GetUriForFile(
+                this,
+                "com.mithril.goldenleafmobile",
+                FileImagePath);
 
+            intent.PutExtra(MediaStore.ExtraOutput, photoUri);           
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity.StartActivityForResult(intent, 0);
         }
 
         private Java.IO.File CreateFileImage()
         {
-            Java.IO.File imageFile;
-            Java.IO.File directory = new Java.IO.File(
-                Environment.GetExternalStoragePublicDirectory(
-                    Environment.DirectoryPictures), "Pictures");
+            Java.IO.File imageFile;            
+            Java.IO.File directory = new Java.IO.File(Environment
+                .GetExternalStoragePublicDirectory(Environment.DirectoryPictures), "pictures");
 
             if (!directory.Exists())
             {
