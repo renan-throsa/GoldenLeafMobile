@@ -36,7 +36,29 @@
                     <Button Text="Perfil" Command="{Binding EditPerfilCommand}" ></Button>
                     <Button Text="Pedidos"></Button>
                     <Button Text="Estoque"></Button>
-                </StackLayout>
+
+                    <ListView x:Name="listView" x:FieldModifier="public">
+                        <ListView.ItemsSource>
+                            <x:Array Type="{x:Type local:MasterPageItem}">
+                                
+                            </x:Array>
+                        </ListView.ItemsSource>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="5,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{Binding IconSource}" />
+                                        <Label Grid.Column="1" Text="{Binding Title}" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>       
             </Frame>
         </ContentPage>
 

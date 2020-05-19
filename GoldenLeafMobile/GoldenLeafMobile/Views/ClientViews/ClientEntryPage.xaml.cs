@@ -1,7 +1,5 @@
 ﻿using GoldenLeafMobile.Models;
 using GoldenLeafMobile.ViewModels.ClientViewModels;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

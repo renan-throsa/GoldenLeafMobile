@@ -3,7 +3,7 @@ using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace GoldenLeafMobile.Views
+namespace GoldenLeafMobile.Views.ClientViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DatailsPage : ContentPage

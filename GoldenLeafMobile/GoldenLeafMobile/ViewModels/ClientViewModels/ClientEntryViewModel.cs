@@ -59,26 +59,29 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
 
         public async void SaveClient()
         {
-            HttpClient httpClient = new HttpClient();
-            var stringContent = new StringContent(Client.ToJson(), Encoding.UTF8, "application/json");
-
-
-            var response = await httpClient.PostAsync(URL_POST_CLIENT, stringContent);
-
-            if (response.IsSuccessStatusCode)
+            using (HttpClient httpClient = new HttpClient())
             {
-                Client.Syncronized = true;                
-                MessagingCenter.Send<Client>(Client, "SuccessPostClient");
-            }
-            else
-            {
-                var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                if (response.Content != null)
-                    response.Content.Dispose();
+                var stringContent = new StringContent(Client.ToJson(), Encoding.UTF8, "application/json");
 
-                Client.Syncronized = false;
-                MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
-                    "FailedPostClient");
+
+                var response = await httpClient.PostAsync(URL_POST_CLIENT, stringContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Client.Syncronized = true;
+                    MessagingCenter.Send<Client>(Client, "SuccessPostClient");
+                }
+                else
+                {
+                    var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    if (response.Content != null)
+                        response.Content.Dispose();
+
+                    Client.Syncronized = false;
+                    MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
+                        "FailedPostClient");
+
+                }
 
             }
 
@@ -88,9 +91,12 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
 
         private void SaveCLientInternaly()
         {
-            var connection = DependencyService.Get<ISQLite>().GetConnection();
-            var dao = new ClientDAO(connection);
-            dao.Save(this.Client);
+            using (var connection = DependencyService.Get<ISQLite>().GetConnection())
+            {
+                var dao = new ClientDAO(connection);
+                dao.Save(this.Client);
+            }
+
         }
     }
 }

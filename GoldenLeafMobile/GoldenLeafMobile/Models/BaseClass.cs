@@ -1,14 +1,13 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SQLite;
 
 namespace GoldenLeafMobile.Models
 {
     public abstract class BaseClass
     {
         [JsonProperty("id")]
-        public int Id { get; set; }        
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public bool Syncronized { get; set; }
     }
 }

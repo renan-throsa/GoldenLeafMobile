@@ -10,15 +10,11 @@ namespace GoldenLeafMobile.Droid
     class SQLiteAndroid : ISQLite
     {
         private const string fileNameDB = "GoldenLeafMobile.db3";
-        public void Dispose()
-        {
-            //
-        }
-
+        
         public SQLiteConnection GetConnection()
         {
             var pathDB = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.Path, fileNameDB);
-            return new SQLiteConnection(fileNameDB);
+            return new SQLiteConnection(pathDB);
         }
     }
 }

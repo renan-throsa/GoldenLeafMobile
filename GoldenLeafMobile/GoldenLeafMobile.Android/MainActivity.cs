@@ -9,7 +9,6 @@ using Android.Provider;
 using Xamarin.Forms;
 using Plugin.Permissions;
 using Android.Support.V4.Content;
-using Com.Xamarin.Formsviewgroup;
 
 [assembly: Dependency(typeof(MainActivity))]
 namespace GoldenLeafMobile.Droid
@@ -23,8 +22,6 @@ namespace GoldenLeafMobile.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            //StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-            //StrictMode.SetVmPolicy(builder.Build());
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);

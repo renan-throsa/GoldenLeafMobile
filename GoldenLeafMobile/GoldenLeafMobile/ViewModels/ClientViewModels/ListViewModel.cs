@@ -35,14 +35,18 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
         public async Task GetClients()
         {
             Wait = true;
-            HttpClient httpClient = new HttpClient();
-            var result = await httpClient.GetStringAsync(URL_GET_CLIENTS);
-
-            var ClientsList = JsonConvert.DeserializeObject<List<Client>>(result);
-
-            foreach (var clientJson in ClientsList)
+            Clients.Clear();
+            using (HttpClient httpClient = new HttpClient())
             {
-                Clients.Add(clientJson);
+                var result = await httpClient.GetStringAsync(URL_GET_CLIENTS);
+
+                var ClientsList = JsonConvert.DeserializeObject<List<Client>>(result);
+
+                foreach (var clientJson in ClientsList)
+                {
+                    Clients.Add(clientJson);
+                }
+
             }
             Wait = false;
         }

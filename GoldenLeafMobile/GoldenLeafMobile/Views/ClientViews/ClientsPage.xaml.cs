@@ -30,8 +30,6 @@ namespace GoldenLeafMobile.Views
             await ViewModel.GetClients();
         }
 
-
-
         protected override void OnDisappearing()
         {
             base.OnDisappearing();

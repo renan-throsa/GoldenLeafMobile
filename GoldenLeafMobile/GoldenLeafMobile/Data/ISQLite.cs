@@ -1,11 +1,7 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace GoldenLeafMobile.Data
 {
-    public interface ISQLite: IDisposable
+    public interface ISQLite
     {
         SQLiteConnection GetConnection();
     }

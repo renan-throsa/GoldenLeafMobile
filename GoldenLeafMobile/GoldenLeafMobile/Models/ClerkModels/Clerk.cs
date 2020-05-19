@@ -12,7 +12,7 @@ namespace GoldenLeafMobile.Models.ClerkModels
 
         public Clerk()
         {
-            ProfileImage = "noimage.png";
+            ProfileImage = "UserIcon.png";
         }
 
     }

@@ -4,9 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="GoldenLeafMobile.Views.ClientsPage"
-             Title="Clientes">
-
+             x:Class="GoldenLeafMobile.Views.CategoryViews.CategoriesPage">
 
     <ContentPage.Resources>
         <!-- Implicit styles -->
@@ -24,23 +22,20 @@
 
     <ContentPage.Content>
         <Grid>
-
             <StackLayout Margin="{StaticResource PageMargin}">
 
-                <ListView x:Name="clientsListView" ItemsSource="{Binding Clients}" 
+                <ListView x:Name="categoriesListView" ItemsSource="{Binding Categories}" 
                   SelectedItem="{Binding SelectedClient,Mode=TwoWay}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.ContextActions>
                                     <MenuItem Clicked="OnEdit"  CommandParameter="{Binding .}" Text="Editar"/>
-                                    <MenuItem Clicked="OnNewOrder" CommandParameter="{Binding Id}" Text="Novo pedido"/>
+                                    <MenuItem Clicked="OnNewProduct" CommandParameter="{Binding Id}" Text="Adicionar produto"/>
                                 </ViewCell.ContextActions>
                                 <ViewCell.View>
                                     <StackLayout Orientation="Horizontal" >
-                                        <Label Text="{Binding Name}" FontSize="15" VerticalTextAlignment="Center"/>
-                                        <Label Text=" - " VerticalTextAlignment="Center"/>
-                                        <Label Text="{Binding PhoneNumber}" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding Title}" FontSize="15" VerticalTextAlignment="Center"/>
                                     </StackLayout>
                                 </ViewCell.View>
                             </ViewCell>
@@ -52,8 +47,7 @@
             <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}" 
                            VerticalOptions="Center" HorizontalOptions="Center"/>
         </Grid>
+
     </ContentPage.Content>
-
-
 
 </ContentPage>
