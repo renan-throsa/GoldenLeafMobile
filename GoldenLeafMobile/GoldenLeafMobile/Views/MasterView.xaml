@@ -4,6 +4,9 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="clr-namespace:GoldenLeafMobile.Converters"
+            xmlns:local="clr-namespace:GoldenLeafMobile.Views"
+            xmlns:category="clr-namespace:GoldenLeafMobile.Views.CategoryViews"
+            
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.MasterView"
             Title="Perfil">
@@ -40,7 +43,10 @@
                     <ListView x:Name="listView" x:FieldModifier="public">
                         <ListView.ItemsSource>
                             <x:Array Type="{x:Type local:MasterPageItem}">
-                                
+                                <local:MasterPageItem Title="Categorias" IconSource="CategoryIcon.png" TargetType="{x:Type category:CategoriesPage}" />
+                                <local:MasterPageItem Title="Produtos" IconSource="ProductsIcon.png" />
+                                <local:MasterPageItem Title="Clientes" IconSource="ClientsIcon.png"  />
+                                <local:MasterPageItem Title="Pedidos" IconSource="OrderIcon.png"  />
                             </x:Array>
                         </ListView.ItemsSource>
                         <ListView.ItemTemplate>
@@ -58,7 +64,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                </StackLayout>       
+                </StackLayout>
             </Frame>
         </ContentPage>
 

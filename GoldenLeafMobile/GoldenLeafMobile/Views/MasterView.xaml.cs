@@ -12,7 +12,7 @@ namespace GoldenLeafMobile.Views
         public MasterView(Clerk clerk)
         {
             InitializeComponent();
-            this.BindingContext = new MasterViewModel(clerk);
+            this.BindingContext = new MasterViewModel(clerk);            
         }
 
         protected override void OnAppearing()

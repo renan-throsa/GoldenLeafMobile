@@ -14,7 +14,7 @@ namespace GoldenLeafMobile.Views.CategoryViews
         {
             InitializeComponent();
             ViewModel = new ListViewModel();
-            BindingContext = ViewModel;
+            BindingContext = ViewModel;            
         }
 
         protected async override void OnAppearing()
@@ -31,6 +31,21 @@ namespace GoldenLeafMobile.Views.CategoryViews
         {
             base.OnDisappearing();
             MessagingCenter.Unsubscribe<Category>(this, "SelectedCategory");
+        }
+
+        private void OnEdit(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void OnNewProduct(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void ToolbarItem_Clicked(object sender, System.EventArgs e)
+        {
+
         }
     }
 }

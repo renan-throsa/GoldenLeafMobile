@@ -3,19 +3,35 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
+using System;
 
 namespace GoldenLeafMobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MasterDetailView : MasterDetailPage
     {
-       
+        MasterView masterPage;
+
         public MasterDetailView(Clerk clerk)
         {
             InitializeComponent();
-            this.Master = new MasterView(clerk);
+            masterPage = new MasterView(clerk);
+            this.Master = masterPage;
+            this.Detail = new NavigationPage(new ClientsPage());
+            masterPage.listView.ItemSelected += OnItemSelected;
         }
-                
+
+        void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = e.SelectedItem as MasterPageItem;
+            if (item != null)
+            {
+                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
+                masterPage.listView.SelectedItem = null;
+                IsPresented = false;
+            }
+        }
+
         protected async override void OnAppearing()
         {
             base.OnAppearing();

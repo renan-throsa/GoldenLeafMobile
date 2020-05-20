@@ -17,7 +17,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem 
                      IconImageSource="plus.xml"             
-                     Clicked="ToolbarNewClient_Clicked" />
+                     Clicked="ToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
