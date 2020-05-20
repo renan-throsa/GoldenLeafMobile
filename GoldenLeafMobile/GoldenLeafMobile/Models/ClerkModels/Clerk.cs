@@ -15,5 +15,9 @@ namespace GoldenLeafMobile.Models.ClerkModels
             ProfileImage = "UserIcon.png";
         }
 
+        public override string ToJson()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

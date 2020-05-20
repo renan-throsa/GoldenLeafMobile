@@ -36,10 +36,9 @@
                     <Label Text="{Binding Name}"></Label>
                     <Label Text="{Binding Email}"></Label>
                     <Label Text="{Binding PhoneNumber}"></Label>
-                    <Button Text="Perfil" Command="{Binding EditPerfilCommand}" ></Button>
-                    <Button Text="Pedidos"></Button>
-                    <Button Text="Estoque"></Button>
 
+                    <BoxView HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand" />
+                    
                     <ListView x:Name="listView" x:FieldModifier="public">
                         <ListView.ItemsSource>
                             <x:Array Type="{x:Type local:MasterPageItem}">

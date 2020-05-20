@@ -29,15 +29,15 @@
             <TableView Intent="Form">
                 <TableRoot>
                     <TableSection Title="Dados">
-                        <EntryCell Keyboard="Text" Label="Nome" Text="{Binding Name,Mode=TwoWay}"></EntryCell>
+                        <EntryCell Keyboard="Text" Label="Nome" Text="{Binding Name,Mode=TwoWay}"/>
                         <EntryCell Keyboard="Telephone" Label="Telefone" Text="{Binding PhoneNumber
-                            ,Mode=TwoWay}"></EntryCell>
+                            ,Mode=TwoWay}"/>
                         <EntryCell Keyboard="Default" Label="Endereço" Text="{Binding Address
-                            ,Mode=TwoWay}"></EntryCell>
+                            ,Mode=TwoWay}"/>
                     </TableSection>
                     <TableSection Title="Configurações">
-                        <SwitchCell Text="Notificável" On="{Binding Client.Notifiable,Mode=TwoWay}"></SwitchCell>
-                        <SwitchCell Text="Status" On="{Binding Client.Status,Mode=TwoWay}"></SwitchCell>
+                        <SwitchCell Text="Notificável" On="{Binding Client.Notifiable,Mode=TwoWay}"/>
+                        <SwitchCell Text="Status" On="{Binding Client.Status,Mode=TwoWay}"/>
                     </TableSection>
                 </TableRoot>
             </TableView>

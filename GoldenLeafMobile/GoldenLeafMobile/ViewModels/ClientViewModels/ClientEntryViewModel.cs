@@ -17,24 +17,24 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
         public string Name
         {
             get { return Client.Name; }
-            private set { Client.Name = value; ((Command)SaveClientComand).ChangeCanExecute(); }
+            set { Client.Name = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
         public string Address
         {
             get { return Client.Address; }
-            private set { Client.Address = value; ((Command)SaveClientComand).ChangeCanExecute(); }
+            set { Client.Address = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
 
         public string Identification
         {
             get { return Client.Identification; }
-            private set { Client.Identification = value; ((Command)SaveClientComand).ChangeCanExecute(); }
+            set { Client.Identification = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
 
         public string PhoneNumber
         {
             get { return Client.PhoneNumber; }
-            private set { Client.PhoneNumber = value; ((Command)SaveClientComand).ChangeCanExecute(); }
+            set { Client.PhoneNumber = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
 
         public ClientEntryViewModel()

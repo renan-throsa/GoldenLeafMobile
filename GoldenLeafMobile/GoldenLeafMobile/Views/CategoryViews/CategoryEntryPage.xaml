@@ -4,8 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="GoldenLeafMobile.Views.ClientViews.ClientEntryPage"
-             Title="Novo Cliente">
+             x:Class="GoldenLeafMobile.Views.CategoryViews.CategoryEntryPage"
+             Title="Nova Categoria">
 
     <ContentPage.Resources>
         <!-- Implicit styles -->
@@ -23,27 +23,17 @@
             <Setter Property="CornerRadius" Value="5" />
         </Style>
     </ContentPage.Resources>
-
+    
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource PageMargin}">
             <TableView Intent="Form">
                 <TableRoot>
                     <TableSection Title="Dados">
-                        <EntryCell Keyboard="Text" Label="Nome" Text="{Binding Name,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Telephone" Label="Telefone" Text="{Binding PhoneNumber
-                            ,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Default" Label="Endereço" Text="{Binding Address
-                            ,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Numeric" Label="Identificação" Text="{Binding Identification
-                            ,Mode=TwoWay}"/>
-                    </TableSection>
-                    <TableSection Title="Configurações">
-                        <SwitchCell Text="Notificável" On="True" IsEnabled="False"/>
-                        <SwitchCell Text="Status" On="{Binding Client.Status,Mode=TwoWay}"/>
-                    </TableSection>
+                        <EntryCell Keyboard="Text" Label="Título" Text="{Binding Title,Mode=TwoWay}"/>                        
+                    </TableSection>                   
                 </TableRoot>
             </TableView>
-            <Button Text="Salvar" Command="{Binding SaveClientComand}"></Button>
+            <Button Text="Salvar" Command="{Binding SaveCategoryComand}" ></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

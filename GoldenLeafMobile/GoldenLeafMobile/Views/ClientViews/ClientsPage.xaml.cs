@@ -45,7 +45,7 @@ namespace GoldenLeafMobile.Views
         public void OnNewOrder(object sender, EventArgs e)
         {
             var mi = ((MenuItem)sender);
-            DisplayAlert("Delete", mi.CommandParameter.ToString(), "OK");
+            DisplayAlert("Novo pedido", mi.CommandParameter.ToString(), "OK");
         }
 
         private void ToolbarNewClient_Clicked(object sender, EventArgs e)

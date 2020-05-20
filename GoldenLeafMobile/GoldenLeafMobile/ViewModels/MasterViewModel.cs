@@ -14,7 +14,6 @@ namespace GoldenLeafMobile.ViewModels
         private bool _editing = false;
 
 
-        public ICommand EditPerfilCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
         public ICommand EditCommand { get; private set; }
         public ICommand TakePictureCommand { get; private set; }
@@ -52,11 +51,7 @@ namespace GoldenLeafMobile.ViewModels
 
         public MasterViewModel(Clerk clerk)
         {
-            _clerk = clerk;
-            EditPerfilCommand = new Command(() =>
-            {
-                MessagingCenter.Send<Clerk>(_clerk, "EditingClerk");
-            });
+            _clerk = clerk;          
 
             SaveCommand = new Command(() =>
             {

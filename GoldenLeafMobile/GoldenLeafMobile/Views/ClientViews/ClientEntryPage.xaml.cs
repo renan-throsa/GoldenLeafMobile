@@ -20,8 +20,7 @@ namespace GoldenLeafMobile.Views.ClientViews
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            SignUpMessages();                
-
+            SignUpMessages();           
         }
 
         private void SignUpMessages()

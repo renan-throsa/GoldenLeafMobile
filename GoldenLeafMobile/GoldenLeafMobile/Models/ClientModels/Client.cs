@@ -45,7 +45,7 @@ namespace GoldenLeafMobile.Models
             return $"Nome: {Name} Telefone: {PhoneNumber} Rg: {Identification} Notificável{Notifiable} Status: {Status}";
         }
 
-        public string ToJson()
+        public override string ToJson()
         {            
             return JsonConvert.SerializeObject(
                 new

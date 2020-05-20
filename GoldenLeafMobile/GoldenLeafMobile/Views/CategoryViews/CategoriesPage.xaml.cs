@@ -35,17 +35,19 @@ namespace GoldenLeafMobile.Views.CategoryViews
 
         private void OnEdit(object sender, System.EventArgs e)
         {
-
+            var mi = ((MenuItem)sender);
+            Navigation.PushAsync(new EditPage(mi.CommandParameter as Category));
         }
 
         private void OnNewProduct(object sender, System.EventArgs e)
         {
-
+            var mi = ((MenuItem)sender);
+            DisplayAlert("Delete", mi.CommandParameter.ToString(), "OK");
         }
 
         private void ToolbarItem_Clicked(object sender, System.EventArgs e)
         {
-
+            Navigation.PushAsync(new CategoryEntryPage());
         }
     }
 }

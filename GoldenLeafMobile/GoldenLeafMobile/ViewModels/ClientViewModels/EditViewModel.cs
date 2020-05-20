@@ -67,7 +67,7 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
                     response.Content.Dispose();
 
                 MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
-                    "FailedPostClient");
+                    "FailedPutClient");
 
             }
         }
