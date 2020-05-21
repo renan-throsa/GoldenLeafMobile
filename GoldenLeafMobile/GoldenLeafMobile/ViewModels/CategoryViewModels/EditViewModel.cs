@@ -9,7 +9,7 @@ namespace GoldenLeafMobile.ViewModels.CategoryViewModels
 {
     public class EditViewModel : BaseViewModel
     {
-        private readonly string URL_PUT_Category = "https://golden-leaf.herokuapp.com/api/Category";
+        private readonly string URL_PUT_Category = "https://golden-leaf.herokuapp.com/api/category";
         public ICommand SaveEditedCategoryComand { get; set; }
 
         public Category Category { get; set; }

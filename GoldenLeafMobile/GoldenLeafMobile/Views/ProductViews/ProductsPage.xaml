@@ -6,11 +6,50 @@
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ProductViews.ProductsPage"
              Title="Produtos">
+
+    <ContentPage.Resources>
+        <!-- Implicit styles -->
+        <Style TargetType="{x:Type ListView}">
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource AppBackgroundColor}" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+                     IconImageSource="plus.xml"             
+                     Clicked="ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+
+            <StackLayout Margin="{StaticResource PageMargin}">
+
+                <ListView x:Name="listView" ItemsSource="{Binding Entities}" 
+                  SelectedItem="{Binding SelectedClient,Mode=TwoWay}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="OnEdit"  CommandParameter="{Binding .}" Text="Editar"/>                                    
+                                </ViewCell.ContextActions>
+                                <ViewCell.View>
+                                    <Grid>                                        
+                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Description}" />
+                                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding UnitCost}" />
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding IsAvailable}" />
+                                    </Grid>
+                                    
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
+            <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}" 
+                           VerticalOptions="Center" HorizontalOptions="Center"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

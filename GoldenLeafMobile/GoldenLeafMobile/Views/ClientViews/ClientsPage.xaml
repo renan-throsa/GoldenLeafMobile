@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="GoldenLeafMobile.Views.ClientsPage"
+             x:Class="GoldenLeafMobile.Views.ClientViews.ClientsPage"
              Title="Clientes">
 
 
@@ -27,8 +27,8 @@
 
             <StackLayout Margin="{StaticResource PageMargin}">
 
-                <ListView x:Name="clientsListView" ItemsSource="{Binding Clients}" 
-                  SelectedItem="{Binding SelectedClient,Mode=TwoWay}" >
+                <ListView x:Name="listView" ItemsSource="{Binding Entities}" 
+                  SelectedItem="{Binding SelectedEntity,Mode=TwoWay}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

@@ -4,6 +4,7 @@ using Xamarin.Forms.Xaml;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using System;
+using GoldenLeafMobile.Views.ClientViews;
 
 namespace GoldenLeafMobile.Views
 {

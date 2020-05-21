@@ -25,7 +25,7 @@
         <Grid>
             <StackLayout Margin="{StaticResource PageMargin}">
 
-                <ListView x:Name="categoriesListView" ItemsSource="{Binding Categories}" 
+                <ListView x:Name="listView" ItemsSource="{Binding Entities}" 
                   SelectedItem="{Binding SelectedClient,Mode=TwoWay}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>

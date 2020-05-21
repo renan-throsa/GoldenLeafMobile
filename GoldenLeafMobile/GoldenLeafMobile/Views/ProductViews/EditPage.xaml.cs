@@ -5,11 +5,15 @@ using Xamarin.Forms.Xaml;
 namespace GoldenLeafMobile.Views.ProductViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DetailsPage : ContentPage
+    public partial class EditPage : ContentPage
     {
-        public DetailsPage(Product product)
+        
+        public EditPage(Product product)
         {
             InitializeComponent();
+            
         }
+
+        
     }
 }

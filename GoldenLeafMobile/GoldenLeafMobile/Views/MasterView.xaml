@@ -6,7 +6,8 @@
              xmlns:converters="clr-namespace:GoldenLeafMobile.Converters"
             xmlns:local="clr-namespace:GoldenLeafMobile.Views"
             xmlns:category="clr-namespace:GoldenLeafMobile.Views.CategoryViews"
-            
+            xmlns:product="clr-namespace:GoldenLeafMobile.Views.ProductViews"
+            xmlns:client ="clr-namespace:GoldenLeafMobile.Views.ClientViews"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.MasterView"
             Title="Perfil">
@@ -43,8 +44,8 @@
                         <ListView.ItemsSource>
                             <x:Array Type="{x:Type local:MasterPageItem}">
                                 <local:MasterPageItem Title="Categorias" IconSource="CategoryIcon.png" TargetType="{x:Type category:CategoriesPage}" />
-                                <local:MasterPageItem Title="Produtos" IconSource="ProductsIcon.png" />
-                                <local:MasterPageItem Title="Clientes" IconSource="ClientsIcon.png"  />
+                                <local:MasterPageItem Title="Produtos" IconSource="ProductsIcon.png" TargetType="{x:Type product:ProductsPage}" />
+                                <local:MasterPageItem Title="Clientes" IconSource="ClientsIcon.png" TargetType="{x:Type client:ClientsPage}" />
                                 <local:MasterPageItem Title="Pedidos" IconSource="OrderIcon.png"  />
                             </x:Array>
                         </ListView.ItemsSource>
