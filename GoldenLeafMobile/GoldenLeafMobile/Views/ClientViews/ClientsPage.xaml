@@ -3,12 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:converter="clr-namespace:GoldenLeafMobile.Converters"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ClientViews.ClientsPage"
              Title="Clientes">
 
 
     <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:SyncronizedConverter x:Key="syncronizedConverter"/>
+        </ResourceDictionary>
         <!-- Implicit styles -->
         <Style TargetType="{x:Type ListView}">
             <Setter Property="BackgroundColor"
@@ -38,9 +42,12 @@
                                 </ViewCell.ContextActions>
                                 <ViewCell.View>
                                     <StackLayout Orientation="Horizontal" >
-                                        <Label Text="{Binding Name}" FontSize="15" VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding Name}" FontSize="15" VerticalTextAlignment="Center" TextColor="{Binding Syncronized,Converter=
+                                            {StaticResource Key=syncronizedConverter}}"/>
                                         <Label Text=" - " VerticalTextAlignment="Center"/>
-                                        <Label Text="{Binding PhoneNumber}" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding PhoneNumber}" FontAttributes="Bold" VerticalTextAlignment="Center"
+                                               TextColor="{Binding Syncronized,Converter=
+                                            {StaticResource Key=syncronizedConverter}}"/>
                                     </StackLayout>
                                 </ViewCell.View>
                             </ViewCell>

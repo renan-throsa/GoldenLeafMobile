@@ -93,7 +93,7 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
         {
             using (var connection = DependencyService.Get<ISQLite>().GetConnection())
             {
-                var dao = new ClientDAO(connection);
+                var dao = new Repository<Client>(connection);
                 dao.Save(this.Client);
             }
 

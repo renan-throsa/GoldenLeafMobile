@@ -14,10 +14,20 @@ namespace GoldenLeafMobile.Models.ProductModels
         public string Description { get; set; }
 
         [JsonProperty("is_available")]
-        public bool IsAvailable { get; set; }       
+        public bool IsAvailable { get; set; }
 
         [JsonProperty("unit_cost")]
         public float UnitCost { get; set; }
+
+        public string FormatedUnitCost()
+        {
+            return $"R$ {UnitCost}";
+        }
+
+        public string FormatedAvailability()
+        {
+            return IsAvailable ? "Disponível" : "Idisoinível";
+        }
 
         public override string ToJson()
         {
@@ -28,7 +38,7 @@ namespace GoldenLeafMobile.Models.ProductModels
                     category_id = CategoryId,
                     code = Code,
                     description = Description,
-                    is_available = IsAvailable,                    
+                    is_available = IsAvailable,
                     unit_cost = UnitCost
                 }
                 );

@@ -5,11 +5,51 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ProductViews.ProductEntryPage">
+
+    <ContentPage.Resources>
+        <!-- Implicit styles -->
+        <Style TargetType="{x:Type Editor}">
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource AppBackgroundColor}" />
+        </Style>
+
+        <Style TargetType="Button"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor" Value="#1976D2" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="{StaticResource PageMargin}">
+            <TableView Intent="Form">
+                <TableRoot>
+                    <TableSection Title="Categoria">
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Picker x:Name="categoryPicker" Title="Selecione" TitleColor="Red"
+                                            ItemsSource="{Binding Categories}"
+                                            SelectedItem="{Binding SelectedPosition, Mode=TwoWay}">
+                                </Picker>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection Title="Dados">
+                        <EntryCell Keyboard="Text" Label="Código" Text="{Binding Code,Mode=TwoWay}"/>
+                        <EntryCell Keyboard="Telephone" Label="Descrição" Text="{Binding Description
+                            ,Mode=TwoWay}"/>
+                        <EntryCell Keyboard="Default" Label="Preço R$" Text="{Binding UnitCost
+                            ,Mode=TwoWay}"/>
+                    </TableSection>
+                    <TableSection Title="Configurações">
+                        <SwitchCell Text="Dísponível" On="{Binding IsAvailable,Mode=TwoWay}"/>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            <Button Text="Salvar" Command="{Binding SaveProductComand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

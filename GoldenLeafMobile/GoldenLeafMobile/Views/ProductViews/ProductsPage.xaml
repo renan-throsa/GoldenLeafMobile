@@ -3,11 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:converter="clr-namespace:GoldenLeafMobile.Converters"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ProductViews.ProductsPage"
              Title="Produtos">
 
     <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:SyncronizedConverter x:Key="syncronizedConverter"/>
+        </ResourceDictionary>
         <!-- Implicit styles -->
         <Style TargetType="{x:Type ListView}">
             <Setter Property="BackgroundColor"
@@ -23,7 +27,6 @@
 
     <ContentPage.Content>
         <Grid>
-
             <StackLayout Margin="{StaticResource PageMargin}">
 
                 <ListView x:Name="listView" ItemsSource="{Binding Entities}" 
@@ -32,15 +35,18 @@
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.ContextActions>
-                                    <MenuItem Clicked="OnEdit"  CommandParameter="{Binding .}" Text="Editar"/>                                    
+                                    <MenuItem Clicked="OnEdit"  CommandParameter="{Binding .}" Text="Editar"/>
                                 </ViewCell.ContextActions>
                                 <ViewCell.View>
-                                    <Grid>                                        
-                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Description}" />
-                                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding UnitCost}" />
-                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding IsAvailable}" />
+                                    <Grid>
+                                        <Label TextColor="{Binding Syncronized,Converter=
+                                            {StaticResource Key=syncronizedConverter}}" Grid.Row="0" Grid.Column="0" Text="{Binding Description}" />
+                                        <Label TextColor="{Binding Syncronized,Converter=
+                                            {StaticResource Key=syncronizedConverter}}" Grid.Row="1" Grid.Column="0" Text="{Binding FormatedUnitCost}" />
+                                        <Label TextColor="{Binding Syncronized,Converter=
+                                            {StaticResource Key=syncronizedConverter}}" Grid.Row="1" Grid.Column="1" Text="{Binding FormatedAvailability}" />
                                     </Grid>
-                                    
+
                                 </ViewCell.View>
                             </ViewCell>
                         </DataTemplate>

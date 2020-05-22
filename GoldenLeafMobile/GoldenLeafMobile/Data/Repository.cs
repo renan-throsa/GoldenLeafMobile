@@ -7,12 +7,7 @@ namespace GoldenLeafMobile.Data
     public class Repository<T> where T : BaseModel, new()
     {
         private readonly SQLiteConnection _connection;
-        private List<T> _list;
-        public List<T> List
-        {
-            get { return _connection.Table<T>().ToList(); }
-            private set { _list = value; }
-        }
+              
 
         public Repository(SQLiteConnection connection)
         {
@@ -30,6 +25,16 @@ namespace GoldenLeafMobile.Data
             {
                 _connection.Update(entity);
             }
+        }
+
+        public List<T> Get()
+        {
+            return _connection.Table<T>().ToList();
+        }
+
+        public T Get(int id)
+        {
+            return _connection.Find<T>(id);
         }
     }
 }
