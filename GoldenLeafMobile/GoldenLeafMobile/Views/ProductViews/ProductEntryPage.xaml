@@ -23,23 +23,30 @@
         </Style>
     </ContentPage.Resources>
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+                     IconImageSource="CameraIcon.png"             
+                      Clicked="ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource PageMargin}">
             <TableView Intent="Form">
                 <TableRoot>
-                    <TableSection Title="Categoria">
+                    <TableSection Title="Categorias">
                         <ViewCell>
                             <ViewCell.View>
-                                <Picker x:Name="categoryPicker" Title="Selecione" TitleColor="Red"
+                                <Picker x:Name="categoryPicker" Title="Categoria"
                                             ItemsSource="{Binding Categories}"
-                                            SelectedItem="{Binding SelectedPosition, Mode=TwoWay}">
+                                            SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                                            ItemDisplayBinding="{Binding Title}">
                                 </Picker>
                             </ViewCell.View>
                         </ViewCell>
                     </TableSection>
                     <TableSection Title="Dados">
-                        <EntryCell Keyboard="Text" Label="Código" Text="{Binding Code,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Telephone" Label="Descrição" Text="{Binding Description
+                        <EntryCell x:Name="Code" Keyboard="Numeric" Label="Código" Text="{Binding Code,Mode=TwoWay}"/>
+                        <EntryCell Keyboard="Default" Label="Descrição" Text="{Binding Description
                             ,Mode=TwoWay}"/>
                         <EntryCell Keyboard="Default" Label="Preço R$" Text="{Binding UnitCost
                             ,Mode=TwoWay}"/>

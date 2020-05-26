@@ -13,7 +13,6 @@ namespace GoldenLeafMobile.ViewModels
 
         public ObservableCollection<T> Entities { get; set; }
 
-
         private T _selectedEntity;
         public T SelectedEntity
         {
@@ -29,7 +28,6 @@ namespace GoldenLeafMobile.ViewModels
             Entities = new ObservableCollection<T>();
         }
 
-
         public async Task GetEntities()
         {
             Wait = true;
@@ -38,11 +36,11 @@ namespace GoldenLeafMobile.ViewModels
             {
                 var result = await httpClient.GetStringAsync(URL);
 
-                var ClientsList = JsonConvert.DeserializeObject<List<T>>(result);
+                var EntityList = JsonConvert.DeserializeObject<List<T>>(result);
 
-                foreach (var clientJson in ClientsList)
+                foreach (var entity in EntityList)
                 {
-                    Entities.Add(clientJson);
+                    Entities.Add(entity);
                 }
 
             }

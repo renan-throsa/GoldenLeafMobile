@@ -50,7 +50,7 @@ namespace GoldenLeafMobile.Views.ClientViews
         {
             base.OnDisappearing();
             MessagingCenter.Unsubscribe<Client>(this, "SuccessPostClient");
-            MessagingCenter.Unsubscribe<ArgumentException>(this, "FailedPostClient");
+            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, "FailedPostClient");
         }
 
     }

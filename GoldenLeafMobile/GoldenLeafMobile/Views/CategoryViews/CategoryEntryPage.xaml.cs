@@ -51,8 +51,8 @@ namespace GoldenLeafMobile.Views.CategoryViews
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<Client>(this, "SuccessPostCategory");
-            MessagingCenter.Unsubscribe<ArgumentException>(this, "FailedPostCategory");
+            MessagingCenter.Unsubscribe<Category>(this, "SuccessPostCategory");
+            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, "FailedPostCategory");
         }
     }
 }

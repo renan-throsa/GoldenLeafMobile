@@ -4,11 +4,13 @@ using GoldenLeafMobile.Models.CategoryModels;
 using GoldenLeafMobile.Models.ProductModels;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using ZXing.Net.Mobile.Forms;
 
 namespace GoldenLeafMobile.ViewModels.ProductViewModels
 {
@@ -17,10 +19,19 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModels
         private readonly string URL_POST_PRODUCT = "https://golden-leaf.herokuapp.com/api/product";
         private readonly string URL_GET_CATEGORY = "https://golden-leaf.herokuapp.com/api/category";
 
-        public ICommand SaveProductComand { get; set; }       
-
+        public ICommand SaveProductComand { get; set; }
+        public ICommand ReadBarCodeComand { get; set; }
         public Product Product { get; private set; }
-        public List<Category> Categories { get; private set; }
+
+        public ObservableCollection<Category> Categories { get; private set; }
+
+
+        private Category _selectedCategory;
+        public Category SelectedCategory
+        {
+            get { return _selectedCategory; }
+            set { _selectedCategory = value; Product.CategoryId = value.Id; }
+        }
 
         public int CategoryId
         {
@@ -44,32 +55,45 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModels
             set { Product.IsAvailable = value; ((Command)SaveProductComand).ChangeCanExecute(); }
         }
 
-
         public float UnitCost
         {
             get { return Product.UnitCost; }
             set { Product.UnitCost = value; ((Command)SaveProductComand).ChangeCanExecute(); }
         }
 
-
-
         public ProductEntryViewModel()
         {
-            Product = new Product();            
+            Product = new Product();
+            Categories = new ObservableCollection<Category>();
             SaveProductComand = new Command
                 (
                     () =>
                     {
-                        MessagingCenter.Send<Product>(Product, "SavingClient");
+                        MessagingCenter.Send<Product>(Product, "SavingProduct");
 
                     },
                     () =>
                     {
                         return !string.IsNullOrEmpty(Product.Description)
-                        && !string.IsNullOrEmpty(Product.Code);
-
+                        && !string.IsNullOrEmpty(Product.Code)
+                        && SelectedCategory != null;
                     }
                 );
+
+            ReadBarCodeComand = new Command(() =>
+            {
+                var scanPage = new ZXingScannerPage();
+                scanPage.OnScanResult += (result) =>
+                {
+                    scanPage.IsScanning = false;
+
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        Code = result.Text;
+                    });
+                };
+
+            });
         }
 
         public async void SaveProduct()
@@ -77,7 +101,6 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModels
             using (HttpClient httpClient = new HttpClient())
             {
                 var stringContent = new StringContent(Product.ToJson(), Encoding.UTF8, "application/json");
-
 
                 var response = await httpClient.PostAsync(URL_POST_PRODUCT, stringContent);
 
@@ -123,15 +146,22 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModels
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-                    var ClientsList = JsonConvert.DeserializeObject<List<Category>>(result);
-                    Categories = ClientsList;
+                    var EtitiesList = JsonConvert.DeserializeObject<List<Category>>(result);
+                    foreach (var clientJson in EtitiesList)
+                    {
+                        Categories.Add(clientJson);
+                    }
                 }
                 else
                 {
                     using (var connection = DependencyService.Get<ISQLite>().GetConnection())
                     {
                         var dao = new Repository<Category>(connection);
-                        Categories = dao.Get();
+                        foreach (var category in dao.Get())
+                        {
+                            Categories.Add(category);
+                        }
+
                     }
                 }
 

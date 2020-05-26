@@ -5,6 +5,7 @@ using System;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ZXing.Net.Mobile.Forms;
 
 namespace GoldenLeafMobile.Views.ProductViews
 {
@@ -53,8 +54,25 @@ namespace GoldenLeafMobile.Views.ProductViews
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<Client>(this, "SuccessPostProduct");
-            MessagingCenter.Unsubscribe<ArgumentException>(this, "FailedPostProduct");
+            MessagingCenter.Unsubscribe<Product>(this, "SuccessPostProduct");
+            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, "FailedPostProduct");
+        }
+
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            var scanPage = new ZXingScannerPage();
+            scanPage.OnScanResult += (result) =>
+            {
+                scanPage.IsScanning = false;                
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await Navigation.PopModalAsync();
+                    Code.Text = result.Text;                                        
+                });
+            };
+
+            await Navigation.PushModalAsync(scanPage);
         }
     }
 }
