@@ -13,11 +13,14 @@ namespace GoldenLeafMobile.Views.ProductViews
     public partial class ProductEntryPage : ContentPage
     {
         public ProductEntryViewModel ViewModel { get; private set; }
+        protected readonly string SUCCESS = "SuccessSavingProduct";
+        protected readonly string FAIL = "FailedSavingProduct";
+        protected readonly string ASK = "SavingProduct";
 
         public ProductEntryPage()
         {
             InitializeComponent();
-            ViewModel = new ProductEntryViewModel();
+            ViewModel = new ProductEntryViewModel(new Product());
             BindingContext = ViewModel;
         }
 
@@ -30,7 +33,7 @@ namespace GoldenLeafMobile.Views.ProductViews
 
         private void SignUpMessages()
         {
-            MessagingCenter.Subscribe<Product>(this, "SavingProduct", async (_msg) =>
+            MessagingCenter.Subscribe<Product>(this, ASK, async (_msg) =>
             {
                 var confirm = await DisplayAlert("Salvar produto", "Deseja mesmo salvar o produto?", "Sim", "Não");
                 if (confirm)
@@ -39,13 +42,13 @@ namespace GoldenLeafMobile.Views.ProductViews
                 }
             });
 
-            MessagingCenter.Subscribe<Product>(this, "SuccessPostProduct", async (_msg) =>
+            MessagingCenter.Subscribe<Product>(this, SUCCESS, async (_msg) =>
             {
                 await DisplayAlert("Salvar produto", "Produto salvo com sucesso!", "Ok");
                 await Navigation.PopToRootAsync();
             });
 
-            MessagingCenter.Subscribe<SimpleHttpResponseException>(this, "FailedPostProduct", (_msg) =>
+            MessagingCenter.Subscribe<SimpleHttpResponseException>(this, FAIL, (_msg) =>
             {
                 DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
             });
@@ -54,8 +57,8 @@ namespace GoldenLeafMobile.Views.ProductViews
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<Product>(this, "SuccessPostProduct");
-            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, "FailedPostProduct");
+            MessagingCenter.Unsubscribe<Product>(this, SUCCESS);
+            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, FAIL);
         }
 
         private async void ToolbarItem_Clicked(object sender, EventArgs e)
@@ -63,15 +66,14 @@ namespace GoldenLeafMobile.Views.ProductViews
             var scanPage = new ZXingScannerPage();
             scanPage.OnScanResult += (result) =>
             {
-                scanPage.IsScanning = false;                
+                scanPage.IsScanning = false;
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await Navigation.PopModalAsync();
-                    Code.Text = result.Text;                                        
+                    Code.Text = result.Text;
                 });
             };
-
             await Navigation.PushModalAsync(scanPage);
         }
     }
