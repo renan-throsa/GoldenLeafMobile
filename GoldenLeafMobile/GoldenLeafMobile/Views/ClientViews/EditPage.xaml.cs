@@ -1,4 +1,5 @@
 ﻿using GoldenLeafMobile.Models;
+using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.ViewModels.ClientViewModels;
 using System;
 using Xamarin.Forms;
@@ -21,22 +22,23 @@ namespace GoldenLeafMobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            MessagingCenter.Subscribe<Client>(this, "SavingEditedClient", async (_client) =>
+            MessagingCenter.Subscribe<Client>(this, ViewModel.ASK, async (_client) =>
             {
-                var confirm = await DisplayAlert("Salvar cliente", "Deseja mesmo salvar o cliente?", "Não", "Sim");
+                var confirm = await DisplayAlert("Salvar cliente", "Deseja mesmo salvar o cliente?", "Sim", "Não");
                 if (confirm)
                 {
                     ViewModel.SaveClient();
                 }
             });
 
-            MessagingCenter.Subscribe<Client>(this, "SuccessPutClient", (_msg) =>
+            MessagingCenter.Subscribe<Client>(this, ViewModel.SUCCESS, async (_msg) =>
             {
-                DisplayAlert("Salvar client", "Cliente salvo com sucesso!", "Ok");
+                await DisplayAlert("Salvar cliente", "Cliente salvo com sucesso!", "Ok");
+                await Navigation.PopToRootAsync();
             });
 
 
-            MessagingCenter.Subscribe<SimpleHttpResponseException>(this, "FailedPutClient", (_msg) =>
+            MessagingCenter.Subscribe<SimpleHttpResponseException>(this, ViewModel.FAIL, (_msg) =>
             {
                 DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
             });
@@ -45,9 +47,9 @@ namespace GoldenLeafMobile.Views
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<Client>(this, "SavingEditedClient");
-            MessagingCenter.Unsubscribe<Client>(this, "SuccessPutClient");
-            MessagingCenter.Unsubscribe<ArgumentException>(this, "FailedPutClient");
+            MessagingCenter.Unsubscribe<Client>(this, ViewModel.ASK);
+            MessagingCenter.Unsubscribe<Client>(this, ViewModel.SUCCESS);
+            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
         }
     }
 }

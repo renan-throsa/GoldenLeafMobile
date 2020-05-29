@@ -9,11 +9,7 @@ namespace GoldenLeafMobile.Views.ProductViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EditPage : ContentPage
     {
-
         public EditViewModel ViewModel { get; private set; }
-        protected readonly string SUCCESS = "SuccessSavingProduct";
-        protected readonly string FAIL = "FailedSavingProduct";
-        protected readonly string ASK = "SavingProduct";
         public EditPage(Product product)
         {
             InitializeComponent();
@@ -31,7 +27,7 @@ namespace GoldenLeafMobile.Views.ProductViews
 
         private void SignUpMessages()
         {
-            MessagingCenter.Subscribe<Product>(this, ASK, async (_msg) =>
+            MessagingCenter.Subscribe<Product>(this, ViewModel.ASK, async (_msg) =>
             {
                 var confirm = await DisplayAlert("Salvar produto", "Deseja mesmo salvar o produto?", "Sim", "Não");
                 if (confirm)
@@ -40,23 +36,25 @@ namespace GoldenLeafMobile.Views.ProductViews
                 }
             });
 
-            MessagingCenter.Subscribe<Product>(this, SUCCESS, async (_msg) =>
+            MessagingCenter.Subscribe<Product>(this, ViewModel.SUCCESS, async (_msg) =>
             {
                 await DisplayAlert("Salvar produto", "Produto salvo com sucesso!", "Ok");
                 await Navigation.PopToRootAsync();
             });
 
-            MessagingCenter.Subscribe<SimpleHttpResponseException>(this, FAIL, (_msg) =>
+            MessagingCenter.Subscribe<SimpleHttpResponseException>(this, ViewModel.FAIL, async (_msg) =>
             {
-                DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
+                await DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
+                await Navigation.PopToRootAsync();
             });
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<Product>(this, SUCCESS);
-            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, FAIL);
+            MessagingCenter.Unsubscribe<Product>(this, ViewModel.ASK);
+            MessagingCenter.Unsubscribe<Product>(this, ViewModel.SUCCESS);
+            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
         }
 
     }

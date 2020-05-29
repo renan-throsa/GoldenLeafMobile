@@ -1,6 +1,5 @@
-﻿using GoldenLeafMobile.Models;
+﻿using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.ViewModels;
-using GoldenLeafMobile.Views.ClientViews;
 using System;
 using System.ComponentModel;
 using Xamarin.Forms;

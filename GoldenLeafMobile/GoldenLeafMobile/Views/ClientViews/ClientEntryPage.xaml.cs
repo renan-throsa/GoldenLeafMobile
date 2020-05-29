@@ -1,6 +1,6 @@
 ﻿using GoldenLeafMobile.Models;
+using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.ViewModels.ClientViewModels;
-using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,23 +9,24 @@ namespace GoldenLeafMobile.Views.ClientViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClientEntryPage : ContentPage
     {
-        public ClientEntryViewModel ViewModel { get; set; }
+        public ClientEntryViewModel ViewModel { get; private set; }
+
         public ClientEntryPage()
         {
             InitializeComponent();
-            ViewModel = new ClientEntryViewModel();
+            ViewModel = new ClientEntryViewModel(new Client());
             BindingContext = ViewModel;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            SignUpMessages();           
+            SignUpMessages();
         }
 
         private void SignUpMessages()
         {
-            MessagingCenter.Subscribe<Client>(this, "SavingClient", async (_client) =>
+            MessagingCenter.Subscribe<Client>(this, ViewModel.ASK, async (_client) =>
             {
                 var confirm = await DisplayAlert("Salvar client", "Deseja mesmo salvar o cliente?", "Sim", "Não");
                 if (confirm)
@@ -34,13 +35,13 @@ namespace GoldenLeafMobile.Views.ClientViews
                 }
             });
 
-            MessagingCenter.Subscribe<Client>(this, "SuccessPostClient", async (_msg) =>
+            MessagingCenter.Subscribe<Client>(this, ViewModel.SUCCESS, async (_msg) =>
             {
                 await DisplayAlert("Salvar client", "Cliente salvo com sucesso!", "Ok");
                 await Navigation.PopToRootAsync();
             });
 
-            MessagingCenter.Subscribe<SimpleHttpResponseException>(this, "FailedPostClient", (_msg) =>
+            MessagingCenter.Subscribe<SimpleHttpResponseException>(this, ViewModel.FAIL, (_msg) =>
             {
                 DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
             });
@@ -49,8 +50,9 @@ namespace GoldenLeafMobile.Views.ClientViews
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<Client>(this, "SuccessPostClient");
-            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, "FailedPostClient");
+            MessagingCenter.Unsubscribe<Client>(this, ViewModel.ASK);
+            MessagingCenter.Unsubscribe<Client>(this, ViewModel.SUCCESS);
+            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
         }
 
     }

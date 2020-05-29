@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 
-namespace GoldenLeafMobile.Models
+namespace GoldenLeafMobile.Models.ClientModels
 {
     public class Client : User
     {

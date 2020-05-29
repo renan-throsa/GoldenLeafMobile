@@ -1,4 +1,4 @@
-﻿using GoldenLeafMobile.Models;
+﻿using GoldenLeafMobile.Models.ClientModels;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,8 +13,7 @@ namespace GoldenLeafMobile.Views.ClientViews
         {
             InitializeComponent();
             Client = _client;
-            BindingContext = this;
-           
+            BindingContext = this;           
         }
 
         private void buttonEdit_Clicked(object sender, EventArgs e)

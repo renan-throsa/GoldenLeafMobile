@@ -38,8 +38,8 @@
                             ,Mode=TwoWay}"/>
                     </TableSection>
                     <TableSection Title="Configurações">
-                        <SwitchCell Text="Notificável" On="True" IsEnabled="False"/>
-                        <SwitchCell Text="Status" On="{Binding Client.Status,Mode=TwoWay}"/>
+                        <SwitchCell Text="Notificável" On="True"/>
+                        <SwitchCell Text="Status" On="{Binding Client.Status,Mode=TwoWay}" IsEnabled="True"/>
                     </TableSection>
                 </TableRoot>
             </TableView>

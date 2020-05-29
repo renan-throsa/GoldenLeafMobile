@@ -29,7 +29,6 @@
             <TableView Intent="Form">
                 <TableRoot>
                     <TableSection Title="Dados">
-                        <EntryCell Keyboard="Text" Label="Nome" Text="{Binding Name,Mode=TwoWay}"/>
                         <EntryCell Keyboard="Telephone" Label="Telefone" Text="{Binding PhoneNumber
                             ,Mode=TwoWay}"/>
                         <EntryCell Keyboard="Default" Label="Endereço" Text="{Binding Address
@@ -41,7 +40,7 @@
                     </TableSection>
                 </TableRoot>
             </TableView>
-            <Button Text="Salvar" Command="{Binding SaveEditedClientComand}"></Button>
+            <Button Text="Salvar" Command="{Binding SaveClientComand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

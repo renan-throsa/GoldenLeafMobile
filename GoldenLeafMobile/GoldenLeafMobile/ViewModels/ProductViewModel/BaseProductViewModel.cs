@@ -17,9 +17,9 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
     {
         private readonly string URL_PRODUCT = "https://golden-leaf.herokuapp.com/api/product";
         private readonly string URL_CATEGORY = "https://golden-leaf.herokuapp.com/api/category";
-        protected readonly string SUCCESS = "SuccessSavingProduct";
-        protected readonly string FAIL = "FailedSavingProduct";
-        protected readonly string ASK = "SavingProduct";
+        public readonly string SUCCESS = "SuccessSavingProduct";
+        public readonly string FAIL = "FailedSavingProduct";
+        public readonly string ASK = "SavingProduct";
 
 
         public ICommand SaveProductComand { get; set; }
