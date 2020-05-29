@@ -1,7 +1,5 @@
 ﻿using GoldenLeafMobile.Media;
 using GoldenLeafMobile.Models.ClerkModels;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Input;
 using Xamarin.Forms;

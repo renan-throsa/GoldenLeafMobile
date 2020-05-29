@@ -8,6 +8,7 @@
             xmlns:category="clr-namespace:GoldenLeafMobile.Views.CategoryViews"
             xmlns:product="clr-namespace:GoldenLeafMobile.Views.ProductViews"
             xmlns:client ="clr-namespace:GoldenLeafMobile.Views.ClientViews"
+            xmlns:order="clr-namespace:GoldenLeafMobile.Views.OrderViews"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.MasterView"
             Title="Perfil">
@@ -46,7 +47,7 @@
                                 <local:MasterPageItem Title="Categorias" IconSource="CategoryIcon.png" TargetType="{x:Type category:CategoriesPage}" />
                                 <local:MasterPageItem Title="Produtos" IconSource="ProductsIcon.png" TargetType="{x:Type product:ProductsPage}" />
                                 <local:MasterPageItem Title="Clientes" IconSource="ClientsIcon.png" TargetType="{x:Type client:ClientsPage}" />
-                                <local:MasterPageItem Title="Pedidos" IconSource="OrderIcon.png"  />
+                                <local:MasterPageItem Title="Pedidos" IconSource="OrderIcon.png" TargetType="{x:Type order:OrdersPage}"  />
                             </x:Array>
                         </ListView.ItemsSource>
                         <ListView.ItemTemplate>

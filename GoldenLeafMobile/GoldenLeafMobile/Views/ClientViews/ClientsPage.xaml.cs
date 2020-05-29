@@ -1,5 +1,6 @@
 ﻿using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.ViewModels;
+using GoldenLeafMobile.Views.OrderViews;
 using System;
 using System.ComponentModel;
 using Xamarin.Forms;
@@ -44,7 +45,7 @@ namespace GoldenLeafMobile.Views.ClientViews
         public void OnNewOrder(object sender, EventArgs e)
         {
             var mi = ((MenuItem)sender);
-            DisplayAlert("Novo pedido", mi.CommandParameter.ToString(), "OK");
+            Navigation.PushAsync(new OrderEntryPage(mi.CommandParameter as Client));
         }
 
         private void ToolbarNewClient_Clicked(object sender, EventArgs e)
