@@ -71,7 +71,7 @@ namespace GoldenLeafMobile.Views.ProductViews
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await Navigation.PopModalAsync();
-                    Code.Text = result.Text;
+                    //Code.Text = result.Text;
                 });
             };
             await Navigation.PushModalAsync(scanPage);

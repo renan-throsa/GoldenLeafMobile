@@ -45,5 +45,6 @@ namespace GoldenLeafMobile.Views.ProductViews
         {
             Navigation.PushAsync(new ProductEntryPage());
         }
+              
     }
 }

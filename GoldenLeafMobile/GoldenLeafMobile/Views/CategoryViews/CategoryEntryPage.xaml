@@ -29,7 +29,7 @@
             <TableView Intent="Form">
                 <TableRoot>
                     <TableSection Title="Dados">
-                        <EntryCell Keyboard="Text" Label="Título" Text="{Binding Title,Mode=TwoWay}"/>                        
+                        <EntryCell Keyboard="Text" Placeholder="Título" Text="{Binding Title,Mode=TwoWay}"/>                        
                     </TableSection>                   
                 </TableRoot>
             </TableView>

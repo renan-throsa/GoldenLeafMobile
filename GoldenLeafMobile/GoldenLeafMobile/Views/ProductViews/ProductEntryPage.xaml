@@ -12,7 +12,7 @@
             <Setter Property="BackgroundColor"
                     Value="{StaticResource AppBackgroundColor}" />
         </Style>
-
+        
         <Style TargetType="Button"
                ApplyToDerivedTypes="True"
                CanCascade="True">
@@ -45,11 +45,10 @@
                         </ViewCell>
                     </TableSection>
                     <TableSection Title="Dados">
-                        <EntryCell x:Name="Code" Keyboard="Numeric" Label="Código" Text="{Binding Code,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Default" Label="Descrição" Text="{Binding Description
+                        <EntryCell x:Name="Code" Keyboard="Numeric" Placeholder="Código" Text="{Binding Code,Mode=TwoWay}"/>
+                        <EntryCell Keyboard="Default" Placeholder="Descrição" Text="{Binding Description
                             ,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Default" Label="Preço R$" Text="{Binding UnitCost
-                            ,Mode=TwoWay}"/>
+                        <EntryCell Keyboard="Default" Placeholder="Preço R$" Text="{Binding UnitCost,Mode=TwoWay}"/>
                     </TableSection>
                     <TableSection Title="Configurações">
                         <SwitchCell Text="Dísponível" On="{Binding IsAvailable,Mode=TwoWay}"/>

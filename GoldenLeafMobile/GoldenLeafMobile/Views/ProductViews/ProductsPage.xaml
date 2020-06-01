@@ -26,36 +26,35 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <Grid>
-            <StackLayout Margin="{StaticResource PageMargin}">
+        <ListView x:Name="listView" ItemsSource="{Binding Entities}" 
+                  SelectedItem="{Binding SelectedEntity,Mode=TwoWay}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid VerticalOptions="StartAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"></RowDefinition>
+                                <RowDefinition Height="2*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
-                <ListView x:Name="listView" ItemsSource="{Binding Entities}" 
-                  SelectedItem="{Binding SelectedClient,Mode=TwoWay}" >
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.ContextActions>
-                                    <MenuItem Clicked="OnEdit"  CommandParameter="{Binding .}" Text="Editar"/>
-                                </ViewCell.ContextActions>
-                                <ViewCell.View>
-                                    <Grid>
-                                        <Label TextColor="{Binding Syncronized,Converter=
-                                            {StaticResource Key=syncronizedConverter}}" Grid.Row="0" Grid.Column="0" Text="{Binding Description}" />
-                                        <Label TextColor="{Binding Syncronized,Converter=
-                                            {StaticResource Key=syncronizedConverter}}" Grid.Row="1" Grid.Column="0" Text="{Binding FormatedUnitCost}" />
-                                        <Label TextColor="{Binding Syncronized,Converter=
-                                            {StaticResource Key=syncronizedConverter}}" Grid.Row="1" Grid.Column="1" Text="{Binding FormatedAvailability}" />
-                                    </Grid>
-
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
-            </StackLayout>
-            <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}" 
-                           VerticalOptions="Center" HorizontalOptions="Center"/>
-        </Grid>
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Description}"
+                                   TextColor="{Binding Syncronized,Converter=
+                                            {StaticResource Key=syncronizedConverter}}"
+                                   />
+                            <Label Grid.Row="1" Grid.Column="0" Text="R$ 10.00" Font="Small" 
+                                   TextColor="{Binding Syncronized,Converter=
+                                            {StaticResource Key=syncronizedConverter}}"/>
+                            <Label Grid.Row="1" Grid.Column="1" Text="Díponpivel" Font="Small" TextColor="{Binding Syncronized,Converter=
+                                            {StaticResource Key=syncronizedConverter}}"
+                                   />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

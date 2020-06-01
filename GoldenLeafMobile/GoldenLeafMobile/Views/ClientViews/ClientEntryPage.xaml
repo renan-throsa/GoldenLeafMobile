@@ -29,12 +29,12 @@
             <TableView Intent="Form">
                 <TableRoot>
                     <TableSection Title="Dados">
-                        <EntryCell Keyboard="Text" Label="Nome" Text="{Binding Name,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Telephone" Label="Telefone" Text="{Binding PhoneNumber
+                        <EntryCell Keyboard="Text" Placeholder="Nome" Text="{Binding Name,Mode=TwoWay}"/>
+                        <EntryCell Keyboard="Telephone" Placeholder="Telefone" Text="{Binding PhoneNumber
                             ,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Default" Label="Endereço" Text="{Binding Address
+                        <EntryCell Keyboard="Default" Placeholder="Endereço" Text="{Binding Address
                             ,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Numeric" Label="Identificação" Text="{Binding Identification
+                        <EntryCell Keyboard="Numeric" Placeholder="Identificação" Text="{Binding Identification
                             ,Mode=TwoWay}"/>
                     </TableSection>
                     <TableSection Title="Configurações">
