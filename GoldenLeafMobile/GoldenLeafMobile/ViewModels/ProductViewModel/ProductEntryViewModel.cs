@@ -18,7 +18,6 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModels
                     () =>
                     {
                         MessagingCenter.Send<Product>(Product, ASK);
-
                     },
                     () =>
                     {
