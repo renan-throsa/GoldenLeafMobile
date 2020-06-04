@@ -3,6 +3,7 @@ using GoldenLeafMobile.ViewModels.OrderViewModel;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ZXing.Net.Mobile.Forms;
 
 namespace GoldenLeafMobile.Views.OrderViews
 {
@@ -18,9 +19,20 @@ namespace GoldenLeafMobile.Views.OrderViews
             BindingContext = ViewModel;
         }
 
-        private void ToolbarItem_Clicked(object sender, System.EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, System.EventArgs e)
         {
+            var scanPage = new ZXingScannerPage();
+            scanPage.OnScanResult += (result) =>
+            {
+                scanPage.IsScanning = false;
 
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await Navigation.PopModalAsync();                    
+                    ViewModel.Code = result.Text;
+                });
+            };
+            await Navigation.PushModalAsync(scanPage);
         }
 
         private void OnEdit(object sender, System.EventArgs e)

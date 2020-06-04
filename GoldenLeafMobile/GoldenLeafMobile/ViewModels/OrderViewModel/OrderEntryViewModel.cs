@@ -17,72 +17,93 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
 
         private readonly string URL_PRODUCT = "https://golden-leaf.herokuapp.com/api/product/code/";
         public readonly string SEARCH = "SearchProduct";
-        private bool _searching = false;
-        private bool _editing = false;
-        private string _code;
-        private float _quantity;
+
 
         public Client Client { get; }
         public Clerk Clerk { get; }
-
-        public string Description { get; set; }
-        public float UnitCost { get; set; }
-        public float ExtendedCost { get; set; }
-
-        
-
-        public float Quantity
-        {
-            get { return _quantity; }
-            set { _quantity = value; }
-        }
-
-
         public OrderTableItem CurrentItem { get; private set; }
         public ObservableCollection<OrderTableItem> Items { get; private set; }
 
+        public string Description
+        {
+            get { return CurrentItem.Description; }
+            private set { CurrentItem.Description = value; ((Command)AddProductComand).ChangeCanExecute(); }
+        }
+
+        public float UnitCost
+        {
+            get { return CurrentItem.UnitCost; }
+            private set { CurrentItem.UnitCost = value; ((Command)AddProductComand).ChangeCanExecute(); }
+        }
+
+        public float ExtendedCost
+        {
+            get { return CurrentItem.GetExtendedCost(); }
+        }
+
+        public int Quantity
+        {
+            get { return CurrentItem.Quantity; }
+            set
+            {
+                CurrentItem.Quantity = value;
+                OnPropertyChanged("ExtendedCost");
+                ((Command)AddProductComand).ChangeCanExecute();
+            }
+        }
+
+        private string _code;
         public string Code
         {
             get { return _code; }
-            set { _code = value; OnPropertyChanged(); }
+            set { _code = value; OnPropertyChanged(); ((Command)SearchProductComand).ChangeCanExecute(); }
         }
 
-        public bool Searching
+        private bool _searching = true;
+        public bool IsSearching
         {
-            get { return _searching; }
-            set { _searching = value; OnPropertyChanged(); }
+            get { return _searching; OnPropertyChanged(); }
+            set { _searching = value; }
         }
 
-        public bool Editing
+        private bool _editing = false;
+        public bool IsEditing
         {
             get { return _editing; }
-            set { _editing = value; OnPropertyChanged(); }
+            set { _editing = value; }
         }
 
         public OrderEntryViewModel(Client client)
         {
+            CurrentItem = new OrderTableItem();
             Client = client;
             Clerk = Application.Current.Properties["Clerk"] as Clerk;
+
             SearchProductComand = new Command(
                 () =>
                     {
-                        MessagingCenter.Send(this, SEARCH);
+                        GetProduct();
                     },
                 () =>
                     {
-                        return !string.IsNullOrEmpty(Code);
+                        return !string.IsNullOrEmpty(Code) && (Code.Length >= 9 && Code.Length <= 13);
                     });
+
             AddProductComand = new Command(
                 () =>
             {
                 Items.Add(CurrentItem);
+                IsSearching = true;
+                IsEditing = false;
+                CurrentItem = new OrderTableItem();
+                Code = "";
             }, () =>
             {
-                return CurrentItem.Id > 0 &&
-                !string.IsNullOrEmpty(CurrentItem.Description)
-                && CurrentItem.UnitCost > 0
-                && CurrentItem.Quantity > 0
-                && CurrentItem.ExtendedCost > 0;
+                return CurrentItem.Id > 0
+                && !string.IsNullOrEmpty(Description)
+                && UnitCost > 0
+                && Quantity > 0
+                && ExtendedCost > 0;
             }
 
             );
@@ -99,6 +120,8 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
                 {
                     var result = await response.Content.ReadAsStringAsync();
                     CurrentItem = JsonConvert.DeserializeObject<OrderTableItem>(result);
+                    IsSearching = false;
+                    IsEditing = true;
                 }
             }
         }

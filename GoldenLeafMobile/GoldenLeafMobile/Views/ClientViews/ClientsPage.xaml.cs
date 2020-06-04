@@ -44,7 +44,7 @@ namespace GoldenLeafMobile.Views.ClientViews
 
         public void OnNewOrder(object sender, EventArgs e)
         {
-            var mi = ((MenuItem)sender);
+            var mi = ((MenuItem)sender);           
             Navigation.PushAsync(new OrderEntryPage(mi.CommandParameter as Client));
         }
 

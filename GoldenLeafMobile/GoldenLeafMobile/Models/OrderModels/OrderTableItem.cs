@@ -20,5 +20,10 @@ namespace GoldenLeafMobile.Models.OrderModels
         
         public float ExtendedCost { get; set; }
 
+        public float GetExtendedCost()
+        {
+            ExtendedCost =  Quantity * UnitCost;
+            return ExtendedCost;
+        }
     }
 }

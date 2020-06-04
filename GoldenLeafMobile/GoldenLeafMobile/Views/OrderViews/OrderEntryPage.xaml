@@ -72,17 +72,16 @@
                 <TableView Intent="Form">
                     <TableRoot>
                         <TableSection>
-                            <EntryCell x:Name="Code" Keyboard="Numeric" Placeholder="Código" Text="{Binding Code,Mode=TwoWay}"/>
-                            <EntryCell Keyboard="Default" IsEnabled="False" Placeholder="Descrição" Text="{Binding Description}"/>
-                            <EntryCell Keyboard="Default" IsEnabled="False" Placeholder="Preço R$" Text="{Binding UnitCost}"/>
+                            <EntryCell Keyboard="Numeric" Placeholder="Código" Text="{Binding Code,Mode=TwoWay}"/>
+                            <EntryCell IsEnabled="False" Placeholder="Descrição" Text="{Binding Description}"/>
+                            <EntryCell  IsEnabled="False" Placeholder="Preço R$" Text="{Binding UnitCost}"/>
                             <EntryCell Keyboard="Default" Placeholder="Quantidade" Text="{Binding Quantity}"/>
-                            <EntryCell Keyboard="Default" IsEnabled="False" Placeholder="Preço R$" Text="{Binding ExtendedCost}"/>
+                            <EntryCell IsEnabled="False" Placeholder="Preço R$" Text="{Binding ExtendedCost}"/>
                         </TableSection>
                     </TableRoot>
                 </TableView>
                 <Button Text="Buscar" Command="{Binding SearchProductComand}" IsVisible="{Binding IsSearching}" />
-                <Button Text="Adicionar" Command="{Binding AddProductComand}" IsVisible="{Binding IsSearching,
-                        Converter={StaticResource Key=negative}}"/> 
+                <Button Text="Adicionar" Command="{Binding AddProductComand}" IsVisible="{Binding IsEditing}"/> 
             </StackLayout>
         </ContentPage>
     </TabbedPage.Children>

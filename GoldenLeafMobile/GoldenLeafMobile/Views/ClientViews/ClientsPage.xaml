@@ -37,7 +37,7 @@
                             <ViewCell>
                                 <ViewCell.ContextActions>
                                     <MenuItem Clicked="OnEdit"  CommandParameter="{Binding .}" Text="Editar"/>
-                                    <MenuItem Clicked="OnNewOrder" CommandParameter="{Binding Id}" Text="Novo pedido"/>
+                                    <MenuItem Clicked="OnNewOrder" CommandParameter="{Binding .}" Text="Novo pedido"/>
                                 </ViewCell.ContextActions>
                                 <ViewCell.View>
                                     <StackLayout Orientation="Horizontal" >
