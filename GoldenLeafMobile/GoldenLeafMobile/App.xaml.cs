@@ -9,8 +9,7 @@ namespace GoldenLeafMobile
     {
         public App()
         {
-            InitializeComponent();
-
+            InitializeComponent();            
             MainPage = new LoginPage();
         }
 

@@ -27,18 +27,19 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         public string Description
         {
             get { return CurrentItem.Description; }
-            private set { CurrentItem.Description = value; ((Command)AddProductComand).ChangeCanExecute(); }
+            private set { CurrentItem.Description = value; OnPropertyChanged(); ((Command)AddProductComand).ChangeCanExecute(); }
         }
 
         public float UnitCost
         {
             get { return CurrentItem.UnitCost; }
-            private set { CurrentItem.UnitCost = value; ((Command)AddProductComand).ChangeCanExecute(); }
+            private set { CurrentItem.UnitCost = value; OnPropertyChanged(); ((Command)AddProductComand).ChangeCanExecute(); }
         }
 
         public float ExtendedCost
         {
             get { return CurrentItem.GetExtendedCost(); }
+            private set { CurrentItem.ExtendedCost = value; OnPropertyChanged(); }
         }
 
         public int Quantity
@@ -47,6 +48,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             set
             {
                 CurrentItem.Quantity = value;
+                OnPropertyChanged();
                 OnPropertyChanged("ExtendedCost");
                 ((Command)AddProductComand).ChangeCanExecute();
             }
@@ -62,19 +64,20 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         private bool _searching = true;
         public bool IsSearching
         {
-            get { return _searching; OnPropertyChanged(); }
-            set { _searching = value; }
+            get { return _searching; }
+            set { _searching = value; OnPropertyChanged(); }
         }
 
         private bool _editing = false;
         public bool IsEditing
         {
             get { return _editing; }
-            set { _editing = value; }
+            set { _editing = value; OnPropertyChanged(); }
         }
 
         public OrderEntryViewModel(Client client)
         {
+            Items = new ObservableCollection<OrderTableItem>();
             CurrentItem = new OrderTableItem();
             Client = client;
             Clerk = Application.Current.Properties["Clerk"] as Clerk;
@@ -93,10 +96,8 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
                 () =>
             {
                 Items.Add(CurrentItem);
-                IsSearching = true;
-                IsEditing = false;
-                CurrentItem = new OrderTableItem();
-                Code = "";
+                CleanTable();
+
             }, () =>
             {
                 return CurrentItem.Id > 0
@@ -119,9 +120,8 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-                    CurrentItem = JsonConvert.DeserializeObject<OrderTableItem>(result);
-                    IsSearching = false;
-                    IsEditing = true;
+                    var partialProduct = JsonConvert.DeserializeObject<PartialProduct>(result);
+                    FillOutTable(partialProduct);
                 }
             }
         }
@@ -134,5 +134,26 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             }
         }
 
+        private void CleanTable()
+        {
+            IsSearching = true;
+            IsEditing = false;
+            CurrentItem = new OrderTableItem();
+            Code = "";
+            Description = "";
+            Quantity = 0;
+            UnitCost = 0;
+            ExtendedCost = 0;
+            
+        }
+
+        private void FillOutTable(PartialProduct partialProduct)
+        {
+            Description = partialProduct.Description;
+            UnitCost = partialProduct.UnitCost;
+            CurrentItem.Id = partialProduct.Id;
+            IsSearching = false;
+            IsEditing = true;
+        }
     }
 }

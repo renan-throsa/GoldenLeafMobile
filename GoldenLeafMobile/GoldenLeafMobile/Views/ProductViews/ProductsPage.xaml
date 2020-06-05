@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-              xmlns:converter="clr-namespace:GoldenLeafMobile.Converters"
+             xmlns:converter="clr-namespace:GoldenLeafMobile.Converters"
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ProductViews.ProductsPage"
              Title="Produtos">
@@ -26,35 +27,61 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <ListView x:Name="listView" ItemsSource="{Binding Entities}" 
-                  SelectedItem="{Binding SelectedEntity,Mode=TwoWay}" >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid VerticalOptions="StartAndExpand">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2*"></RowDefinition>
-                                <RowDefinition Height="2*"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
+        <StackLayout Padding="5" Spacing="0">           
 
-                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Description}"
-                                   TextColor="{Binding Syncronized,Converter=
-                                            {StaticResource Key=syncronizedConverter}}"
-                                   />
-                            <Label Grid.Row="1" Grid.Column="0" Text="R$ 10.00" Font="Small" 
-                                   TextColor="{Binding Syncronized,Converter=
-                                            {StaticResource Key=syncronizedConverter}}"/>
-                            <Label Grid.Row="1" Grid.Column="1" Text="Díponpivel" Font="Small" TextColor="{Binding Syncronized,Converter=
-                                            {StaticResource Key=syncronizedConverter}}"
-                                   />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Margin="5,0,5,0" Text="Produto" VerticalOptions="Center" Grid.Column="0"/>
+                <Label Margin="5,0,5,0" Text="Preço" VerticalOptions="Center" Grid.Column="1"/>
+                <Label Margin="5,0,5,0" Text="Disponível" VerticalOptions="Center" Grid.Column="2"/>
+
+                <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <BoxView WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <BoxView WidthRequest="1" Grid.Column="2" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+            </Grid>
+
+            <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Editar"/>                                
+                            </ViewCell.ContextActions>
+                            <ViewCell.View>
+                                <Grid RowSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>                                        
+                                    </Grid.ColumnDefinitions>
+                                    <Label Margin="5,0,5,0" Text="{Binding Description}" 
+                                           TextColor="{Binding Syncronized,Converter=
+                                            {StaticResource Key=syncronizedConverter}}" 
+                                           VerticalOptions="Center" Grid.Column="0"/>
+                                    <Label Margin="5,0,5,0" Text="{Binding UnitCost}" 
+                                           TextColor="{Binding Syncronized,Converter=
+                                            {StaticResource Key=syncronizedConverter}}" 
+                                           VerticalOptions="Center" Grid.Column="1"/>
+                                    <Label Margin="5,0,5,0" Text="{Binding FormatedAvailability}" 
+                                           TextColor="{Binding Syncronized,Converter=
+                                            {StaticResource Key=syncronizedConverter}}" 
+                                           VerticalOptions="Center" Grid.Column="2"/>
+
+                                    <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                                    <BoxView WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                                    <BoxView WidthRequest="1" Grid.Column="2" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                                </Grid>
+                            </ViewCell.View>
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

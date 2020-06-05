@@ -2,8 +2,7 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:converters="clr-namespace:GoldenLeafMobile.Converters"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"             
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.OrderViews.OrderEntryPage">
 
@@ -17,31 +16,8 @@
                 </Style>
             </ContentPage.Resources>
 
-            <StackLayout Margin="{StaticResource PageMargin}">
-
-                <ListView x:Name="listView" ItemsSource="{Binding Items}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.ContextActions>
-                                    <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Editar"/>
-                                    <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Excluir"/>
-                                </ViewCell.ContextActions>
-                                <ViewCell.View>
-                                    <StackLayout Orientation="Horizontal" >
-                                        <Label Text="{Binding Description}" FontSize="15" VerticalTextAlignment="Center"/>
-                                        <Label Text="{Binding UnitCost}" FontSize="15" VerticalTextAlignment="Center"/>
-                                        <Label Text="{Binding Quantity}" FontSize="15" VerticalTextAlignment="Center"/>
-                                        <Label Text="{Binding ExtendedCost}" FontAttributes="Bold" VerticalTextAlignment="Center"/>
-                                    </StackLayout>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
-
         </ContentPage>
+
         <ContentPage Title="Produto">
             <ContentPage.Resources>
                 <!-- Implicit styles -->
@@ -58,11 +34,9 @@
                     <Setter Property="TextColor" Value="White" />
                     <Setter Property="CornerRadius" Value="5" />
                 </Style>
-                <ResourceDictionary>
-                    <converters:NegativeConverter x:Key="negative"/>
-                </ResourceDictionary>
-            </ContentPage.Resources>            
-            
+
+            </ContentPage.Resources>
+
             <ContentPage.ToolbarItems>
                 <ToolbarItem
                      IconImageSource="CameraIcon.png"             
@@ -74,14 +48,14 @@
                         <TableSection>
                             <EntryCell Keyboard="Numeric" Placeholder="Código" Text="{Binding Code,Mode=TwoWay}"/>
                             <EntryCell IsEnabled="False" Placeholder="Descrição" Text="{Binding Description}"/>
-                            <EntryCell  IsEnabled="False" Placeholder="Preço R$" Text="{Binding UnitCost}"/>
+                            <EntryCell IsEnabled="False" Placeholder="Preço R$" Text="{Binding UnitCost}"/>
                             <EntryCell Keyboard="Default" Placeholder="Quantidade" Text="{Binding Quantity}"/>
                             <EntryCell IsEnabled="False" Placeholder="Preço R$" Text="{Binding ExtendedCost}"/>
                         </TableSection>
                     </TableRoot>
                 </TableView>
                 <Button Text="Buscar" Command="{Binding SearchProductComand}" IsVisible="{Binding IsSearching}" />
-                <Button Text="Adicionar" Command="{Binding AddProductComand}" IsVisible="{Binding IsEditing}"/> 
+                <Button Text="Adicionar" Command="{Binding AddProductComand}" IsVisible="{Binding IsEditing}"/>
             </StackLayout>
         </ContentPage>
     </TabbedPage.Children>

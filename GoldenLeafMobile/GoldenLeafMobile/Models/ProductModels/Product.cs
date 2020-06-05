@@ -19,6 +19,13 @@ namespace GoldenLeafMobile.Models.ProductModels
         [JsonProperty("unit_cost")]
         public float UnitCost { get; set; }
 
+        
+        public string FormatedAvailability
+        {
+            get { return IsAvailable ? "Sim" : "Não"; }            
+        }
+
+
         public Product()
         {
             IsAvailable = true;
@@ -28,11 +35,7 @@ namespace GoldenLeafMobile.Models.ProductModels
         {
             return $"R$ {UnitCost}";
         }
-
-        public string FormatedAvailability()
-        {
-            return IsAvailable ? "Disponível" : "Idispoinível";
-        }
+                
 
         public override string ToJson()
         {
