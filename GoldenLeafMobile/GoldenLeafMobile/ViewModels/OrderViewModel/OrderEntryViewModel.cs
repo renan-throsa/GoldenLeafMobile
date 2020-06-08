@@ -2,6 +2,7 @@
 using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.Models.OrderModels;
 using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Windows.Input;
@@ -94,7 +95,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
 
             AddProductComand = new Command(
                 () =>
-            {
+            {                
                 Items.Add(CurrentItem);
                 CleanTable();
 
@@ -108,7 +109,8 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             }
 
             );
-            SaveOrderComand = new Command(() => { });
+
+            SaveOrderComand = new Command(() => { }, () => { return Items.Count >= 1; });
 
         }
 
@@ -134,6 +136,28 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             }
         }
 
+        internal void Edit(OrderTableItem item)
+        {
+            Description = item.Description;
+            UnitCost = item.UnitCost;
+            ExtendedCost = item.ExtendedCost;
+            Quantity = item.Quantity;
+            CurrentItem = item;
+            IsSearching = false;
+            IsEditing = true;
+        }
+
+        internal void Remove(OrderTableItem tableItem)
+        {
+            foreach (var item in Items)
+            {
+                if (item.Id == tableItem.Id)
+                {
+                    Items.Remove(item);
+                }
+            }
+        }
+
         private void CleanTable()
         {
             IsSearching = true;
@@ -144,7 +168,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             Quantity = 0;
             UnitCost = 0;
             ExtendedCost = 0;
-            
+
         }
 
         private void FillOutTable(PartialProduct partialProduct)

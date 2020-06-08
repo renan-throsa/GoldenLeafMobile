@@ -4,7 +4,6 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converter="clr-namespace:GoldenLeafMobile.Converters"
-             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ProductViews.ProductsPage"
              Title="Produtos">
@@ -27,8 +26,7 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Padding="5" Spacing="0">           
-
+        <StackLayout Padding="5" Spacing="0">      
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
@@ -71,9 +69,7 @@
                                             {StaticResource Key=syncronizedConverter}}" 
                                            VerticalOptions="Center" Grid.Column="2"/>
 
-                                    <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
-                                    <BoxView WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
-                                    <BoxView WidthRequest="1" Grid.Column="2" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                                   
                                 </Grid>
                             </ViewCell.View>
 
@@ -81,7 +77,8 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
+            <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}" 
+                           VerticalOptions="Center" HorizontalOptions="Center"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

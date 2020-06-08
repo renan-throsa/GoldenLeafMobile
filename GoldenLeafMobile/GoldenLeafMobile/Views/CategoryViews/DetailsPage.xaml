@@ -30,7 +30,7 @@
                     <TableView Intent="Data">
                         <TableRoot>
                             <TableSection Title="Dados">
-                                <TextCell Detail="Nome" TextColor="Black" Text="{Binding Category.Title}"/>
+                                <TextCell TextColor="Black" Text="{Binding Category.Title}"/>
                             </TableSection>                         
                         </TableRoot>
                     </TableView>

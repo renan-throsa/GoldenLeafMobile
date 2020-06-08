@@ -1,4 +1,5 @@
 ﻿using GoldenLeafMobile.Models.ClientModels;
+using GoldenLeafMobile.Models.OrderModels;
 using GoldenLeafMobile.ViewModels.OrderViewModel;
 
 using Xamarin.Forms;
@@ -28,7 +29,7 @@ namespace GoldenLeafMobile.Views.OrderViews
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await Navigation.PopModalAsync();                    
+                    await Navigation.PopModalAsync();
                     ViewModel.Code = result.Text;
                 });
             };
@@ -37,12 +38,17 @@ namespace GoldenLeafMobile.Views.OrderViews
 
         private void OnEdit(object sender, System.EventArgs e)
         {
+            var mi = ((MenuItem)sender);
+            var item = mi.CommandParameter as OrderTableItem;
+            ViewModel.Edit(item);
+            this.CurrentPage = this.Children[1];
+        }
 
-        } 
-        
         private void OnDelete(object sender, System.EventArgs e)
         {
-
+            var mi = ((MenuItem)sender);
+            var item = mi.CommandParameter as OrderTableItem;
+            ViewModel.Remove(item);
         }
     }
 }

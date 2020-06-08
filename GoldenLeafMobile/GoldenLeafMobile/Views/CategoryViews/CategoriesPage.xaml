@@ -26,32 +26,50 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <Grid>
-            <StackLayout Margin="{StaticResource PageMargin}">
+        <StackLayout Padding="5" Spacing="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
 
-                <ListView x:Name="listView" ItemsSource="{Binding Entities}" 
-                  SelectedItem="{Binding SelectedClient,Mode=TwoWay}" >
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.ContextActions>
-                                    <MenuItem Clicked="OnEdit"  CommandParameter="{Binding .}" Text="Editar"/>
-                                    <MenuItem Clicked="OnNewProduct" CommandParameter="{Binding Id}" Text="Adicionar produto"/>
-                                </ViewCell.ContextActions>
-                                <ViewCell.View>
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Title}" FontSize="15" VerticalTextAlignment="Center" TextColor="{Binding Syncronized,Converter={StaticResource Key=syncronizedConverter}}"/>
-                                    </StackLayout>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                </Grid.ColumnDefinitions>
+                <Label Margin="5,0,5,0" Text="Categoria" VerticalOptions="Center" Grid.Column="0"/>
 
-            </StackLayout>
+                <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+            </Grid>
+
+            <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnEdit"  CommandParameter="{Binding .}" Text="Editar"/>
+                                <MenuItem Clicked="OnNewProduct" CommandParameter="{Binding Id}" Text="Novo produto"/>
+                            </ViewCell.ContextActions>
+                            <ViewCell.View>
+                                <Grid RowSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Label Margin="5,0,5,0" Text="{Binding Title}" 
+                                           TextColor="{Binding Syncronized,Converter=
+                                            {StaticResource Key=syncronizedConverter}}" 
+                                           VerticalOptions="Center" Grid.Column="0"/>
+
+
+                                    <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+
+                                </Grid>
+                            </ViewCell.View>
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}" 
                            VerticalOptions="Center" HorizontalOptions="Center"/>
-        </Grid>
+
+        </StackLayout>
 
     </ContentPage.Content>
 

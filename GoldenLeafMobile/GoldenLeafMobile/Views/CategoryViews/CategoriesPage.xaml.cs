@@ -23,7 +23,6 @@ namespace GoldenLeafMobile.Views.CategoryViews
             listView.SelectedItem = false;
             MessagingCenter.Subscribe<Category>(this, "SelectedCategory",
                 (_category) => Navigation.PushAsync(new DetailsPage(_category)));
-
             await ViewModel.GetEntities();
         }
 

@@ -14,6 +14,7 @@ namespace GoldenLeafMobile.Views.CategoryViews
         {
             InitializeComponent();
             Category = category;
+            BindingContext = this;
         }
 
         private void buttonEdit_Clicked(object sender, EventArgs e)
