@@ -36,7 +36,7 @@ namespace GoldenLeafMobile.Models.OrderModels
                     total = Total,
                     status = Status.ToString()
                 }
-                ); ;
+                ); 
         }
     }
 }

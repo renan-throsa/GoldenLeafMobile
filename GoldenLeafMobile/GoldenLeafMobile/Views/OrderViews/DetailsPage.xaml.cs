@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoldenLeafMobile.Models.OrderModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace GoldenLeafMobile.Views.OrderViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DetailsPage : ContentPage
     {
-        public DetailsPage()
+        public DetailsPage(Order order)
         {
             InitializeComponent();
         }

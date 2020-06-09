@@ -1,10 +1,11 @@
-﻿using GoldenLeafMobile.Models.ClerkModels;
+﻿using GoldenLeafMobile.Models;
+using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.Models.OrderModels;
 using Newtonsoft.Json;
-using System;
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -16,7 +17,12 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         public ICommand AddProductComand { get; private set; }
         public ICommand SaveOrderComand { get; private set; }
 
+        public readonly string SUCCESS = "SuccessSavingOrder";
+        public readonly string FAIL = "FailedSavingOrder";
+        public readonly string ASK = "SavingOrder";
+
         private readonly string URL_PRODUCT = "https://golden-leaf.herokuapp.com/api/product/code/";
+        private readonly string URL_ORDER = "https://golden-leaf.herokuapp.com/api/order";
         public readonly string SEARCH = "SearchProduct";
 
 
@@ -119,7 +125,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
 
             );
 
-            SaveOrderComand = new Command(() => { }, () => { return Items.Count >= 1; });
+            SaveOrderComand = new Command(() => { MessagingCenter.Send(this, ASK); }, () => { return Items.Count >= 1; });
 
         }
 
@@ -135,6 +141,15 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
                     var partialProduct = JsonConvert.DeserializeObject<PartialProduct>(result);
                     FillOutTable(partialProduct);
                 }
+                else
+                {
+                    var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    if (response.Content != null)
+                        response.Content.Dispose();
+
+                    var simpleHttpResponse = new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content);
+                    MessagingCenter.Send(simpleHttpResponse, FAIL);
+                }
             }
         }
 
@@ -142,17 +157,34 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         {
             using (HttpClient httpClient = new HttpClient())
             {
+                var order = CreateOrderString();
+                var stringContent = new StringContent(order, Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync(URL_ORDER, stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    MessagingCenter.Send(this, SUCCESS);
+                    Items.Clear();
+                }
+                else
+                {
+                    var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    if (response.Content != null)
+                        response.Content.Dispose();
+
+                    var simpleHttpResponse = new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content);
+                    MessagingCenter.Send(simpleHttpResponse, FAIL);
+                }
 
             }
         }
 
         internal void Edit(OrderTableItem item)
         {
-            Id = item.Id;
+            Id = item.ProductId;
             Description = item.Description;
             UnitCost = item.UnitCost;
             ExtendedCost = item.ExtendedCost;
-            Quantity = item.Quantity;            
+            Quantity = item.Quantity;
             IsSearching = false;
             IsEditing = true;
         }
@@ -160,6 +192,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         internal void Remove(OrderTableItem tableItem)
         {
             Items.Remove(tableItem);
+            ((Command)SaveOrderComand).ChangeCanExecute();
         }
 
         private void CleanTable()
@@ -172,7 +205,6 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             Quantity = 0;
             UnitCost = 0;
             ExtendedCost = 0;
-
         }
 
         private void FillOutTable(PartialProduct partialProduct)
@@ -189,14 +221,28 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             foreach (var item in Items)
             {
                 //Compere the id's.
-                if (item.Id == Id)
+                if (item.ProductId == Id)
                 {
                     var index = Items.IndexOf(item);
                     Items[index] = new OrderTableItem(Id, Description, UnitCost, Quantity, ExtendedCost);
+                    ((Command)SaveOrderComand).ChangeCanExecute();
                     return;
                 }
             }
             Items.Add(new OrderTableItem(Id, Description, UnitCost, Quantity, ExtendedCost));
+            ((Command)SaveOrderComand).ChangeCanExecute();
+        }
+
+        private string CreateOrderString()
+        {
+            return JsonConvert.SerializeObject(
+           new
+           {
+               client_id = Client.Id,
+               clerk_id = Clerk.Id,
+               items = JsonConvert.SerializeObject(Items)
+           }
+           );
         }
     }
 }

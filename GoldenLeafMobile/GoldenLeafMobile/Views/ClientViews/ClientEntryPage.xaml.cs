@@ -28,7 +28,7 @@ namespace GoldenLeafMobile.Views.ClientViews
         {
             MessagingCenter.Subscribe<Client>(this, ViewModel.ASK, async (_client) =>
             {
-                var confirm = await DisplayAlert("Salvar client", "Deseja mesmo salvar o cliente?", "Sim", "Não");
+                var confirm = await DisplayAlert("Salvar cliente", "Deseja mesmo salvar o cliente?", "Sim", "Não");
                 if (confirm)
                 {
                     ViewModel.SaveClient();
@@ -37,7 +37,7 @@ namespace GoldenLeafMobile.Views.ClientViews
 
             MessagingCenter.Subscribe<Client>(this, ViewModel.SUCCESS, async (_msg) =>
             {
-                await DisplayAlert("Salvar client", "Cliente salvo com sucesso!", "Ok");
+                await DisplayAlert("Salvar cliente", "Cliente salvo com sucesso!", "Ok");
                 await Navigation.PopToRootAsync();
             });
 

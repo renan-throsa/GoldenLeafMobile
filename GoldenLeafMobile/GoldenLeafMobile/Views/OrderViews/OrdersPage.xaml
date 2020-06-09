@@ -7,10 +7,53 @@
              x:Class="GoldenLeafMobile.Views.OrderViews.OrdersPage"
              Title="Pedidos">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="5" Spacing="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Margin="5,0,5,0" Text="Comprado em" VerticalOptions="Center" Grid.Column="0"/>
+                <Label Margin="5,0,5,0" Text="Cliente" VerticalOptions="Center" Grid.Column="1"/>
+                <Label Margin="5,0,5,0" Text="Valor R$" VerticalOptions="Center" Grid.Column="2"/>
+                <Label Margin="5,0,5,0" Text="Status" VerticalOptions="Center" Grid.Column="3"/>
+
+                <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <BoxView WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <BoxView WidthRequest="1" Grid.Column="2" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <BoxView WidthRequest="1" Grid.Column="3" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+            </Grid>
+
+            <ListView x:Name="listView" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Editar"/>                               
+                            </ViewCell.ContextActions>
+                            <ViewCell.View>
+                                <Grid RowSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="50"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Margin="5,0,5,0" Text="{Binding Date}" VerticalOptions="Center" Grid.Column="0"/>
+                                    <Label Margin="5,0,5,0" Text="{Binding UnitCost}" VerticalOptions="Center" Grid.Column="1"/>
+                                    <Label Margin="5,0,5,0" Text="{Binding Quantity}" VerticalOptions="Center" Grid.Column="2"/>
+                                    <Label Margin="5,0,5,0" Text="{Binding ExtendedCost}" VerticalOptions="Center" Grid.Column="3"/>
+
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Salvar" Command="{Binding SaveOrderComand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

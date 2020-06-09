@@ -1,4 +1,5 @@
-﻿using GoldenLeafMobile.Models.ClientModels;
+﻿using GoldenLeafMobile.Models;
+using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.Models.OrderModels;
 using GoldenLeafMobile.ViewModels.OrderViewModel;
 
@@ -18,6 +19,43 @@ namespace GoldenLeafMobile.Views.OrderViews
             InitializeComponent();
             ViewModel = new OrderEntryViewModel(client);
             BindingContext = ViewModel;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            SignUpMessages();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            MessagingCenter.Unsubscribe<OrderEntryViewModel>(this, ViewModel.ASK);
+            MessagingCenter.Unsubscribe<OrderEntryViewModel>(this, ViewModel.SUCCESS);
+            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
+        }
+
+        private void SignUpMessages()
+        {
+            MessagingCenter.Subscribe<OrderEntryViewModel>(this, ViewModel.ASK, async (_msg) =>
+            {
+                var confirm = await DisplayAlert("Salvar pedido", "Deseja mesmo salvar o pedido?", "Sim", "Não");
+                if (confirm)
+                {
+                    ViewModel.SaveOrder();
+                }
+            });
+
+            MessagingCenter.Subscribe<OrderEntryViewModel>(this, ViewModel.SUCCESS, async (_msg) =>
+            {
+                await DisplayAlert("Salvar pedido", "Pedido salvo com sucesso!", "Ok");
+                await Navigation.PopToRootAsync();
+            });
+
+            MessagingCenter.Subscribe<SimpleHttpResponseException>(this, ViewModel.FAIL, (_msg) =>
+            {
+                DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
+            });
         }
 
         private async void ToolbarItem_Clicked(object sender, System.EventArgs e)
