@@ -17,13 +17,14 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         public ICommand AddProductComand { get; private set; }
         public ICommand SaveOrderComand { get; private set; }
 
-        public readonly string SUCCESS = "SuccessSavingOrder";
-        public readonly string FAIL = "FailedSavingOrder";
-        public readonly string ASK = "SavingOrder";
+        public readonly string SUCCESS = "SuccessAction";
+        public readonly string FAIL = "FailedAction";
+        public readonly string ASK = "AskBeforeAction";
+        //public readonly string SEARCH = "SearchAction";
 
         private readonly string URL_PRODUCT = "https://golden-leaf.herokuapp.com/api/product/code/";
         private readonly string URL_ORDER = "https://golden-leaf.herokuapp.com/api/order";
-        public readonly string SEARCH = "SearchProduct";
+
 
 
         public Client Client { get; }
@@ -112,7 +113,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
                 () =>
             {
                 AddItem();
-                CleanTable();
+                ClearTable();
 
             }, () =>
             {
@@ -125,7 +126,12 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
 
             );
 
-            SaveOrderComand = new Command(() => { MessagingCenter.Send(this, ASK); }, () => { return Items.Count >= 1; });
+            SaveOrderComand = new Command(() =>
+                {
+                    MessagingCenter.Send(this, ASK);
+                },
+                    () => { return Items.Count >= 1; }
+               );
 
         }
 
@@ -144,8 +150,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
                 else
                 {
                     var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    if (response.Content != null)
-                        response.Content.Dispose();
+                    if (response.Content != null) { response.Content.Dispose(); }
 
                     var simpleHttpResponse = new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content);
                     MessagingCenter.Send(simpleHttpResponse, FAIL);
@@ -195,7 +200,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             ((Command)SaveOrderComand).ChangeCanExecute();
         }
 
-        private void CleanTable()
+        private void ClearTable()
         {
             IsSearching = true;
             IsEditing = false;
@@ -240,9 +245,9 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
            {
                client_id = Client.Id,
                clerk_id = Clerk.Id,
-               items = JsonConvert.SerializeObject(Items)
+               items = Items
            }
-           );
+           , Formatting.Indented);
         }
     }
 }

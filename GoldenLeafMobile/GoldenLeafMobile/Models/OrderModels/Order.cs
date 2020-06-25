@@ -5,17 +5,14 @@ namespace GoldenLeafMobile.Models.OrderModels
 {
     public class Order : BaseModel
     {
-        [JsonProperty("client_id ")]
-        public int ClientId { get; set; }
+        [JsonProperty("client")]
+        public string Client { get; set; }
 
-        [JsonProperty("clerk_id")]
-        public int ClerkId { get; set; }
-
-        [JsonProperty("payment_id")]
-        public int PaymentId { get; set; }
-
-        [JsonProperty("ordered")]
-        public DateTime Date { get; set; }
+        [JsonProperty("clerk")]
+        public string Clerk { get; set; }
+                
+        [JsonProperty("date")]
+        public string Date { get; set; }
 
         [JsonProperty("total")]
         public float Total { get; set; }
@@ -25,18 +22,7 @@ namespace GoldenLeafMobile.Models.OrderModels
 
         public override string ToJson()
         {
-            return JsonConvert.SerializeObject(
-                new
-                {
-                    id = Id,
-                    client_id = ClientId,
-                    clerk_id = ClerkId,
-                    payment_id = PaymentId,
-                    ordered = Date.ToString("O"),
-                    total = Total,
-                    status = Status.ToString()
-                }
-                ); 
+            return "Not Necessary";
         }
     }
 }

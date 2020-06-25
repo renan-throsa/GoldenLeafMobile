@@ -6,11 +6,69 @@
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.OrderViews.DetailsPage"
              Title="Detalhes">
+
+    <ContentPage.Resources>
+        <!-- Implicit styles -->
+        <Style TargetType="{x:Type Editor}">
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource AppBackgroundColor}" />
+        </Style>
+
+        <Style TargetType="Button"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor" Value="#1976D2" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="{StaticResource PageMargin}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="90"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Label Margin="5,0,5,0" Text="Descrição" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="0"/>
+                <Label Margin="5,0,5,0" Text="Preço R$" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="1"/>
+                <Label Margin="5,0,5,0" Text="Quantidade" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="2"/>
+                <Label Margin="5,0,5,0" Text="Valor R$" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="3"/>
+
+                <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <BoxView WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <BoxView WidthRequest="1" Grid.Column="2" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <BoxView WidthRequest="1" Grid.Column="3" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+            </Grid>
+
+            <ListView x:Name="listView" ItemsSource="{Binding Entities}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>                            
+                            <ViewCell.View>
+                                <Grid RowSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="95"/>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="60"/>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Label Margin="5,0,5,0" Text="{Binding Description}" VerticalOptions="Center" Grid.Column="0"/>
+                                    <Label Margin="5,0,5,0" Text="{Binding UnitCost}" VerticalOptions="Center" Grid.Column="1"/>
+                                    <Label Margin="5,0,5,0" Text="{Binding Quantity}" VerticalOptions="Center" Grid.Column="2"/>
+                                    <Label Margin="5,0,5,0" Text="{Binding ExtendedCost}" VerticalOptions="Center" Grid.Column="3"/>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -18,15 +18,12 @@ namespace GoldenLeafMobile.Views.OrderViews
             BindingContext = ViewModel;
         }
 
-
         protected async override void OnAppearing()
         {
-            base.OnAppearing();
-            listView.SelectedItem = false;
+            base.OnAppearing();            
+            await ViewModel.GetEntities();
             MessagingCenter.Subscribe<Order>(this, "SelectedOrder",
                 (_order) => Navigation.PushAsync(new DetailsPage(_order)));
-
-            await ViewModel.GetEntities();
         }
 
         protected override void OnDisappearing()
@@ -34,10 +31,7 @@ namespace GoldenLeafMobile.Views.OrderViews
             base.OnDisappearing();
             MessagingCenter.Unsubscribe<Order>(this, "SelectedOrder");
         }
+               
 
-        private void OnEdit(object sender, System.EventArgs e)
-        {
-
-        }
     }
 }

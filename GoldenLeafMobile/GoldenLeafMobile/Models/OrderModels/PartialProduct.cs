@@ -15,6 +15,6 @@ namespace GoldenLeafMobile.Models.OrderModels
 
         [JsonProperty("unit_cost")]
         public float UnitCost { get; set; }
-               
+
     }
 }

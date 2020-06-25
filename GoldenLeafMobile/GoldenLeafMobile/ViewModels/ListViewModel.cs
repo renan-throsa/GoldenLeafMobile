@@ -9,9 +9,9 @@ namespace GoldenLeafMobile.ViewModels
 {
     public class ListViewModel<T> : BaseViewModel where T : class
     {
-        private string URL = "https://golden-leaf.herokuapp.com/api/" + typeof(T).Name.ToLower();
+        public string URL { get; set; }
 
-        public ObservableCollection<T> Entities { get; set; }
+    public ObservableCollection<T> Entities { get; set; }
 
         private T _selectedEntity;
         public T SelectedEntity
@@ -23,8 +23,10 @@ namespace GoldenLeafMobile.ViewModels
                 MessagingCenter.Send(_selectedEntity, "Selected" + typeof(T).Name);
             }
         }
+
         public ListViewModel()
         {
+            URL = "https://golden-leaf.herokuapp.com/api/" + typeof(T).Name.ToLower();
             Entities = new ObservableCollection<T>();
         }
 

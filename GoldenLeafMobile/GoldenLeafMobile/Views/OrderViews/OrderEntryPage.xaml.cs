@@ -33,6 +33,7 @@ namespace GoldenLeafMobile.Views.OrderViews
             MessagingCenter.Unsubscribe<OrderEntryViewModel>(this, ViewModel.ASK);
             MessagingCenter.Unsubscribe<OrderEntryViewModel>(this, ViewModel.SUCCESS);
             MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
+            
         }
 
         private void SignUpMessages()
@@ -56,6 +57,7 @@ namespace GoldenLeafMobile.Views.OrderViews
             {
                 DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
             });
+
         }
 
         private async void ToolbarItem_Clicked(object sender, System.EventArgs e)
