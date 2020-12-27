@@ -1,7 +1,6 @@
 ﻿using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Models.CategoryModels;
 using GoldenLeafMobile.ViewModels.CategoryViewModels;
-using System;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

@@ -14,32 +14,37 @@
     <ContentPage.Resources>
         <!-- Implicit styles -->
         <Style TargetType="{x:Type Editor}">
-            <Setter Property="BackgroundColor"
-                    Value="{StaticResource AppBackgroundColor}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
         </Style>
 
-        <Style TargetType="Button"
-               ApplyToDerivedTypes="True"
-               CanCascade="True">
+        <Style TargetType="Button" ApplyToDerivedTypes="True" CanCascade="True">
             <Setter Property="FontSize" Value="Medium" />
-            <Setter Property="BackgroundColor" Value="#1976D2" />
-            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor"  Value="{StaticResource ButtonBackgroundColor}" />
+            <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
             <Setter Property="CornerRadius" Value="5" />
         </Style>
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Frame OutlineColor="Silver">
-            <Grid>
-                <StackLayout VerticalOptions="Center" Margin="40">
-                    <Image Source="PalmadeOuro.png"></Image>
-                    <Entry Text="{Binding Email}" Placeholder="Email do atendente" ></Entry>
-                    <Entry Text="{Binding Password}" Placeholder="Senha do atendente" IsPassword="True"></Entry>
-                    <Button Text="Entrar" Command="{Binding LoginCommand}"></Button>
-                </StackLayout>
-                <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}" 
-                           VerticalOptions="Center" HorizontalOptions="Center"/>
+        <StackLayout Margin="{StaticResource PageMargin}">
+            <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}"/>
+            <Image Source="PalmadeOuro.png"></Image>
+            <Grid Padding="20" VerticalOptions="CenterAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />                    
+                </Grid.ColumnDefinitions>
+
+                <Entry Grid.Row="0" Grid.Column="0" Text="{Binding Email}" Placeholder="Email" HorizontalOptions="FillAndExpand"/>
+                <Entry Grid.Row="1" Grid.Column="0" Text="{Binding Password}" Placeholder="Senha" IsPassword="True" HorizontalOptions="FillAndExpand"/>
+                <Button Grid.Row="2" Grid.Column="0" HorizontalOptions="FillAndExpand" Text="Entrar" Command="{Binding LoginCommand}"></Button>
+             
             </Grid>
-        </Frame>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -50,16 +50,8 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
 
         private async Task Login()
         {
-
             HttpClient httpClient = new HttpClient();
             Wait = true;
-            var form = new FormUrlEncodedContent(new[]
-            {
-                   new KeyValuePair<string,string>("username",Email),
-                   new KeyValuePair<string,string>("password",Password),
-            });
-
-
             /*
              * HTTP Basic Authentication --> https://en.wikipedia.org/wiki/Basic_access_authentication
              * While encoding the user name and password with the Base64 algorithm typically makes
@@ -68,21 +60,21 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
              * is to encode non-HTTP-compatible characters that may be in the user name or password
              * into those that are HTTP-compatible.
              */
-            var encoded = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(Email + ":" + Password));
+            var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(Email + ":" + Password));
             httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {encoded}");
-            HttpResponseMessage response = null;
+            var stringContent = new StringContent("Not necessary for now. Login does not require a body.", Encoding.UTF8, "application/json");
+            HttpResponseMessage response;
             try
             {
-                response = await httpClient.PostAsync(URL_POST_CLERK, form);
+                response = await httpClient.PostAsync(URL_POST_CLERK, stringContent);
             }
             catch (Exception)
             {
                 var reasonPhrase = "Erro na comunicação";
-                var message = @"Ocorreu um erro de comunicação com o servidor.Por favor verifique 
-                                a sua conexão e tente novamente mais tarde.";
+                var message = @"Ocorreu um erro de comunicação com o servidor.Por favor, verifique a sua conexão e tente novamente mais tarde.";
 
-
-                MessagingCenter.Send(new LoginException(reasonPhrase, message), "FailedConnection"); ;
+                MessagingCenter.Send(new LoginException(reasonPhrase, message), "FailedConnection");
+                return;
             }
 
             Wait = false;

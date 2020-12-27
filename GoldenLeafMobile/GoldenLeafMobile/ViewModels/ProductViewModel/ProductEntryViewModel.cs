@@ -13,7 +13,7 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModels
         public ProductEntryViewModel(Product product) : base(product)
         {
 
-            SaveProductComand = new Command
+            SaveProductCommand = new Command
                 (
                     () =>
                     {

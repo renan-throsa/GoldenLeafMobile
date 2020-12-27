@@ -16,12 +16,10 @@
                     Value="{StaticResource AppBackgroundColor}" />
                 </Style>
 
-                <Style TargetType="Button"
-               ApplyToDerivedTypes="True"
-               CanCascade="True">
+                <Style TargetType="Button" ApplyToDerivedTypes="True" CanCascade="True">
                     <Setter Property="FontSize" Value="Medium" />
-                    <Setter Property="BackgroundColor" Value="#1976D2" />
-                    <Setter Property="TextColor" Value="White" />
+                    <Setter Property="BackgroundColor"  Value="{StaticResource ButtonBackgroundColor}" />
+                    <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
                     <Setter Property="CornerRadius" Value="5" />
                 </Style>
             </ContentPage.Resources>
@@ -86,17 +84,14 @@
                     Value="{StaticResource AppBackgroundColor}" />
                 </Style>
 
-                <Style TargetType="Button"
-               ApplyToDerivedTypes="True"
-               CanCascade="True">
+                <Style TargetType="Button" ApplyToDerivedTypes="True" CanCascade="True">
                     <Setter Property="FontSize" Value="Medium" />
-                    <Setter Property="BackgroundColor" Value="#1976D2" />
-                    <Setter Property="TextColor" Value="White" />
+                    <Setter Property="BackgroundColor"  Value="{StaticResource ButtonBackgroundColor}" />
+                    <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
                     <Setter Property="CornerRadius" Value="5" />
                 </Style>
-
             </ContentPage.Resources>
-
+            
             <ContentPage.ToolbarItems>
                 <ToolbarItem
                      IconImageSource="CameraIcon.png"             

@@ -19,7 +19,7 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
         public EditViewModel(Product product) : base(product)
         {
             Product = product;
-            SaveProductComand = new Command
+            SaveProductCommand = new Command
                 (
                     () =>
                     {

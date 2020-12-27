@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GoldenLeafMobile.Views.PaymentView.PaymentsPage"
+             Title="Pagamentos">
+
+    <ContentPage.Resources>
+        <!-- Implicit styles -->
+        <Style TargetType="{x:Type Editor}">
+            <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
+        </Style>
+
+        <Style TargetType="Button" ApplyToDerivedTypes="True" CanCascade="True">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor"  Value="{StaticResource ButtonBackgroundColor}" />
+            <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Margin="{StaticResource PageMargin}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="90"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Label Margin="5,0,5,0" Text="Pago em" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="0"/>
+                <Label Margin="5,0,5,0" Text="Atendente" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="1"/>
+                <Label Margin="5,0,5,0" Text="Cliente" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="2"/>
+                <Label Margin="5,0,5,0" Text="Valor R$" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="3"/>
+
+                <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <BoxView WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <BoxView WidthRequest="1" Grid.Column="2" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <BoxView WidthRequest="1" Grid.Column="3" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+            </Grid>
+
+            <ListView x:Name="listView" ItemsSource="{Binding Entities}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid RowSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="50"/>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Label Margin="5,0,5,0" Text="{Binding Date}" VerticalOptions="Center" Grid.Column="0"/>
+                                    <Label Margin="5,0,5,0" Text="{Binding Clerk}" VerticalOptions="Center" Grid.Column="1"/>
+                                    <Label Margin="5,0,5,0" Text="{Binding Client}" VerticalOptions="Center" Grid.Column="2"/>
+                                    <Label Margin="5,0,5,0" Text="{Binding Value}" VerticalOptions="Center" Grid.Column="3"/>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

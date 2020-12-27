@@ -47,15 +47,15 @@
                             </ViewCell.ContextActions>
                             <ViewCell.View>
                                 <Grid RowSpacing="0">
+                                    
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
-
                                     </Grid.ColumnDefinitions>
+                                    
                                     <Label Margin="5,0,5,0" Text="{Binding Title}" 
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
                                            VerticalOptions="Center" Grid.Column="0"/>
-
 
                                     <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
 

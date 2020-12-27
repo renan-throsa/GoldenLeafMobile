@@ -27,7 +27,6 @@
 
    
     <ContentPage.Content>
-        <Frame OutlineColor="Silver" VerticalOptions="CenterAndExpand"  Margin="15">
             <StackLayout Margin="{StaticResource PageMargin}">
                 <TableView Intent="Data">
                     <TableRoot>
@@ -43,7 +42,6 @@
                     </TableRoot>
                 </TableView>
                 <Button x:Name="buttonEdit" Text="Editar" Clicked="buttonEdit_Clicked"></Button>
-            </StackLayout>
-        </Frame>
+            </StackLayout>        
     </ContentPage.Content>
 </ContentPage>

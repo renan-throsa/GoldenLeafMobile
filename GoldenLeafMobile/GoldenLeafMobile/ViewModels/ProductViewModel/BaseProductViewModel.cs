@@ -22,7 +22,7 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
         public readonly string ASK = "SavingProduct";
 
 
-        public ICommand SaveProductComand { get; set; }
+        public ICommand SaveProductCommand { get; set; }
         protected Product Product { get; set; }
 
         private Category _selectedCategory;
@@ -35,30 +35,30 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
         public int CategoryId
         {
             get { return Product.CategoryId; }
-            set { Product.CategoryId = value; ((Command)SaveProductComand).ChangeCanExecute(); }
+            set { Product.CategoryId = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
         }
 
         public string Description
         {
             get { return Product.Description; }
-            set { Product.Description = value; ((Command)SaveProductComand).ChangeCanExecute(); }
+            set { Product.Description = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
         }
         public bool IsAvailable
         {
             get { return Product.IsAvailable; }
-            set { Product.IsAvailable = value; ((Command)SaveProductComand).ChangeCanExecute(); }
+            set { Product.IsAvailable = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
         }
 
         public string Code
         {
             get { return Product.Code; }
-            set { Product.Code = value; ((Command)SaveProductComand).ChangeCanExecute(); }
+            set { Product.Code = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
         }
 
         public float UnitCost
         {
             get { return Product.UnitCost; }
-            set { Product.UnitCost = value; ((Command)SaveProductComand).ChangeCanExecute(); }
+            set { Product.UnitCost = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
         }
 
         public ObservableCollection<Category> Categories { get; private set; }

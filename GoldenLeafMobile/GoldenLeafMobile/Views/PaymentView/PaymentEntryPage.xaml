@@ -4,8 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="GoldenLeafMobile.Views.ProductViews.DetailsPage"
-             Title="Detalhes">
+             x:Class="GoldenLeafMobile.Views.PaymentView.PaymentEntryPage"
+             Title="Pagar">
 
     <ContentPage.Resources>
         <!-- Implicit styles -->
@@ -20,24 +20,18 @@
             <Setter Property="CornerRadius" Value="5" />
         </Style>
     </ContentPage.Resources>
-
     
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource PageMargin}">
-            <TableView Intent="Data">
+            <TableView Intent="Form">
                 <TableRoot>
-                    <TableSection Title="Dados">
-                        <TextCell Detail="Produto" TextColor="Black" Text="{Binding Product.Description}"></TextCell>
-                        <TextCell Detail="Código" TextColor="Black" Text="{Binding Product.Code}"></TextCell>
-                        <TextCell Detail="Preço" TextColor="Black" Text="{Binding Product.UnitCost}"></TextCell>
-                    </TableSection>
-                    <TableSection Title="Configurações">
-                        <TextCell Detail="Disponibilidade" TextColor="Black" Text="{Binding Product.IsAvailable}"></TextCell>
-                    </TableSection>
+                    <TableSection Title="Valores">
+                        <EntryCell Keyboard="Numeric" IsEnabled="False" Text="{Binding Total}"/>
+                        <EntryCell Keyboard="Numeric" Placeholder="Valor" Text="{Binding Valuw,Mode=TwoWay}"/>                        
+                    </TableSection>                    
                 </TableRoot>
             </TableView>
-            <Button x:Name="buttonEdit" Text="Editar" Clicked="buttonEdit_Clicked"></Button>
+            <Button Text="Pagar" Command="{Binding PayComand}"></Button>
         </StackLayout>
     </ContentPage.Content>
-    
 </ContentPage>

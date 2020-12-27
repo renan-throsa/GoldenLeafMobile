@@ -3,6 +3,8 @@ using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.Models.OrderModels;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text;
@@ -240,11 +242,19 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
 
         private string CreateOrderString()
         {
+            var payload = new Dictionary<string, object>(){
+            { "client_id", Client.Id },
+            { "clerk_id", Clerk.Id }
+            };
+
+            var secretKey = Application.Current.Properties["Secret"] as String;
+            string ids = JWT.JsonWebToken.Encode(payload, secretKey, JWT.JwtHashAlgorithm.HS256);
+
+
             return JsonConvert.SerializeObject(
            new
            {
-               client_id = Client.Id,
-               clerk_id = Clerk.Id,
+               token = ids,
                items = Items
            }
            , Formatting.Indented);

@@ -17,6 +17,20 @@
             <Setter Property="BackgroundColor"
                     Value="{StaticResource AppBackgroundColor}" />
         </Style>
+
+        <Style x:Key="headerTablet" TargetType="Label">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="BackgroundColor" Value="Silver" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="detailTablet" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+        </Style>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
@@ -26,16 +40,17 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Padding="5" Spacing="0">      
-            <Grid>
+        <StackLayout Margin="{StaticResource PageMargin}">
+            <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}"/>
+            <Grid RowSpacing="1" ColumnSpacing="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
-                <Label Margin="5,0,5,0" Text="Produto" VerticalOptions="Center" Grid.Column="0"/>
-                <Label Margin="5,0,5,0" Text="Preço" VerticalOptions="Center" Grid.Column="1"/>
-                <Label Margin="5,0,5,0" Text="Disponível" VerticalOptions="Center" Grid.Column="2"/>
+                <Label Text="Produto" Grid.Column="0" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Preço" Grid.Column="1" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Disponível" Grid.Column="2" Style="{DynamicResource headerTablet}"/>
 
                 <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
                 <BoxView WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
@@ -56,19 +71,18 @@
                                         <ColumnDefinition Width="1*"></ColumnDefinition>
                                         <ColumnDefinition Width="1*"></ColumnDefinition>                                        
                                     </Grid.ColumnDefinitions>
-                                    <Label Margin="5,0,5,0" Text="{Binding Description}" 
+                                    <Label Text="{Binding Description}" 
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
-                                           VerticalOptions="Center" Grid.Column="0"/>
-                                    <Label Margin="5,0,5,0" Text="{Binding UnitCost}" 
+                                           Grid.Column="0" Style="{DynamicResource detailTablet}"/>
+                                    <Label Text="{Binding UnitCost}" 
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
-                                           VerticalOptions="Center" Grid.Column="1"/>
-                                    <Label Margin="5,0,5,0" Text="{Binding FormatedAvailability}" 
+                                           Grid.Column="1" Style="{DynamicResource detailTablet}"/>
+                                    <Label Text="{Binding FormatedAvailability}" 
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
-                                           VerticalOptions="Center" Grid.Column="2"/>
-
+                                           Grid.Column="2" Style="{DynamicResource detailTablet}"/>
                                    
                                 </Grid>
                             </ViewCell.View>
@@ -77,8 +91,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}" 
-                           VerticalOptions="Center" HorizontalOptions="Center"/>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
