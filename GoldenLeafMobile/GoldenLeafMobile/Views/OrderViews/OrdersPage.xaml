@@ -7,43 +7,24 @@
              x:Class="GoldenLeafMobile.Views.OrderViews.OrdersPage"
              Title="Pedidos">
 
-    <ContentPage.Resources>
-        <!-- Implicit styles -->
-        <Style TargetType="{x:Type Editor}">
-            <Setter Property="BackgroundColor"
-                    Value="{StaticResource AppBackgroundColor}" />
-        </Style>
-
-        <Style TargetType="Button"
-               ApplyToDerivedTypes="True"
-               CanCascade="True">
-            <Setter Property="FontSize" Value="Medium" />
-            <Setter Property="BackgroundColor" Value="#1976D2" />
-            <Setter Property="TextColor" Value="White" />
-            <Setter Property="CornerRadius" Value="5" />
-        </Style>
-    </ContentPage.Resources>
-
     <ContentPage.Content>
-        <StackLayout Margin="{StaticResource PageMargin}">
-            <Grid>
+        <StackLayout Margin="{DynamicResource PageMargin}" Spacing="0">
+            <Grid ColumnSpacing="-1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="90"/>
-                    <ColumnDefinition Width="90"/>
-                    
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Margin="5,0,5,0" Text="Comprado em" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="0"/>
-                <Label Margin="5,0,5,0" Text="Atendente" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="1"/>
-                <Label Margin="5,0,5,0" Text="Cliente" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="2"/>
-                <Label Margin="5,0,5,0" Text="Valor R$" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="3"/>
- 
-                <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
-                <BoxView WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
-                <BoxView WidthRequest="1" Grid.Column="2" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
-                <BoxView WidthRequest="1" Grid.Column="3" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <Label Text="Comprado em" Grid.Column="0" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Atendente" Grid.Column="1" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Cliente" Grid.Column="2" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Valor R$" Grid.Column="3" Style="{DynamicResource headerTablet}"/>                
             </Grid>
 
             <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
@@ -51,24 +32,24 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
-                                <Grid RowSpacing="0">
+                                <Grid ColumnSpacing="-1"  RowSpacing="-1">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="120"/>
-                                        <ColumnDefinition Width="50"/>
-                                        
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+
                                     </Grid.ColumnDefinitions>
-                                    <Label Margin="5,0,5,0" Text="{Binding Date}" VerticalOptions="Center" Grid.Column="0"/>
-                                    <Label Margin="5,0,5,0" Text="{Binding Clerk}" VerticalOptions="Center" Grid.Column="1"/>
-                                    <Label Margin="5,0,5,0" Text="{Binding Client}" VerticalOptions="Center" Grid.Column="2"/>
-                                    <Label Margin="5,0,5,0" Text="{Binding Total}" VerticalOptions="Center" Grid.Column="3"/>
+                                    <Label Text="{Binding Date}" Grid.Column="0" Style="{DynamicResource detailTablet}"/>
+                                    <Label Text="{Binding Clerk}" Grid.Column="1" Style="{DynamicResource detailTablet}"/>
+                                    <Label Text="{Binding Client}" Grid.Column="2" Style="{DynamicResource detailTablet}"/>
+                                    <Label Text="{Binding Total}" Grid.Column="3" Style="{DynamicResource detailTablet}"/>
                                 </Grid>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>            
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

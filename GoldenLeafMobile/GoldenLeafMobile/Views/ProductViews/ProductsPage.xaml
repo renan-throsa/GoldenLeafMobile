@@ -11,26 +11,8 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:SyncronizedConverter x:Key="syncronizedConverter"/>
-        </ResourceDictionary>
-        <!-- Implicit styles -->
-        <Style TargetType="{x:Type ListView}">
-            <Setter Property="BackgroundColor"
-                    Value="{StaticResource AppBackgroundColor}" />
-        </Style>
-
-        <Style x:Key="headerTablet" TargetType="Label">
-            <Setter Property="TextColor" Value="White" />
-            <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="BackgroundColor" Value="Silver" />
-            <Setter Property="VerticalTextAlignment" Value="Center" />
-            <Setter Property="HorizontalTextAlignment" Value="Center" />
-        </Style>
-        <Style x:Key="detailTablet" TargetType="Label">
-            <Setter Property="TextColor" Value="Black" />
-            <Setter Property="BackgroundColor" Value="White" />
-            <Setter Property="VerticalTextAlignment" Value="Center" />
-            <Setter Property="HorizontalTextAlignment" Value="Center" />
-        </Style>
+        </ResourceDictionary>       
+       
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
@@ -40,21 +22,26 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Margin="{StaticResource PageMargin}">
+        <StackLayout Margin="{DynamicResource PageMargin}" Spacing="0">
+            <!-- 
             <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}"/>
-            <Grid RowSpacing="1" ColumnSpacing="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="175"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-                <Label Text="Produto" Grid.Column="0" Style="{DynamicResource headerTablet}"/>
-                <Label Text="Preço" Grid.Column="1" Style="{DynamicResource headerTablet}"/>
-                <Label Text="Disponível" Grid.Column="2" Style="{DynamicResource headerTablet}"/>
+            -->
+            
+            <Grid ColumnSpacing="-1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />                   
+                </Grid.RowDefinitions>
 
-                <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
-                <BoxView WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
-                <BoxView WidthRequest="1" Grid.Column="2" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Produto"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Preço" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource headerTablet}"/>
+                <Label Text="Disponível" Grid.Row="0" Grid.Column="2"  Style="{DynamicResource headerTablet}"/>
+
             </Grid>
 
             <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
@@ -62,36 +49,38 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
-                                <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Editar"/>                                
+                                <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Editar"/>
                             </ViewCell.ContextActions>
                             <ViewCell.View>
-                                <Grid RowSpacing="0">
+                                
+                                    <Grid ColumnSpacing="-1"  RowSpacing="-1">                                    
+
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                                        <ColumnDefinition Width="1*"></ColumnDefinition>                                        
-                                    </Grid.ColumnDefinitions>
-                                    <Label Text="{Binding Description}" 
-                                           TextColor="{Binding Syncronized,Converter=
-                                            {StaticResource Key=syncronizedConverter}}" 
+                                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Text="{Binding Description}"                                           
+                                           TextColor="{Binding Syncronized,Converter={StaticResource Key=syncronizedConverter}}"                                           
                                            Grid.Column="0" Style="{DynamicResource detailTablet}"/>
-                                    <Label Text="{Binding UnitCost}" 
+                                        
+                                        <Label Text="{Binding UnitCost}" 
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
                                            Grid.Column="1" Style="{DynamicResource detailTablet}"/>
-                                    <Label Text="{Binding FormatedAvailability}" 
+                                        
+                                        <Label Text="{Binding FormatedAvailability}" 
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
                                            Grid.Column="2" Style="{DynamicResource detailTablet}"/>
-                                   
-                                </Grid>
+                                    
+                                    </Grid>                                
                             </ViewCell.View>
-
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

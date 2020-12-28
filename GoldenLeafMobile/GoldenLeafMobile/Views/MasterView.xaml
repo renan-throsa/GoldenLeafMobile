@@ -11,24 +11,12 @@
             xmlns:order="clr-namespace:GoldenLeafMobile.Views.OrderViews"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.MasterView"
+            BarBackgroundColor="Black"
             Title="Perfil">
 
     <TabbedPage.Children>
         <ContentPage Title="Atendente">
-            <ContentPage.Resources>
-                <!-- Implicit styles -->
-                <Style TargetType="{x:Type Editor}">
-                    <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
-                </Style>
-
-                <Style TargetType="Button" ApplyToDerivedTypes="True" CanCascade="True">
-                    <Setter Property="FontSize" Value="Medium" />
-                    <Setter Property="BackgroundColor"  Value="{StaticResource ButtonBackgroundColor}" />
-                    <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
-                    <Setter Property="CornerRadius" Value="5" />
-                </Style>
-            </ContentPage.Resources>
-
+            
 
             <Frame OutlineColor="Silver"  Margin="15">
                 <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
@@ -38,8 +26,8 @@
                     <Label Text="{Binding PhoneNumber}"></Label>
 
                     <BoxView HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand" />
-                    
-                    <ListView x:Name="listView" x:FieldModifier="public">
+
+                    <ListView x:Name="listView" x:FieldModifier="public" BackgroundColor="White">
                         <ListView.ItemsSource>
                             <x:Array Type="{x:Type local:MasterPageItem}">
                                 <local:MasterPageItem Title="Categorias" IconSource="CategoryIcon.png" TargetType="{x:Type category:CategoriesPage}" />
@@ -51,7 +39,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Grid Padding="5,10">
+                                    <Grid Padding="5,10" BackgroundColor="White">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="30"/>
                                             <ColumnDefinition Width="*" />
@@ -99,10 +87,6 @@
                             ,Mode=TwoWay}" IsEnabled="{Binding Editing}" />
                                 <EntryCell Keyboard="Email" Label="Email" Text="{Binding Email
                             ,Mode=TwoWay}" IsEnabled="{Binding Editing}" />
-                            </TableSection>
-
-                            <TableSection Title="Configurações">
-
                             </TableSection>
                         </TableRoot>
                     </TableView>

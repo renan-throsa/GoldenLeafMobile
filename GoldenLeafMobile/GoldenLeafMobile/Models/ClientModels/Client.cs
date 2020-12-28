@@ -7,6 +7,9 @@ namespace GoldenLeafMobile.Models.ClientModels
         [JsonProperty("identification")]
         public string Identification { get; set; }
 
+        [JsonProperty("amount")]
+        public float Amount { get; set; }
+
         [JsonProperty("address")]
         public string Address { get; set; }
 
@@ -17,30 +20,31 @@ namespace GoldenLeafMobile.Models.ClientModels
         public bool Notifiable { get; set; }
 
         public Client()
-        {         
+        {
             Status = true;
             Notifiable = true;
         }
-               
+
         public override string ToString()
         {
             return $"Nome: {Name} Telefone: {PhoneNumber} Rg: {Identification} Notificável{Notifiable} Status: {Status}";
         }
 
         public override string ToJson()
-        {            
+        {
             return JsonConvert.SerializeObject(
                 new
                 {
                     id = Id,
                     name = Name,
+                    amount = Amount,
                     address = Address,
                     identification = Identification,
                     phone_number = PhoneNumber,
                     notifiable = Notifiable,
                     status = Status
                 }
-                );
+           );
         }
     }
 }

@@ -12,11 +12,6 @@
         <ResourceDictionary>
             <converter:SyncronizedConverter x:Key="syncronizedConverter"/>
         </ResourceDictionary>
-        <!-- Implicit styles -->
-        <Style TargetType="{x:Type ListView}">
-            <Setter Property="BackgroundColor"
-                    Value="{StaticResource AppBackgroundColor}" />
-        </Style>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
@@ -26,15 +21,18 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Padding="5" Spacing="0">
-            <Grid>
+        <StackLayout Margin="{DynamicResource PageMargin}" Spacing="0">
+            <Grid ColumnSpacing="-1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-
                 </Grid.ColumnDefinitions>
-                <Label Margin="5,0,5,0" Text="Categoria" VerticalOptions="Center" Grid.Column="0"/>
+                <Label Text="Categoria" Grid.Column="0" Style="{DynamicResource headerTablet}"/>
 
-                <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
             </Grid>
 
             <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
@@ -46,19 +44,17 @@
                                 <MenuItem Clicked="OnNewProduct" CommandParameter="{Binding Id}" Text="Novo produto"/>
                             </ViewCell.ContextActions>
                             <ViewCell.View>
-                                <Grid RowSpacing="0">
-                                    
+                                <Grid ColumnSpacing="-1"  RowSpacing="-1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    
-                                    <Label Margin="5,0,5,0" Text="{Binding Title}" 
+
+                                    <Label Text="{Binding Title}"
+                                           Style="{DynamicResource detailTablet}"
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
-                                           VerticalOptions="Center" Grid.Column="0"/>
-
-                                    <BoxView WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
-
+                                         Grid.Column="0"/>
+                                    
                                 </Grid>
                             </ViewCell.View>
 
