@@ -2,9 +2,7 @@
 using GoldenLeafMobile.Models.ClerkModels;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -50,6 +48,7 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
 
         private async Task Login()
         {
+
             HttpClient httpClient = new HttpClient();
             Wait = true;
             /*
@@ -71,7 +70,7 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
             catch (Exception)
             {
                 var reasonPhrase = "Erro na comunicação";
-                var message = @"Ocorreu um erro de comunicação com o servidor.Por favor, verifique a sua conexão e tente novamente mais tarde.";
+                var message = @"Ocorreu um erro de comunicação com o servidor. Por favor, verifique a sua conexão e tente novamente mais tarde.";
 
                 MessagingCenter.Send(new LoginException(reasonPhrase, message), "FailedConnection");
                 return;

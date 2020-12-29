@@ -16,7 +16,7 @@ namespace GoldenLeafMobile.Models.PaymentModel
         [JsonProperty("date")]
         public string Date { get; set; }
 
-        [JsonProperty("value")]
-        public float Value { get; set; }
+        [JsonProperty("amount")]
+        public float Amount { get; set; }
     }
 }

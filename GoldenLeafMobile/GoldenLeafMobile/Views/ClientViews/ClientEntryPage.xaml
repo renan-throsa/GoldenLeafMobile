@@ -31,8 +31,6 @@
                             ,Mode=TwoWay}"/>
                         <EntryCell Keyboard="Default" Placeholder="Endereço" Text="{Binding Address
                             ,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Numeric" Placeholder="Identificação" Text="{Binding Identification
-                            ,Mode=TwoWay}"/>
                     </TableSection>
                     <TableSection Title="Configurações">
                         <SwitchCell Text="Notificável" On="True"/>

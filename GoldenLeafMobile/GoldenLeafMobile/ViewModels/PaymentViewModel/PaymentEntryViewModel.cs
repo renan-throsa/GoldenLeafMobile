@@ -14,19 +14,25 @@ namespace GoldenLeafMobile.ViewModels.PaymentViewModel
 {
     public class PaymentEntryViewModel
     {
-        private readonly string URL_PAYMENT = "https://golden-leaf.herokuapp.com/payment/new/client/";
+        private readonly string URL_PAYMENT = "https://golden-leaf.herokuapp.com/api/payment";
         public readonly string SUCCESS = "SuccessSavingPayment";
         public readonly string FAIL = "FailedSavingPayment";
         public readonly string ASK = "SavingPayment";
 
 
-
         public ICommand PayCommand { get; set; }
 
-        public float Value { get; set; }
-        public float Total { get; set; }
         public Client Client { get; }
         public Clerk Clerk { get; }
+
+        private float _value;
+
+        public float Value
+        {
+            get { return _value; }
+            set { _value = value; ((Command)PayCommand).ChangeCanExecute(); }
+        }
+
 
 
         public PaymentEntryViewModel(Client client)
@@ -35,20 +41,15 @@ namespace GoldenLeafMobile.ViewModels.PaymentViewModel
                 (
                     () =>
                     {
-                        //MessagingCenter.Send<string>(String, ASK);
+                        MessagingCenter.Send<string>($"R$ {this.Value}", ASK);
                     },
                     () =>
                     {
-                        return Value > 0 && Value <= Total;
+                        return Value > 0 && Value <= Client.Amount;
                     }
                 );
             Client = client;
             Clerk = Application.Current.Properties["Clerk"] as Clerk;
-        }
-
-        public async void GetTotal()
-        {
-
         }
 
         public async void SavePayment()
@@ -61,7 +62,7 @@ namespace GoldenLeafMobile.ViewModels.PaymentViewModel
 
                 if (response.IsSuccessStatusCode)
                 {
-                    MessagingCenter.Send<String>("Pagamento recebido com sucesso!", SUCCESS);
+                    MessagingCenter.Send<String>($"R$ {this.Client.Amount - this.Value}", SUCCESS);
                 }
                 else
                 {
@@ -87,13 +88,13 @@ namespace GoldenLeafMobile.ViewModels.PaymentViewModel
 
             var secretKey = Application.Current.Properties["Secret"] as String;
             string token = JWT.JsonWebToken.Encode(payload, secretKey, JWT.JwtHashAlgorithm.HS256);
-            var payment = JsonConvert.SerializeObject(new
-            {
-                payment = token
-            }
+            var payment = JsonConvert.SerializeObject(
+                new
+                {
+                    payment = token
+                }
              );
             return payment;
-
         }
     }
 }

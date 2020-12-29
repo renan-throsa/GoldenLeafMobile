@@ -27,7 +27,7 @@ namespace GoldenLeafMobile.ViewModels.CategoryViewModels
                 (
                     () =>
                     {
-                        MessagingCenter.Send(Category, "SavingEditedCategory");
+                        MessagingCenter.Send<Category>(Category, "SavingEditedCategory");
                     },
                       () =>
                       {

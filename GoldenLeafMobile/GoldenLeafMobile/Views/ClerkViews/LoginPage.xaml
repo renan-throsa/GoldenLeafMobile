@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="*" />                    
                 </Grid.ColumnDefinitions>
 
-                <Entry Grid.Row="0" Grid.Column="0" Text="{Binding Email}" Placeholder="Email" HorizontalOptions="FillAndExpand"/>
+                <Entry Keyboard="Email" Grid.Row="0" Grid.Column="0" Text="{Binding Email}" Placeholder="Email" HorizontalOptions="FillAndExpand"/>
                 <Entry Grid.Row="1" Grid.Column="0" Text="{Binding Password}" Placeholder="Senha" IsPassword="True" HorizontalOptions="FillAndExpand"/>
                 <Button Grid.Row="2" Grid.Column="0" HorizontalOptions="FillAndExpand" Text="Entrar" Command="{Binding LoginCommand}"></Button>
              

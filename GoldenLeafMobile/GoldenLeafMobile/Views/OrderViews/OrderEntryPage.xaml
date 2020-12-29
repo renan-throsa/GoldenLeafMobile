@@ -9,9 +9,9 @@
             Title="Novo pedido">
 
     <TabbedPage.Children>
-        <ContentPage Title="Pedido">
-            
+        <ContentPage Title="Pedido">            
             <StackLayout Margin="{StaticResource PageMargin}" Spacing="0">
+                <Label FontSize="Large" Text="{Binding Client.Name}" TextColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                 <Grid ColumnSpacing="-1" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />

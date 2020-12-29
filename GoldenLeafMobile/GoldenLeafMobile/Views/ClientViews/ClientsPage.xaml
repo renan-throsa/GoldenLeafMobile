@@ -23,7 +23,7 @@
 
     <ContentPage.Content>
         <StackLayout Margin="{DynamicResource PageMargin}" Spacing="0">
-            <Grid VerticalOptions="StartAndExpand" ColumnSpacing="-1">
+            <Grid ColumnSpacing="-1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
@@ -36,7 +36,7 @@
 
                 <Label Text="Cliente" Grid.Column="0" Style="{DynamicResource headerTablet}"/>
                 <Label Text="Número" Grid.Row="0" Grid.Column="1" Style="{DynamicResource headerTablet}"/>
-                <Label Text="Total" Grid.Row="0" Grid.Column="2" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Total R$" Grid.Row="0" Grid.Column="2" Style="{DynamicResource headerTablet}"/>
             </Grid>
 
             <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">

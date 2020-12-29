@@ -9,6 +9,7 @@
             xmlns:product="clr-namespace:GoldenLeafMobile.Views.ProductViews"
             xmlns:client ="clr-namespace:GoldenLeafMobile.Views.ClientViews"
             xmlns:order="clr-namespace:GoldenLeafMobile.Views.OrderViews"
+            xmlns:payment="clr-namespace:GoldenLeafMobile.Views.PaymentView"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.MasterView"
             BarBackgroundColor="Black"
@@ -34,6 +35,7 @@
                                 <local:MasterPageItem Title="Produtos" IconSource="ProductsIcon.png" TargetType="{x:Type product:ProductsPage}" />
                                 <local:MasterPageItem Title="Clientes" IconSource="ClientsIcon.png" TargetType="{x:Type client:ClientsPage}" />
                                 <local:MasterPageItem Title="Pedidos" IconSource="OrderIcon.png" TargetType="{x:Type order:OrdersPage}"  />
+                                <local:MasterPageItem Title="Pagamentos" IconSource="PaymentIcon.png" TargetType="{x:Type payment:PaymentsPage}"  />
                             </x:Array>
                         </ListView.ItemsSource>
                         <ListView.ItemTemplate>
