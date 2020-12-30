@@ -3,20 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.CategoryViews.CategoryEntryPage"
              Title="Nova Categoria">
 
     <ContentPage.Content>
-        <StackLayout Margin="{StaticResource PageMargin}">
-            <TableView Intent="Form">
-                <TableRoot>
-                    <TableSection Title="Dados">
-                        <EntryCell Keyboard="Text" Placeholder="Título" Text="{Binding Title,Mode=TwoWay}"/>
-                    </TableSection>
-                </TableRoot>
-            </TableView>
-            <Button Text="Salvar" Command="{Binding SaveCategoryComand}" ></Button>
-        </StackLayout>
+        <Frame>
+            <StackLayout Margin="{StaticResource PageMargin}">
+                <TableView Intent="Form">
+                    <TableRoot>
+                        <TableSection Title="Dados">
+                            <EntryCell Keyboard="Text" Placeholder="Título" Text="{Binding Title,Mode=TwoWay}"/>
+                        </TableSection>
+                    </TableRoot>
+                </TableView>
+                <Button android:Button.UseDefaultShadow="True" Text="Salvar" Command="{Binding SaveCategoryComand}" ></Button>
+            </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </ContentPage>

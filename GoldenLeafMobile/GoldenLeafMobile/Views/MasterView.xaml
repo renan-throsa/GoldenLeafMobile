@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="clr-namespace:GoldenLeafMobile.Converters"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             xmlns:local="clr-namespace:GoldenLeafMobile.Views"
             xmlns:category="clr-namespace:GoldenLeafMobile.Views.CategoryViews"
             xmlns:product="clr-namespace:GoldenLeafMobile.Views.ProductViews"
@@ -17,7 +18,6 @@
 
     <TabbedPage.Children>
         <ContentPage Title="Atendente">
-            
 
             <Frame OutlineColor="Silver"  Margin="15">
                 <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
@@ -59,24 +59,13 @@
 
         <ContentPage Title="Editar">
             <ContentPage.Resources>
-                <!-- Implicit styles -->
-                <Style TargetType="{x:Type Editor}">
-                    <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
-                </Style>
-
-                <Style TargetType="Button" ApplyToDerivedTypes="True" CanCascade="True">
-                    <Setter Property="FontSize" Value="Medium" />
-                    <Setter Property="BackgroundColor"  Value="{StaticResource ButtonBackgroundColor}" />
-                    <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
-                    <Setter Property="CornerRadius" Value="5" />
-                </Style>
 
                 <ResourceDictionary>
                     <converters:NegativeConverter x:Key="negative"/>
                 </ResourceDictionary>
             </ContentPage.Resources>
 
-            <Frame OutlineColor="Silver"  Margin="15">
+            <Frame OutlineColor="White"  Margin="15">
                 <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
                     <Image Source="{Binding ProfileImage}"/>
                     <Button Text="Tirar foto" Command="{Binding TakePictureCommand}" IsVisible="{Binding Editing}"/>
@@ -92,8 +81,8 @@
                             </TableSection>
                         </TableRoot>
                     </TableView>
-                    <Button Text="Salvar" Command="{Binding SaveCommand}" IsVisible="{Binding Editing}"/>
-                    <Button Text="Editar" Command="{Binding EditCommand}" IsVisible="{Binding Editing,
+                    <Button android:Button.UseDefaultShadow="True" Text="Salvar" Command="{Binding SaveCommand}" IsVisible="{Binding Editing}"/>
+                    <Button android:Button.UseDefaultShadow="True" Text="Editar" Command="{Binding EditCommand}" IsVisible="{Binding Editing,
                         Converter={StaticResource Key=negative}}" />
                 </StackLayout>
             </Frame>

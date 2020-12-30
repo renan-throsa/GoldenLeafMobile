@@ -2,7 +2,8 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"             
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.OrderViews.OrderEntryPage"
             BarBackgroundColor="Black"
@@ -60,7 +61,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Text="Salvar" Command="{Binding SaveOrderComand}"/>
+                <Button android:Button.UseDefaultShadow="True" Text="Salvar" Command="{Binding SaveOrderComand}"/>
             </StackLayout>
         </ContentPage>
 
@@ -83,8 +84,8 @@
                         </TableSection>
                     </TableRoot>
                 </TableView>
-                <Button Text="Buscar" Command="{Binding SearchProductComand}" IsVisible="{Binding IsSearching}" />
-                <Button Text="Adicionar" Command="{Binding AddProductComand}" IsVisible="{Binding IsEditing}"/>
+                <Button android:Button.UseDefaultShadow="True" Text="Buscar" Command="{Binding SearchProductComand}" IsVisible="{Binding IsSearching}" />
+                <Button android:Button.UseDefaultShadow="True" Text="Adicionar" Command="{Binding AddProductComand}" IsVisible="{Binding IsEditing}"/>
             </StackLayout>
         </ContentPage>
     </TabbedPage.Children>

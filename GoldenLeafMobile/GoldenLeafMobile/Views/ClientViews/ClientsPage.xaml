@@ -22,6 +22,7 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
+        
         <StackLayout Margin="{DynamicResource PageMargin}" Spacing="0">
             <Grid ColumnSpacing="-1">
                 <Grid.RowDefinitions>
