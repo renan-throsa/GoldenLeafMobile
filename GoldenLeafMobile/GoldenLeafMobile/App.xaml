@@ -26,10 +26,13 @@
             <Setter Property="BarTextColor" Value="{StaticResource TextColor}" />
             <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
         </Style>
+        
 
-        <Style TargetType="{x:Type Editor}">
-            <Setter Property="BackgroundColor" Value="White" />
+        <Style TargetType="{x:Type Entry}">            
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="PlaceholderColor" Value="Gray"/>          
         </Style>
+
 
         <Style TargetType="{x:Type Button}" ApplyToDerivedTypes="True" CanCascade="True">
             <Setter Property="FontSize" Value="Medium" />

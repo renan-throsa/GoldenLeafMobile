@@ -7,7 +7,7 @@ namespace GoldenLeafMobile.ViewModels
     {
         private bool _wait;
 
-        protected bool Wait
+        public bool Wait
         {
             get { return _wait; }
             set

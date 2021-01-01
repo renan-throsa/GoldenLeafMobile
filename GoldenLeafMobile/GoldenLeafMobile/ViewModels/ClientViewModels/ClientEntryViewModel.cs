@@ -11,13 +11,7 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
             get { return Client.Name; }
             set { Client.Name = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
-
-        public string Identification
-        {
-            get { return Client.Identification; }
-            set { Client.Identification = value; ((Command)SaveClientComand).ChangeCanExecute(); }
-        }
-
+                
 
         public ClientEntryViewModel(Client client) : base(client)
         {
@@ -32,7 +26,7 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
                     {
                         return !string.IsNullOrEmpty(Client.Name)
                         && !string.IsNullOrEmpty(Client.Address)
-                        && !string.IsNullOrEmpty(Client.Identification)
+                        
                         && !string.IsNullOrEmpty(Client.PhoneNumber);
                     }
                 );

@@ -25,12 +25,16 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />                    
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Entry Keyboard="Email" ReturnType="Done" Grid.Row="0" Grid.Column="0" Text="{Binding Email}" Placeholder="Email" HorizontalOptions="FillAndExpand"/>
-                <Entry Grid.Row="1" ReturnType="Done" Grid.Column="0" Text="{Binding Password}" Placeholder="Senha" IsPassword="True" HorizontalOptions="FillAndExpand"/>
-                <Button android:Button.UseDefaultShadow="True" Grid.Row="2" Grid.Column="0" Text="Entrar" Command="{Binding LoginCommand}"></Button>
+                <Image Source="user" Grid.Row="0" Grid.Column="0"/>
+                <Entry Keyboard="Email" ReturnType="Done" Grid.Row="0" Grid.Column="1" Text="{Binding Email}" Placeholder="Email" HorizontalOptions="FillAndExpand"/>
+
+                <Image Source="padlock" Grid.Row="1" Grid.Column="0"/>                
+                <Entry ReturnType="Done" Grid.Row="1" Grid.Column="1" Text="{Binding Password}" Placeholder="Senha" IsPassword="True" HorizontalOptions="FillAndExpand"/>
+                <Button android:Button.UseDefaultShadow="True" Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="2" Text="Entrar" Command="{Binding LoginCommand}"></Button>
              
             </Grid>
         </StackLayout>
