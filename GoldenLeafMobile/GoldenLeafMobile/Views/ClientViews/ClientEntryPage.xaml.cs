@@ -25,7 +25,8 @@ namespace GoldenLeafMobile.Views.ClientViews
         }
 
         private void SignUpMessages()
-        {
+        {            
+
             MessagingCenter.Subscribe<Client>(this, ViewModel.ASK, async (_client) =>
             {
                 var confirm = await DisplayAlert("Salvar cliente", "Deseja mesmo salvar o cliente?", "Sim", "Não");
@@ -41,6 +42,12 @@ namespace GoldenLeafMobile.Views.ClientViews
                 await Navigation.PopToRootAsync();
             });
 
+            MessagingCenter.Subscribe<string>(this, ViewModel.ACCESS, async (_msg) =>
+            {
+                await DisplayAlert("Salvar cliente", $"{_msg} o seu token expirou! Refaça o login.", "Ok");
+                await Navigation.PopToRootAsync();
+            });
+
             MessagingCenter.Subscribe<SimpleHttpResponseException>(this, ViewModel.FAIL, (_msg) =>
             {
                 DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
@@ -52,6 +59,7 @@ namespace GoldenLeafMobile.Views.ClientViews
             base.OnDisappearing();
             MessagingCenter.Unsubscribe<Client>(this, ViewModel.ASK);
             MessagingCenter.Unsubscribe<Client>(this, ViewModel.SUCCESS);
+            MessagingCenter.Unsubscribe<string>(this, ViewModel.ACCESS);           
             MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
         }
 

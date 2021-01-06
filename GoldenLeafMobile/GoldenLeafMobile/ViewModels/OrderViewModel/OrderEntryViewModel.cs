@@ -19,18 +19,18 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         public ICommand AddProductComand { get; private set; }
         public ICommand SaveOrderComand { get; private set; }
 
+        public Clerk Clerk { get; set; }
         public readonly string SUCCESS = "SuccessAction";
         public readonly string FAIL = "FailedAction";
         public readonly string ASK = "AskBeforeAction";
-        //public readonly string SEARCH = "SearchAction";
+        public readonly string ACCESS = "RequestUnauthorized";
+
 
         private readonly string URL_PRODUCT = "https://golden-leaf.herokuapp.com/api/product/code/";
         private readonly string URL_ORDER = "https://golden-leaf.herokuapp.com/api/order";
 
-
-
         public Client Client { get; }
-        public Clerk Clerk { get; }
+        
         public ObservableCollection<OrderTableItem> Items { get; private set; }
 
         private int _id;
@@ -97,9 +97,13 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
 
         public OrderEntryViewModel(Client client)
         {
+            MessagingCenter.Subscribe<Clerk>(this, "CurrentClerk", (_clerk) =>
+            {
+                this.Clerk = _clerk;
+            });
+
             Items = new ObservableCollection<OrderTableItem>();
-            Client = client;
-            Clerk = Application.Current.Properties["Clerk"] as Clerk;
+            Client = client;         
 
             SearchProductComand = new Command(
                 () =>

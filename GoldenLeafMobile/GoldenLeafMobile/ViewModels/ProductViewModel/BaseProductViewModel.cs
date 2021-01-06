@@ -1,8 +1,10 @@
 ﻿using GoldenLeafMobile.Data;
 using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Models.CategoryModels;
+using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ProductModels;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
@@ -20,6 +22,9 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
         public readonly string SUCCESS = "SuccessSavingProduct";
         public readonly string FAIL = "FailedSavingProduct";
         public readonly string ASK = "SavingProduct";
+
+        public Clerk Clerk { get; set; }
+        public readonly string ACCESS = "RequestUnauthorized";
 
 
         public ICommand SaveProductCommand { get; set; }
@@ -67,12 +72,18 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
         {
             Product = product;
             Categories = new ObservableCollection<Category>();
+            MessagingCenter.Subscribe<Clerk>(this, "CurrentClerk", (_clerk) =>
+            {
+                this.Clerk = _clerk;
+            });
         }
 
         public async void SaveProduct()
         {
             using (HttpClient httpClient = new HttpClient())
             {
+                var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(Clerk.GetToken() + ":" + ""));
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {encoded}");
                 var stringContent = new StringContent(Product.ToJson(), Encoding.UTF8, "application/json");
 
                 var response = new HttpResponseMessage();

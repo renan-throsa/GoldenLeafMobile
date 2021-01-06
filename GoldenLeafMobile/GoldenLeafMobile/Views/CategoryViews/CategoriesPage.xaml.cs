@@ -38,6 +38,7 @@ namespace GoldenLeafMobile.Views.CategoryViews
             Navigation.PushAsync(new EditPage(mi.CommandParameter as Category));
         }
 
+
         private void OnNewProduct(object sender, System.EventArgs e)
         {
             var mi = ((MenuItem)sender);

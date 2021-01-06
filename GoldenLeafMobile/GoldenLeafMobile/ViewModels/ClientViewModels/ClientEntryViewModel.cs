@@ -5,16 +5,17 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
 {
     public class ClientEntryViewModel : BaseClientViewModel
     {
-
+        
         public string Name
         {
             get { return Client.Name; }
             set { Client.Name = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
-                
 
+       
         public ClientEntryViewModel(Client client) : base(client)
-        {
+        {            
+
             SaveClientComand = new Command
                 (
                     () =>

@@ -1,8 +1,7 @@
 ﻿using GoldenLeafMobile.Data;
 using GoldenLeafMobile.Models;
+using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ClientModels;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
@@ -12,10 +11,12 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
 {
     public abstract class BaseClientViewModel
     {
+        public Clerk Clerk { get; set; }
         private readonly string URL_CLIENT = "https://golden-leaf.herokuapp.com/api/client";
-        public readonly string SUCCESS = "SuccessSavingClient";
-        public readonly string FAIL = "FailedSavingClient";
-        public readonly string ASK = "SavingClient";
+        public readonly string SUCCESS = "OnSuccessSavingClient";
+        public readonly string FAIL = "OnFailedSavingClient";
+        public readonly string ASK = "OnSavingClient";
+        public readonly string ACCESS = "OnRequestUnauthorized";
 
 
         public ICommand SaveClientComand { get; set; }
@@ -39,10 +40,22 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
         public BaseClientViewModel(Client client)
         {
             Client = client;
+            MessagingCenter.Subscribe<Clerk>(this, "CurrentClerk", (_clerk) =>
+            {
+                this.Clerk = _clerk;
+            });
+
         }
 
         public async void SaveClient()
         {
+            var b = this.Clerk.IsTokenExperationTimeValid();
+
+            if (!this.Clerk.IsTokenExperationTimeValid())
+            {
+                MessagingCenter.Send<string>(Clerk.Name, ACCESS);
+            }
+
             using (HttpClient httpClient = new HttpClient())
             {
                 var stringContent = new StringContent(Client.ToJson(), Encoding.UTF8, "application/json");

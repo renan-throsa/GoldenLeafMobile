@@ -1,4 +1,5 @@
-﻿using GoldenLeafMobile.Models;
+﻿using GoldenLeafMobile.Data;
+using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Models.CategoryModels;
 using GoldenLeafMobile.Models.ClerkModels;
 using System.Net.Http;
@@ -8,27 +9,26 @@ using Xamarin.Forms;
 
 namespace GoldenLeafMobile.ViewModels.CategoryViewModels
 {
-    public class EditViewModel : BaseEntryPage
+    public class SaveViewModel : BaseEntryPage
     {
 
 
-        public EditViewModel(Category _category)
+        public SaveViewModel(Clerk clerk)
         {
-            Category = _category;
+            Clerk = clerk;
+            Category = new Category();
             SaveCategoryComand = new Command
                 (
                     () =>
                     {
                         MessagingCenter.Send<Category>(Category, ASK);
                     },
-                      () =>
-                      {
-                          return !string.IsNullOrEmpty(Category.Title);
-                      }
-
+                    () =>
+                    {
+                        return !string.IsNullOrEmpty(Category.Title);
+                    }
                 );
         }
-
 
     }
 }

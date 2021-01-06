@@ -32,7 +32,7 @@
                     </TableSection>                    
                 </TableRoot>
             </TableView>
-            <Button Text="Salvar" Command="{Binding SaveEditedCategoryComand}"></Button>
+            <Button Text="Salvar" Command="{Binding SaveCategoryComand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

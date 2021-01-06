@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using Xamarin.Forms;
 
 namespace GoldenLeafMobile.Models.ClerkModels
@@ -7,6 +8,9 @@ namespace GoldenLeafMobile.Models.ClerkModels
     {
         [JsonProperty("email")]
         public string Email { get; set; }
+
+        [JsonProperty("token")]
+        private Token Token { get; set; }
 
         public ImageSource ProfileImage { get; set; }
 
@@ -18,6 +22,20 @@ namespace GoldenLeafMobile.Models.ClerkModels
         public override string ToJson()
         {
             throw new System.NotImplementedException();
+        }
+
+        public string GetToken()
+        {
+            return this.Token.Value;
+        }
+        public bool IsTokenExperationTimeValid()
+        {
+            var now = DateTime.Now;
+            if (now < Token.ExpirationTime)
+            {
+                return false;
+            }
+            return false;
         }
     }
 }

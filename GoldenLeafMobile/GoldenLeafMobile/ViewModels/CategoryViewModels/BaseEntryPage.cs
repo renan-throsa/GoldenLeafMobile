@@ -1,6 +1,7 @@
 ﻿using GoldenLeafMobile.Data;
 using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Models.CategoryModels;
+using GoldenLeafMobile.Models.ClerkModels;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
@@ -8,50 +9,49 @@ using Xamarin.Forms;
 
 namespace GoldenLeafMobile.ViewModels.CategoryViewModels
 {
-    public class CategoryEntryViewModel : BaseViewModel
+    public abstract class BaseEntryPage
     {
-        private readonly string URL_POST_CLIENT = "https://golden-leaf.herokuapp.com/api/category";
+        private readonly string URL_Category = "https://golden-leaf.herokuapp.com/api/category";
         public ICommand SaveCategoryComand { get; set; }
 
-        public Category Category { get; private set; }
+        public Clerk Clerk { get; set; }
+        public readonly string ACCESS = "OnRequestUnauthorized";
+        public readonly string SUCCESS = "OnSuccessSavingCategory";
+        public readonly string FAIL = "OnFailedSavingCategory";
+        public readonly string ASK = "OnSavingCategory";
+
+        public Category Category { get; set; }
 
         public string Title
         {
             get { return Category.Title; }
-            set { Category.Title = value;((Command)SaveCategoryComand).ChangeCanExecute(); }
-        }
-       
-
-        public CategoryEntryViewModel()
-        {
-            Category = new Category();
-            SaveCategoryComand = new Command
-                (
-                    () =>
-                    {
-                        MessagingCenter.Send<Category>(Category, "SavingCategory");
-
-                    },
-                    () =>
-                    {
-                        return !string.IsNullOrEmpty(Category.Title);
-                    }
-                );
+            set { Category.Title = value; ((Command)SaveCategoryComand).ChangeCanExecute(); }
         }
 
         public async void SaveCategory()
         {
+            if (!this.Clerk.IsTokenExperationTimeValid())
+            {
+                MessagingCenter.Send<string>(Clerk.Name, ACCESS);
+            }
+
             using (HttpClient httpClient = new HttpClient())
             {
                 var stringContent = new StringContent(Category.ToJson(), Encoding.UTF8, "application/json");
-
-
-                var response = await httpClient.PostAsync(URL_POST_CLIENT, stringContent);
+                var response = new HttpResponseMessage();
+                if (Category.Id == 0)
+                {
+                    response = await httpClient.PostAsync(URL_Category, stringContent);
+                }
+                else
+                {
+                    response = await httpClient.PutAsync(URL_Category, stringContent);
+                }
 
                 if (response.IsSuccessStatusCode)
                 {
                     Category.Syncronized = true;
-                    MessagingCenter.Send<Category>(Category, "SuccessPostCategory");
+                    MessagingCenter.Send<Category>(Category, SUCCESS);
                 }
                 else
                 {
@@ -59,16 +59,13 @@ namespace GoldenLeafMobile.ViewModels.CategoryViewModels
                     if (response.Content != null)
                         response.Content.Dispose();
 
-                    Category.Syncronized = false;
                     MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
-                        "FailedPostClient");
+                        FAIL);
 
                 }
-
             }
 
             SaveCategoryInternaly();
-
         }
 
         private void SaveCategoryInternaly()
@@ -81,4 +78,5 @@ namespace GoldenLeafMobile.ViewModels.CategoryViewModels
 
         }
     }
+
 }
