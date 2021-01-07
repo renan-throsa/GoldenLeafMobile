@@ -1,21 +1,21 @@
-﻿using GoldenLeafMobile.Models.ClientModels;
+﻿using GoldenLeafMobile.Models.ClerkModels;
+using GoldenLeafMobile.Models.ClientModels;
 using Xamarin.Forms;
 
 namespace GoldenLeafMobile.ViewModels.ClientViewModels
 {
-    public class ClientEntryViewModel : BaseClientViewModel
+    public class SaveViewModel : BaseClientViewModel
     {
-        
+
         public string Name
         {
             get { return Client.Name; }
             set { Client.Name = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
 
-       
-        public ClientEntryViewModel(Client client) : base(client)
-        {            
 
+        public SaveViewModel(Clerk clerk, Client client) : base(clerk, client)
+        {            
             SaveClientComand = new Command
                 (
                     () =>
@@ -27,7 +27,7 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
                     {
                         return !string.IsNullOrEmpty(Client.Name)
                         && !string.IsNullOrEmpty(Client.Address)
-                        
+
                         && !string.IsNullOrEmpty(Client.PhoneNumber);
                     }
                 );

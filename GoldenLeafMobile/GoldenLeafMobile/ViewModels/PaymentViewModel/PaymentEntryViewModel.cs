@@ -15,9 +15,10 @@ namespace GoldenLeafMobile.ViewModels.PaymentViewModel
     public class PaymentEntryViewModel
     {
         private readonly string URL_PAYMENT = "https://golden-leaf.herokuapp.com/api/payment";
-        public readonly string SUCCESS = "SuccessSavingPayment";
-        public readonly string FAIL = "FailedSavingPayment";
-        public readonly string ASK = "SavingPayment";
+        public readonly string SUCCESS = "OnSuccessSavingPayment";
+        public readonly string FAIL = "OnFailedSavingPayment";
+        public readonly string ASK = "OnSavingPayment";
+        public readonly string ACCESS = "OnRequestUnauthorized";
 
 
         public ICommand PayCommand { get; set; }

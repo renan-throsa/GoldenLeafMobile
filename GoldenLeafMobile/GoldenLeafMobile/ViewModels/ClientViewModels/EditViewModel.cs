@@ -1,4 +1,5 @@
-﻿using GoldenLeafMobile.Models.ClientModels;
+﻿using GoldenLeafMobile.Models.ClerkModels;
+using GoldenLeafMobile.Models.ClientModels;
 using Xamarin.Forms;
 
 namespace GoldenLeafMobile.ViewModels.ClientViewModels
@@ -6,8 +7,8 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
     public class EditViewModel : BaseClientViewModel
     {
 
-        public EditViewModel(Client client) : base(client)
-        {            
+        public EditViewModel(Clerk clerk, Client client) : base(clerk, client)
+        {
             SaveClientComand = new Command
                 (
                     () =>

@@ -1,4 +1,5 @@
-﻿using GoldenLeafMobile.Models.ProductModels;
+﻿using GoldenLeafMobile.Models.ClerkModels;
+using GoldenLeafMobile.Models.ProductModels;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -16,7 +17,7 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
         }
 
 
-        public EditViewModel(Product product) : base(product)
+        public EditViewModel(Clerk clerk, Product product) : base(clerk, product)
         {
             Product = product;
             SaveProductCommand = new Command

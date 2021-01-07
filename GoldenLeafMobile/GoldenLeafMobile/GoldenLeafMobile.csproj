@@ -36,14 +36,20 @@
     <Compile Update="Views\ClientViews\ClientsPage.xaml.cs">
       <DependentUpon>ClientsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\ClientViews\ClientEntryPage.xaml.cs">
-      <DependentUpon>ClientEntryPage.xaml</DependentUpon>
+    <Compile Update="Views\ClientViews\EntryPage.xaml.cs">
+      <DependentUpon>EntryPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\MasterDetailView.xaml.cs">
       <DependentUpon>MasterDetailView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\PaymentView\PaymentEntryPage.xaml.cs">
-      <DependentUpon>PaymentEntryPage.xaml</DependentUpon>
+    <Compile Update="Views\OrderViews\EntryPage.xaml.cs">
+      <DependentUpon>EntryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PaymentView\EntryPage.xaml.cs">
+      <DependentUpon>EntryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ProductViews\EntryPage.xaml.cs">
+      <DependentUpon>EntryPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -69,7 +75,7 @@
     <EmbeddedResource Update="Views\ClientViews\EditPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ClientViews\ClientEntryPage.xaml">
+    <EmbeddedResource Update="Views\ClientViews\EntryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MasterView.xaml">
@@ -81,13 +87,13 @@
     <EmbeddedResource Update="Views\OrderViews\DetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\OrderViews\OrderEntryPage.xaml">
+    <EmbeddedResource Update="Views\OrderViews\EntryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\OrderViews\OrdersPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\PaymentView\PaymentEntryPage.xaml">
+    <EmbeddedResource Update="Views\PaymentView\EntryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PaymentView\PaymentsPage.xaml">
@@ -99,7 +105,7 @@
     <EmbeddedResource Update="Views\ProductViews\EditPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ProductViews\ProductEntryPage.xaml">
+    <EmbeddedResource Update="Views\ProductViews\EntryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ProductViews\ProductsPage.xaml">

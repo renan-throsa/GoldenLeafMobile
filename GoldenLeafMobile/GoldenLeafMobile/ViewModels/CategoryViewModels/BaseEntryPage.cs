@@ -2,6 +2,7 @@
 using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Models.CategoryModels;
 using GoldenLeafMobile.Models.ClerkModels;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
@@ -37,6 +38,8 @@ namespace GoldenLeafMobile.ViewModels.CategoryViewModels
 
             using (HttpClient httpClient = new HttpClient())
             {
+                var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(Clerk.GetToken() + ":" + ""));
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {encoded}");
                 var stringContent = new StringContent(Category.ToJson(), Encoding.UTF8, "application/json");
                 var response = new HttpResponseMessage();
                 if (Category.Id == 0)

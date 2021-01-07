@@ -1,4 +1,5 @@
 ﻿using GoldenLeafMobile.Models;
+using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.ViewModels.ClientViewModels;
 using Xamarin.Forms;
@@ -7,14 +8,14 @@ using Xamarin.Forms.Xaml;
 namespace GoldenLeafMobile.Views.ClientViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ClientEntryPage : ContentPage
+    public partial class EntryPage : ContentPage
     {
-        public ClientEntryViewModel ViewModel { get; private set; }
+        public SaveViewModel ViewModel { get; private set; }
 
-        public ClientEntryPage()
+        public EntryPage()
         {
             InitializeComponent();
-            ViewModel = new ClientEntryViewModel(new Client());
+            ViewModel = new SaveViewModel(Application.Current.Properties["Clerk"] as Clerk, new Client());
             BindingContext = ViewModel;
         }
 
@@ -25,7 +26,7 @@ namespace GoldenLeafMobile.Views.ClientViews
         }
 
         private void SignUpMessages()
-        {            
+        {
 
             MessagingCenter.Subscribe<Client>(this, ViewModel.ASK, async (_client) =>
             {
@@ -52,6 +53,12 @@ namespace GoldenLeafMobile.Views.ClientViews
             {
                 DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
             });
+
+            MessagingCenter.Subscribe<string>(this, ViewModel.ACCESS, async (_msg) =>
+            {
+                await DisplayAlert("Salvar cliente", $"{_msg} o seu token expirou! Refaça o login.", "Ok");
+                await Navigation.PopToRootAsync();
+            });
         }
 
         protected override void OnDisappearing()
@@ -59,7 +66,7 @@ namespace GoldenLeafMobile.Views.ClientViews
             base.OnDisappearing();
             MessagingCenter.Unsubscribe<Client>(this, ViewModel.ASK);
             MessagingCenter.Unsubscribe<Client>(this, ViewModel.SUCCESS);
-            MessagingCenter.Unsubscribe<string>(this, ViewModel.ACCESS);           
+            MessagingCenter.Unsubscribe<string>(this, ViewModel.ACCESS);
             MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
         }
 

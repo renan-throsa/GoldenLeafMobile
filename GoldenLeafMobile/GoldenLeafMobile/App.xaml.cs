@@ -19,7 +19,6 @@ namespace GoldenLeafMobile
             MessagingCenter.Subscribe<Clerk>(this, "SuccessLogin", (_clerk) =>
             {
                 Application.Current.Properties["Clerk"] = _clerk;
-                Application.Current.Properties["Secret"] = "34c39183de01e7fe6224b4c9975d40f6a037ef1fdbe4c10b";
                 MainPage = new MasterDetailView(_clerk);
             });
         }

@@ -1,4 +1,5 @@
 ﻿using GoldenLeafMobile.Models;
+using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ProductModels;
 using GoldenLeafMobile.ViewModels.ProductViewModel;
 using Xamarin.Forms;
@@ -13,7 +14,7 @@ namespace GoldenLeafMobile.Views.ProductViews
         public EditPage(Product product)
         {
             InitializeComponent();
-            ViewModel = new EditViewModel(product);
+            ViewModel = new EditViewModel(Application.Current.Properties["Clerk"] as Clerk,product);
             BindingContext = ViewModel;
         }
 
@@ -47,6 +48,12 @@ namespace GoldenLeafMobile.Views.ProductViews
                 await DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
                 await Navigation.PopToRootAsync();
             });
+
+            MessagingCenter.Subscribe<string>(this, ViewModel.ACCESS, async (_msg) =>
+            {
+                await DisplayAlert("Salvar produto", $"{_msg} o seu token expirou! Refaça o login.", "Ok");
+                await Navigation.PopToRootAsync();
+            });
         }
 
         protected override void OnDisappearing()
@@ -54,6 +61,7 @@ namespace GoldenLeafMobile.Views.ProductViews
             base.OnDisappearing();
             MessagingCenter.Unsubscribe<Product>(this, ViewModel.ASK);
             MessagingCenter.Unsubscribe<Product>(this, ViewModel.SUCCESS);
+            MessagingCenter.Unsubscribe<string>(this, ViewModel.ACCESS);
             MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
         }
 

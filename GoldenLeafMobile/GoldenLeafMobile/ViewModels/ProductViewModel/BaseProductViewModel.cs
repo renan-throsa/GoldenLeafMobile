@@ -68,14 +68,11 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
 
         public ObservableCollection<Category> Categories { get; private set; }
 
-        public BaseProductViewModel(Product product)
+        public BaseProductViewModel(Clerk clerk, Product product)
         {
+            Clerk = clerk;
             Product = product;
             Categories = new ObservableCollection<Category>();
-            MessagingCenter.Subscribe<Clerk>(this, "CurrentClerk", (_clerk) =>
-            {
-                this.Clerk = _clerk;
-            });
         }
 
         public async void SaveProduct()

@@ -1,4 +1,5 @@
 ﻿using GoldenLeafMobile.Models;
+using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.ViewModels.ClientViewModels;
 using System;
@@ -15,7 +16,7 @@ namespace GoldenLeafMobile.Views
         public EditPage(Client client)
         {
             InitializeComponent();
-            ViewModel = new EditViewModel(client);
+            ViewModel = new EditViewModel(Application.Current.Properties["Clerk"] as Clerk, client);
             BindingContext = ViewModel;
         }
 
@@ -37,6 +38,11 @@ namespace GoldenLeafMobile.Views
                 await Navigation.PopToRootAsync();
             });
 
+            MessagingCenter.Subscribe<string>(this, ViewModel.ACCESS, async (_msg) =>
+            {
+                await DisplayAlert("Salvar cliente", $"{_msg} o seu token expirou! Refaça o login.", "Ok");
+                await Navigation.PopToRootAsync();
+            });
 
             MessagingCenter.Subscribe<SimpleHttpResponseException>(this, ViewModel.FAIL, (_msg) =>
             {
@@ -49,6 +55,7 @@ namespace GoldenLeafMobile.Views
             base.OnDisappearing();
             MessagingCenter.Unsubscribe<Client>(this, ViewModel.ASK);
             MessagingCenter.Unsubscribe<Client>(this, ViewModel.SUCCESS);
+            MessagingCenter.Unsubscribe<string>(this, ViewModel.ACCESS);
             MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
         }
     }

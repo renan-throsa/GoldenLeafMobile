@@ -20,17 +20,17 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         public ICommand SaveOrderComand { get; private set; }
 
         public Clerk Clerk { get; set; }
-        public readonly string SUCCESS = "SuccessAction";
-        public readonly string FAIL = "FailedAction";
-        public readonly string ASK = "AskBeforeAction";
-        public readonly string ACCESS = "RequestUnauthorized";
+        public readonly string SUCCESS = "OnSuccessAction";
+        public readonly string FAIL = "OnFailedAction";
+        public readonly string ASK = "OnAskBeforeAction";
+        public readonly string ACCESS = "OnRequestUnauthorized";
 
 
         private readonly string URL_PRODUCT = "https://golden-leaf.herokuapp.com/api/product/code/";
         private readonly string URL_ORDER = "https://golden-leaf.herokuapp.com/api/order";
 
         public Client Client { get; }
-        
+
         public ObservableCollection<OrderTableItem> Items { get; private set; }
 
         private int _id;
@@ -95,16 +95,12 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             set { _editing = value; OnPropertyChanged(); }
         }
 
-        public OrderEntryViewModel(Client client)
+        public OrderEntryViewModel(Clerk clerk, Client client)
         {
-            MessagingCenter.Subscribe<Clerk>(this, "CurrentClerk", (_clerk) =>
-            {
-                this.Clerk = _clerk;
-            });
-
+            Client = client;
+            Clerk = clerk;
             Items = new ObservableCollection<OrderTableItem>();
-            Client = client;         
-
+            
             SearchProductComand = new Command(
                 () =>
                     {
@@ -169,7 +165,10 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             using (HttpClient httpClient = new HttpClient())
             {
                 var order = CreateOrderString();
+                var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(Clerk.GetToken() + ":" + ""));
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {encoded}");
                 var stringContent = new StringContent(order, Encoding.UTF8, "application/json");
+
                 var response = await httpClient.PostAsync(URL_ORDER, stringContent);
                 if (response.IsSuccessStatusCode)
                 {

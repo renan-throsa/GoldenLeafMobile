@@ -51,7 +51,7 @@ namespace GoldenLeafMobile.Views.ClientViews
 
         private void ToolbarNewClient_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ClientEntryPage());
+            Navigation.PushAsync(new EntryPage());
         }
 
         private void OnNewPayment(object sender, EventArgs e)

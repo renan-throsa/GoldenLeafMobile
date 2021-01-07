@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              mc:Ignorable="d"
-             x:Class="GoldenLeafMobile.Views.ProductViews.ProductEntryPage">
+             x:Class="GoldenLeafMobile.Views.ProductViews.EntryPage">
 
  
     <ContentPage.ToolbarItems>

@@ -47,7 +47,7 @@ namespace GoldenLeafMobile.Views.CategoryViews
 
         private void ToolbarItem_Clicked(object sender, System.EventArgs e)
         {
-            Navigation.PushAsync(new CategoryEntryPage());
+            Navigation.PushAsync(new EntryPage());
         }
     }
 }

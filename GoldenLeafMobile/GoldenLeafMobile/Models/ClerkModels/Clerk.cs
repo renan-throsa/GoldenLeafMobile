@@ -21,7 +21,7 @@ namespace GoldenLeafMobile.Models.ClerkModels
 
         public override string ToJson()
         {
-            throw new System.NotImplementedException();
+            return "Not needed here.";
         }
 
         public string GetToken()
@@ -33,7 +33,7 @@ namespace GoldenLeafMobile.Models.ClerkModels
             var now = DateTime.Now;
             if (now < Token.ExpirationTime)
             {
-                return false;
+                return true;
             }
             return false;
         }

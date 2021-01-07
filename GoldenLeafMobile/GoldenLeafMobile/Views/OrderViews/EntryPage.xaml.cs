@@ -1,4 +1,5 @@
 ﻿using GoldenLeafMobile.Models;
+using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.Models.OrderModels;
 using GoldenLeafMobile.ViewModels.OrderViewModel;
@@ -10,14 +11,14 @@ using ZXing.Net.Mobile.Forms;
 namespace GoldenLeafMobile.Views.OrderViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class OrderEntryPage : TabbedPage
+    public partial class EntryPage : TabbedPage
     {
         public OrderEntryViewModel ViewModel { get; private set; }
 
-        public OrderEntryPage(Client client)
+        public EntryPage(Client client)
         {
             InitializeComponent();
-            ViewModel = new OrderEntryViewModel(client);
+            ViewModel = new OrderEntryViewModel(Application.Current.Properties["Clerk"] as Clerk, client);
             BindingContext = ViewModel;
         }
 
@@ -32,8 +33,9 @@ namespace GoldenLeafMobile.Views.OrderViews
             base.OnDisappearing();
             MessagingCenter.Unsubscribe<OrderEntryViewModel>(this, ViewModel.ASK);
             MessagingCenter.Unsubscribe<OrderEntryViewModel>(this, ViewModel.SUCCESS);
+            MessagingCenter.Unsubscribe<string>(this, ViewModel.ACCESS);
             MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
-            
+
         }
 
         private void SignUpMessages()
@@ -56,6 +58,12 @@ namespace GoldenLeafMobile.Views.OrderViews
             MessagingCenter.Subscribe<SimpleHttpResponseException>(this, ViewModel.FAIL, (_msg) =>
             {
                 DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
+            });
+
+            MessagingCenter.Subscribe<string>(this, ViewModel.ACCESS, async (_msg) =>
+            {
+                await DisplayAlert("Salvar pedido", $"{_msg} o seu token expirou! Refaça o login.", "Ok");
+                await Navigation.PopToRootAsync();
             });
 
         }

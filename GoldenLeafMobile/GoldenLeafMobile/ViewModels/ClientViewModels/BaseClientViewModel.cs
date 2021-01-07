@@ -2,6 +2,7 @@
 using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ClientModels;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
@@ -37,8 +38,9 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
             set { Client.PhoneNumber = value; ((Command)SaveClientComand).ChangeCanExecute(); }
         }
 
-        public BaseClientViewModel(Client client)
+        public BaseClientViewModel(Clerk clerk, Client client)
         {
+            Clerk = clerk;
             Client = client;
             MessagingCenter.Subscribe<Clerk>(this, "CurrentClerk", (_clerk) =>
             {
@@ -49,8 +51,6 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
 
         public async void SaveClient()
         {
-            var b = this.Clerk.IsTokenExperationTimeValid();
-
             if (!this.Clerk.IsTokenExperationTimeValid())
             {
                 MessagingCenter.Send<string>(Clerk.Name, ACCESS);
@@ -58,6 +58,8 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
 
             using (HttpClient httpClient = new HttpClient())
             {
+                var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(Clerk.GetToken() + ":" + ""));
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {encoded}");
                 var stringContent = new StringContent(Client.ToJson(), Encoding.UTF8, "application/json");
                 var response = new HttpResponseMessage();
                 if (Client.Id == 0)

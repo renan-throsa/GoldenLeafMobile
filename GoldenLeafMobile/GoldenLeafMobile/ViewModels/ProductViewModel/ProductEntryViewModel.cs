@@ -1,4 +1,5 @@
-﻿using GoldenLeafMobile.Models.ProductModels;
+﻿using GoldenLeafMobile.Models.ClerkModels;
+using GoldenLeafMobile.Models.ProductModels;
 using GoldenLeafMobile.ViewModels.ProductViewModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -8,9 +9,9 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModels
 {
     public class ProductEntryViewModel : BaseProductViewModel
     {
-        public ICommand ReadBarCodeComand { get; set; }               
+        public ICommand ReadBarCodeComand { get; set; }
 
-        public ProductEntryViewModel(Product product) : base(product)
+        public ProductEntryViewModel(Clerk clerk, Product product) : base(clerk, product)
         {
 
             SaveProductCommand = new Command
