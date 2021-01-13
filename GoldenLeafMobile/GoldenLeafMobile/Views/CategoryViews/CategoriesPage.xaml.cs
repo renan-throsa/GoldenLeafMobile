@@ -1,4 +1,5 @@
-﻿using GoldenLeafMobile.Models.CategoryModels;
+﻿using GoldenLeafMobile.Models;
+using GoldenLeafMobile.Models.CategoryModels;
 using GoldenLeafMobile.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,22 +15,29 @@ namespace GoldenLeafMobile.Views.CategoryViews
         {
             InitializeComponent();
             ViewModel = new ListViewModel<Category>();
-            BindingContext = ViewModel;            
+            BindingContext = ViewModel;
         }
 
         protected async override void OnAppearing()
         {
             base.OnAppearing();
             listView.SelectedItem = false;
-            MessagingCenter.Subscribe<Category>(this, "SelectedCategory",
+            MessagingCenter.Subscribe<Category>(this, ViewModel.SELECTED,
                 (_category) => Navigation.PushAsync(new DetailsPage(_category)));
+
+            MessagingCenter.Subscribe<SimpleHttpResponseException>(this, ViewModel.FAIL,
+               (_msg) =>
+               {
+                   DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
+               });
             await ViewModel.GetEntities();
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<Category>(this, "SelectedCategory");
+            MessagingCenter.Unsubscribe<Category>(this, ViewModel.SELECTED);
+            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
         }
 
         private void OnEdit(object sender, System.EventArgs e)

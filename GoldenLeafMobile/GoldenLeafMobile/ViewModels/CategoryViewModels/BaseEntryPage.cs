@@ -2,9 +2,8 @@
 using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Models.CategoryModels;
 using GoldenLeafMobile.Models.ClerkModels;
-using System;
+using GoldenLeafMobile.Service;
 using System.Net.Http;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -12,7 +11,6 @@ namespace GoldenLeafMobile.ViewModels.CategoryViewModels
 {
     public abstract class BaseEntryPage
     {
-        private readonly string URL_Category = "https://golden-leaf.herokuapp.com/api/category";
         public ICommand SaveCategoryComand { get; set; }
 
         public Clerk Clerk { get; set; }
@@ -38,17 +36,15 @@ namespace GoldenLeafMobile.ViewModels.CategoryViewModels
 
             using (HttpClient httpClient = new HttpClient())
             {
-                var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(Clerk.GetToken() + ":" + ""));
-                httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {encoded}");
-                var stringContent = new StringContent(Category.ToJson(), Encoding.UTF8, "application/json");
-                var response = new HttpResponseMessage();
+                var api = new ApiService<Category>(httpClient);
+                HttpResponseMessage response;
                 if (Category.Id == 0)
                 {
-                    response = await httpClient.PostAsync(URL_Category, stringContent);
+                    response = await api.PostEntityAsync(Clerk.GetToken(), Category.ToJson());
                 }
                 else
                 {
-                    response = await httpClient.PutAsync(URL_Category, stringContent);
+                    response = await api.PutEntityAsync(Clerk.GetToken(), Category.ToJson());
                 }
 
                 if (response.IsSuccessStatusCode)

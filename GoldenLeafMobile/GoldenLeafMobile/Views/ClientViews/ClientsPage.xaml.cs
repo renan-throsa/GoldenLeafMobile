@@ -1,7 +1,5 @@
 ﻿using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.ViewModels;
-using GoldenLeafMobile.Views.OrderViews;
-using GoldenLeafMobile.Views.PaymentView;
 using System;
 using System.ComponentModel;
 using Xamarin.Forms;
@@ -45,8 +43,8 @@ namespace GoldenLeafMobile.Views.ClientViews
 
         public void OnNewOrder(object sender, EventArgs e)
         {
-            var mi = ((MenuItem)sender);           
-            Navigation.PushAsync(new OrderEntryPage(mi.CommandParameter as Client));
+            var mi = ((MenuItem)sender);
+            Navigation.PushAsync(new OrderViews.EntryPage(mi.CommandParameter as Client));
         }
 
         private void ToolbarNewClient_Clicked(object sender, EventArgs e)
@@ -57,7 +55,7 @@ namespace GoldenLeafMobile.Views.ClientViews
         private void OnNewPayment(object sender, EventArgs e)
         {
             var mi = ((MenuItem)sender);
-            Navigation.PushAsync(new PaymentEntryPage(mi.CommandParameter as Client));
+            Navigation.PushAsync(new PaymentView.EntryPage(mi.CommandParameter as Client));
         }
     }
 }

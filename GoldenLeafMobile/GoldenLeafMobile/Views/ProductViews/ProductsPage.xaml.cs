@@ -43,8 +43,8 @@ namespace GoldenLeafMobile.Views.ProductViews
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ProductEntryPage());
+            Navigation.PushAsync(new EntryPage());
         }
-              
+
     }
 }
