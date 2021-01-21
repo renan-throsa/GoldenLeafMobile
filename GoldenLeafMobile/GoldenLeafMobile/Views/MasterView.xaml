@@ -21,7 +21,7 @@
 
             <Frame OutlineColor="Silver"  Margin="15">
                 <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
-                    <Image Source="{Binding ProfileImage}"/>
+                    <Image HeightRequest="200" Source="{Binding ProfileImage}"/>
                     <Label Text="{Binding Name}"></Label>
                     <Label Text="{Binding Email}"></Label>
                     <Label Text="{Binding PhoneNumber}"></Label>
@@ -67,7 +67,7 @@
 
             <Frame OutlineColor="White"  Margin="15">
                 <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
-                    <Image Source="{Binding ProfileImage}"/>
+                    <Image Aspect="Fill" HeightRequest="200" Source="{Binding ProfileImage}"/>
                     <Button Text="Tirar foto" Command="{Binding TakePictureCommand}" IsVisible="{Binding Editing}"/>
                     <TableView Intent="Form">
                         <TableRoot>

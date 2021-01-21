@@ -1,6 +1,11 @@
-﻿using GoldenLeafMobile.Media;
+﻿using GoldenLeafMobile.Data;
+using GoldenLeafMobile.Media;
+using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Models.ClerkModels;
+using GoldenLeafMobile.Service;
+using System;
 using System.IO;
+using System.Net.Http;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -10,6 +15,10 @@ namespace GoldenLeafMobile.ViewModels
     {
         private readonly Clerk _clerk;
         private bool _editing = false;
+        public readonly string ASK = "OnAskSaveEditedClerk";
+        public readonly string SUCCESS = "OnSuccessSavingClerk";
+        public readonly string FAIL = "OnFailedSavingClerk";
+        public readonly string ACCESS = "OnRequestUnauthorized";
 
 
         public ICommand SaveCommand { get; private set; }
@@ -49,12 +58,12 @@ namespace GoldenLeafMobile.ViewModels
 
         public MasterViewModel(Clerk clerk)
         {
-            _clerk = clerk;          
+            _clerk = clerk;
 
             SaveCommand = new Command(() =>
             {
                 Editing = false;
-                MessagingCenter.Send<Clerk>(_clerk, "SaveEditedClerk");
+                MessagingCenter.Send<Clerk>(_clerk, ASK);
             });
 
             EditCommand = new Command(() =>
@@ -70,9 +79,38 @@ namespace GoldenLeafMobile.ViewModels
             MessagingCenter.Subscribe<byte[]>(this, "ProfilePicture",
                 (_bytes) =>
                 {
+                    _clerk.ByteImage = _bytes;
                     ProfileImage = ImageSource.FromStream(() => new MemoryStream(_bytes));                    
                 });
         }
+
+        internal async void SaveClerk()
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var api = new ApiService<Clerk>(httpClient);
+                var response = await api.PutEntityAsync(_clerk.GetToken(), _clerk.ToJson());
+
+                if (response.IsSuccessStatusCode)
+                {
+                    _clerk.Syncronized = true;
+                    MessagingCenter.Send<Clerk>(_clerk, SUCCESS);
+                }
+                else
+                {
+                    var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    if (response.Content != null)
+                        response.Content.Dispose();
+
+                    MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
+                        FAIL);
+
+                }
+
+            }
+            
+        }
+        
 
     }
 }

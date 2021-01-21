@@ -2,6 +2,7 @@
 using GoldenLeafMobile.Models.ClerkModels;
 using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,6 +82,7 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
             {
                 var content = await response.Content.ReadAsStringAsync();
                 var clerk = JsonConvert.DeserializeObject<Clerk>(content);
+                clerk.ProfileImage = Base64ToImage(clerk.StringImage);
                 MessagingCenter.Send(clerk, "SuccessLogin");
             }
             else
@@ -92,6 +94,13 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
                 MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
                     "FailedPostClerk");
             }
+        }
+
+        private ImageSource Base64ToImage(string base64String)
+        {
+            byte[] bytes = Convert.FromBase64String(base64String);
+            var profile_pic = ImageSource.FromStream(() => new MemoryStream(bytes));
+            return profile_pic;
         }
     }
 }

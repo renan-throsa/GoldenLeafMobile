@@ -24,11 +24,7 @@ namespace GoldenLeafMobile.Models.ClientModels
             Status = true;
             Notifiable = true;
         }
-
-        public override string ToString()
-        {
-            return $"Nome: {Name} Telefone: {PhoneNumber} Rg: {Identification} Notificável{Notifiable} Status: {Status}";
-        }
+               
 
         public override string ToJson()
         {

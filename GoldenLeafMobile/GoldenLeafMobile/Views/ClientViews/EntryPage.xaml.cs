@@ -53,12 +53,7 @@ namespace GoldenLeafMobile.Views.ClientViews
             {
                 DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
             });
-
-            MessagingCenter.Subscribe<string>(this, ViewModel.ACCESS, async (_msg) =>
-            {
-                await DisplayAlert("Salvar cliente", $"{_msg} o seu token expirou! Refaça o login.", "Ok");
-                await Navigation.PopToRootAsync();
-            });
+                        
         }
 
         protected override void OnDisappearing()

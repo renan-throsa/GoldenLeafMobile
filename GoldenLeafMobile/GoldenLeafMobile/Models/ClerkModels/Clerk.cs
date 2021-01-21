@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.IO;
 using Xamarin.Forms;
 
 namespace GoldenLeafMobile.Models.ClerkModels
@@ -12,16 +13,25 @@ namespace GoldenLeafMobile.Models.ClerkModels
         [JsonProperty("token")]
         private Token Token { get; set; }
 
+        [JsonProperty("profile_pic")]
+        public string StringImage { get; set; }
+
         public ImageSource ProfileImage { get; set; }
 
-        public Clerk()
-        {
-            ProfileImage = "UserIcon.png";
-        }
+        public byte[] ByteImage { get; set; }
+                       
 
         public override string ToJson()
         {
-            return "Not needed here.";
+            return JsonConvert.SerializeObject(
+                new
+                {
+                    id = Id,
+                    email = Email,
+                    phone_number = PhoneNumber,
+                    image_file = Convert.ToBase64String(ByteImage)
+                }
+           );
         }
 
         public string GetToken()
@@ -37,5 +47,7 @@ namespace GoldenLeafMobile.Models.ClerkModels
             }
             return false;
         }
+
+
     }
 }

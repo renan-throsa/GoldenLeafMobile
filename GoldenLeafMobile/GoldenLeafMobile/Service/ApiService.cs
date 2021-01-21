@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,9 +24,8 @@ namespace GoldenLeafMobile.Service
         }
 
         public async Task<HttpResponseMessage> PostEntityAsync(string token, string payload)
-        {
-            var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(token + ":" + ""));
-            httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {encoded}");
+        {           
+            httpClient.DefaultRequestHeaders.Authorization = GetAuth(token);
             var stringContent = new StringContent(payload, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await httpClient.PostAsync(baseurl, stringContent);
             return response;
@@ -33,11 +33,17 @@ namespace GoldenLeafMobile.Service
 
         public async Task<HttpResponseMessage> PutEntityAsync(string token, string payload)
         {
-            var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(token + ":" + ""));
-            httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {encoded}");
+            httpClient.DefaultRequestHeaders.Authorization = GetAuth(token);
             var stringContent = new StringContent(payload, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await httpClient.PutAsync(baseurl, stringContent);
             return response;
+        }
+
+        private AuthenticationHeaderValue GetAuth(string token)
+        {
+            var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(token + ":" + ""));
+            var auth = new AuthenticationHeaderValue("Basic", encoded);
+            return auth;
         }
     }
 }
