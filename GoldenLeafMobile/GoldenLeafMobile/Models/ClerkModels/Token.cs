@@ -1,15 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace GoldenLeafMobile.Models.ClerkModels
 {
     public class Token
     {
-        [JsonProperty("expiration_time")]
-        public DateTime ExpirationTime { get; set; }
-
-        [JsonProperty("value")]
         public string Value { get; set; }
-        
+        public DateTime Expiration { get; set; }
     }
 }

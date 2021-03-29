@@ -1,35 +1,35 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.IO;
 using Xamarin.Forms;
 
 namespace GoldenLeafMobile.Models.ClerkModels
 {
-    public class Clerk : User
+    public class Clerk
     {
-        [JsonProperty("email")]
+
+        public string Id { get; set; }
+        public string UserName { get; set; }
         public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Photo { get; set; }
+        public bool Syncronized { get; set; }
 
-        [JsonProperty("token")]
         private Token Token { get; set; }
-
-        [JsonProperty("profile_pic")]
-        public string StringImage { get; set; }
 
         public ImageSource ProfileImage { get; set; }
 
         public byte[] ByteImage { get; set; }
-                       
 
-        public override string ToJson()
+
+        public string ToJson()
         {
             return JsonConvert.SerializeObject(
                 new
                 {
                     id = Id,
                     email = Email,
-                    phone_number = PhoneNumber,
-                    image_file = Convert.ToBase64String(ByteImage)
+                    phoneNumber = PhoneNumber,
+                    photo = Convert.ToBase64String(ByteImage)
                 }
            );
         }
@@ -38,14 +38,16 @@ namespace GoldenLeafMobile.Models.ClerkModels
         {
             return this.Token.Value;
         }
-        public bool IsTokenExperationTimeValid()
+
+        public bool IsTokenValid()
         {
             var now = DateTime.Now;
-            if (now < Token.ExpirationTime)
+
+            if (now > Token.Expiration)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
 

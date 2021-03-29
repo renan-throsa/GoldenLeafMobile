@@ -1,7 +1,5 @@
-﻿using GoldenLeafMobile.Models.ClerkModels;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
 
 namespace GoldenLeafMobile.ViewModels
 {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +8,7 @@ namespace GoldenLeafMobile.Service
     public class ApiService<T>
     {
         protected readonly HttpClient httpClient;
-        protected string baseurl = "https://golden-leaf.herokuapp.com/api/" + typeof(T).Name.ToLower();
+        protected string baseurl = "https://goldenleafapi.herokuapp.com/api/v1.0/" + typeof(T).Name.ToLower();
 
         public ApiService(HttpClient httpClient)
         {
@@ -41,8 +40,8 @@ namespace GoldenLeafMobile.Service
 
         private AuthenticationHeaderValue GetAuth(string token)
         {
-            var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(token + ":" + ""));
-            var auth = new AuthenticationHeaderValue("Basic", encoded);
+            //var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(token + ":" + ""));
+            var auth = new AuthenticationHeaderValue("Bearer", token);
             return auth;
         }
     }

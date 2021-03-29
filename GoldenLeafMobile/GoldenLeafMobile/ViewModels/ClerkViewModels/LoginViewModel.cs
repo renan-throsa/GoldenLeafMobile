@@ -12,7 +12,7 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
 {
     class LoginViewModel : BaseViewModel
     {
-        private readonly string URL_POST_CLERK = "https://golden-leaf.herokuapp.com/api/clerk";
+        private readonly string URL_POST_CLERK = "https://goldenleafapi.herokuapp.com/api/v1.0/Account/Login";
         private string _email;
         private string _password;
 
@@ -52,17 +52,7 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
 
             HttpClient httpClient = new HttpClient();
             Wait = true;
-            /*
-             * HTTP Basic Authentication --> https://en.wikipedia.org/wiki/Basic_access_authentication
-             * While encoding the user name and password with the Base64 algorithm typically makes
-             * them unreadable by the naked eye, they are as easily decoded as they are encoded.
-             * Security is not the intent of the encoding step. Rather, the intent of the encoding 
-             * is to encode non-HTTP-compatible characters that may be in the user name or password
-             * into those that are HTTP-compatible.
-             */
-            var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(Email + ":" + Password));
-            httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {encoded}");
-            var stringContent = new StringContent("Not necessary for now. Login does not require a body.", Encoding.UTF8, "application/json");
+            var stringContent = new StringContent(LoginToJson(), Encoding.UTF8, "application/json");
             HttpResponseMessage response;
             try
             {
@@ -82,7 +72,11 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
             {
                 var content = await response.Content.ReadAsStringAsync();
                 var clerk = JsonConvert.DeserializeObject<Clerk>(content);
-                clerk.ProfileImage = Base64ToImage(clerk.StringImage);
+                if (clerk.Photo != null)
+                {
+                    clerk.ProfileImage = Base64ToImage(clerk.Photo);
+                }
+
                 MessagingCenter.Send(clerk, "SuccessLogin");
             }
             else
@@ -96,6 +90,14 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
             }
         }
 
+        private string LoginToJson()
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                Email = this._email,
+                Password = this._password
+            });
+        }
         private ImageSource Base64ToImage(string base64String)
         {
             byte[] bytes = Convert.FromBase64String(base64String);

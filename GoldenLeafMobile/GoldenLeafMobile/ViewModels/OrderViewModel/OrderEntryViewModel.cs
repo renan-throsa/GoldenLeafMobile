@@ -26,8 +26,8 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         public readonly string ACCESS = "OnRequestUnauthorized";
 
 
-        private readonly string URL_PRODUCT = "https://golden-leaf.herokuapp.com/api/product/code/";
-        private readonly string URL_ORDER = "https://golden-leaf.herokuapp.com/api/order";
+        private readonly string URL_PRODUCT = "https://goldenleafapi.herokuapp.com/api/v1.0/Product/code/";
+        private readonly string URL_ORDER = "https://goldenleafapi.herokuapp.com/api/v1.0/Order";
 
         public Client Client { get; }
 
@@ -165,8 +165,8 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             using (HttpClient httpClient = new HttpClient())
             {
                 var order = CreateOrderString();
-                var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(Clerk.GetToken() + ":" + ""));
-                httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {encoded}");
+                //var encoded = Convert.ToBase64String(Encoding.GetEncoding("UTF-8").GetBytes(Clerk.Token + ":" + ""));
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {Clerk.GetToken()}");
                 var stringContent = new StringContent(order, Encoding.UTF8, "application/json");
 
                 var response = await httpClient.PostAsync(URL_ORDER, stringContent);

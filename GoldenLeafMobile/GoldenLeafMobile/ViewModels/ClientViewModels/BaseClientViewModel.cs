@@ -13,7 +13,7 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
     public abstract class BaseClientViewModel
     {
         public Clerk Clerk { get; set; }
-        private readonly string URL_CLIENT = "https://golden-leaf.herokuapp.com/api/client";
+        private readonly string URL_CLIENT = "https://goldenleafapi.herokuapp.com/api/v1.0/Client";
         public readonly string SUCCESS = "OnSuccessSavingClient";
         public readonly string FAIL = "OnFailedSavingClient";
         public readonly string ASK = "OnSavingClient";
@@ -51,9 +51,9 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
 
         public async void SaveClient()
         {
-            if (!this.Clerk.IsTokenExperationTimeValid())
+            if (!this.Clerk.IsTokenValid())
             {
-                MessagingCenter.Send<string>(Clerk.Name, ACCESS);
+                MessagingCenter.Send<string>(Clerk.UserName, ACCESS);
             }
 
             using (HttpClient httpClient = new HttpClient())

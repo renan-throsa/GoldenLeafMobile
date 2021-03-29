@@ -46,7 +46,7 @@ namespace GoldenLeafMobile.ViewModels.PaymentViewModel
                     },
                     () =>
                     {
-                        return Value > 0 && Value <= Client.Amount;
+                        return Value > 0 && Value <= Client.Debt;
                     }
                 );
             Client = client;
@@ -63,7 +63,7 @@ namespace GoldenLeafMobile.ViewModels.PaymentViewModel
 
                 if (response.IsSuccessStatusCode)
                 {
-                    MessagingCenter.Send<String>($"R$ {this.Client.Amount - this.Value}", SUCCESS);
+                    MessagingCenter.Send<String>($"R$ {this.Client.Debt - this.Value}", SUCCESS);
                 }
                 else
                 {

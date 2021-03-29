@@ -29,9 +29,9 @@ namespace GoldenLeafMobile.ViewModels.CategoryViewModels
 
         public async void SaveCategory()
         {
-            if (!this.Clerk.IsTokenExperationTimeValid())
+            if (!this.Clerk.IsTokenValid())
             {
-                MessagingCenter.Send<string>(Clerk.Name, ACCESS);
+                MessagingCenter.Send<string>(Clerk.UserName, ACCESS);
             }
 
             using (HttpClient httpClient = new HttpClient())

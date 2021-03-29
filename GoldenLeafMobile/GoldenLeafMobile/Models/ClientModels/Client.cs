@@ -1,30 +1,31 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace GoldenLeafMobile.Models.ClientModels
 {
-    public class Client : User
+    public class Client : BaseModel
     {
-        [JsonProperty("identification")]
-        public string Identification { get; set; }
 
-        [JsonProperty("amount")]
-        public float Amount { get; set; }
+        public string Name { get; set; }
 
-        [JsonProperty("address")]
+        public string PhoneNumber { get; set; }
+
+        public float Debt { get; set; }
+
         public string Address { get; set; }
 
-        [JsonProperty("status")]
         public bool Status { get; set; }
 
-        [JsonProperty("notifiable")]
         public bool Notifiable { get; set; }
+
+        public DateTime lastPurchase { get; set; }
 
         public Client()
         {
             Status = true;
             Notifiable = true;
         }
-               
+
 
         public override string ToJson()
         {
@@ -33,12 +34,9 @@ namespace GoldenLeafMobile.Models.ClientModels
                 {
                     id = Id,
                     name = Name,
-                    amount = Amount,
                     address = Address,
-                    identification = Identification,
-                    phone_number = PhoneNumber,
+                    phoneNumber = PhoneNumber,
                     notifiable = Notifiable,
-                    status = Status
                 }
            );
         }

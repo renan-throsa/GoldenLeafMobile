@@ -34,8 +34,8 @@ namespace GoldenLeafMobile.ViewModels
 
         public string Name
         {
-            get { return _clerk.Name; }
-            set { _clerk.Name = value; }
+            get { return _clerk.UserName; }
+            set { _clerk.UserName = value; }
         }
 
         public string Email

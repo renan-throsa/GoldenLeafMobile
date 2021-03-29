@@ -1,10 +1,5 @@
-﻿using GoldenLeafMobile.Data;
-using GoldenLeafMobile.Models;
-using GoldenLeafMobile.Models.CategoryModels;
+﻿using GoldenLeafMobile.Models.CategoryModels;
 using GoldenLeafMobile.Models.ClerkModels;
-using System.Net.Http;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace GoldenLeafMobile.ViewModels.CategoryViewModels
