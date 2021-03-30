@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenLeafMobile.Android", "GoldenLeafMobile\GoldenLeafMobile.Android\GoldenLeafMobile.Android.csproj", "{9293BCBA-1FA1-48C7-9C81-9A36E929F80E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Golden-Leaf-Mobile", "GoldenLeafMobile\GoldenLeafMobile\Golden-Leaf-Mobile.csproj", "{CC1AEDFC-458B-4D7A-8D8B-504969817952}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Golden_Leaf_Mobile", "GoldenLeafMobile\GoldenLeafMobile\Golden_Leaf_Mobile.csproj", "{CC1AEDFC-458B-4D7A-8D8B-504969817952}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -22,8 +22,15 @@ namespace GoldenLeafMobile.Service
             return result;
         }
 
+        public async Task<HttpResponseMessage> GetEntitiesAsync(int pageNo)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, baseurl + $"?PageNo={pageNo}");
+            var result = await httpClient.SendAsync(request);
+            return result;
+        }
+
         public async Task<HttpResponseMessage> PostEntityAsync(string token, string payload)
-        {           
+        {
             httpClient.DefaultRequestHeaders.Authorization = GetAuth(token);
             var stringContent = new StringContent(payload, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await httpClient.PostAsync(baseurl, stringContent);

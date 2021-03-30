@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-              xmlns:converter="clr-namespace:GoldenLeafMobile.Converters"
+             xmlns:converter="clr-namespace:GoldenLeafMobile.Converters"
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ClientViews.ClientsPage"
              Title="Clientes">
@@ -12,7 +13,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:SyncronizedConverter x:Key="syncronizedConverter"/>
-        </ResourceDictionary>    
+        </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
@@ -22,13 +23,13 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        
+
         <StackLayout Margin="{DynamicResource PageMargin}" Spacing="0">
             <Grid ColumnSpacing="-1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -36,11 +37,17 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Text="Cliente" Grid.Column="0" Style="{DynamicResource headerTablet}"/>
-                <Label Text="Número" Grid.Row="0" Grid.Column="1" Style="{DynamicResource headerTablet}"/>
-                <Label Text="Total R$" Grid.Row="0" Grid.Column="2" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Total" Grid.Row="0" Grid.Column="1" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Ativo" Grid.Row="0" Grid.Column="2" Style="{DynamicResource headerTablet}"/>
             </Grid>
 
+
             <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
+
+                <ListView.Behaviors>
+                    <extended:InfiniteScrollBehavior IsLoadingMore="{Binding Wait}" />
+                </ListView.Behaviors>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -51,7 +58,7 @@
                             </ViewCell.ContextActions>
                             <ViewCell.View>
                                 <Grid ColumnSpacing="-1"  RowSpacing="-1">
-                                    
+
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -65,28 +72,38 @@
                                            Style="{DynamicResource detailTablet}"
                                            />
 
-                                    <Label Text="{Binding Identification}" 
+                                    <Label Text="{Binding FormatedDebt}" 
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
                                            Grid.Column="1"                                           
                                            Style="{DynamicResource detailTablet}"
                                            />
-                                    
-                                    <Label Text="{Binding Amount}" 
+
+                                    <Label Text="{Binding FormatedStatus}" 
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
                                            Grid.Column="2"
                                            Style="{DynamicResource detailTablet}"
-                                           />                                                                       
+                                           />
                                 </Grid>
                             </ViewCell.View>
 
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
-            <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}" 
-                           VerticalOptions="Center" HorizontalOptions="Center"/>
+                <ListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding Wait}">
+                        <!-- set the footer to have a zero height when invisible -->
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </Trigger>
+                        </Grid.Triggers>
+                        <!-- the loading content -->
+                        <Label Text="Carregando..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" />
+                    </Grid>
+                </ListView.Footer>
+            </ListView>            
         </StackLayout>
 
     </ContentPage.Content>

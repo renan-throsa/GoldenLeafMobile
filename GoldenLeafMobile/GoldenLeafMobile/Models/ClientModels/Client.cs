@@ -20,6 +20,18 @@ namespace GoldenLeafMobile.Models.ClientModels
 
         public DateTime lastPurchase { get; set; }
 
+
+        public string FormatedDebt
+        {
+            get { return $"R$ {Debt}"; }
+        }
+
+        public string FormatedStatus
+        {
+            get { return Status ? "Sim" : "Não"; }
+        }
+
+
         public Client()
         {
             Status = true;

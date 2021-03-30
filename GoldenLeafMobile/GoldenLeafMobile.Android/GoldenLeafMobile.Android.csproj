@@ -105,9 +105,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GoldenLeafMobile\Golden-Leaf-Mobile.csproj">
+    <ProjectReference Include="..\GoldenLeafMobile\Golden_Leaf_Mobile.csproj">
       <Project>{CC1AEDFC-458B-4D7A-8D8B-504969817952}</Project>
-      <Name>Golden-Leaf-Mobile</Name>
+      <Name>Golden_Leaf_Mobile</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

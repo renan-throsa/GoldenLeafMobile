@@ -1,11 +1,11 @@
-﻿using GoldenLeafMobile.Models;
+﻿using Golden_Leaf_Mobile.Models;
+using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Service;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Extended;
 
 namespace GoldenLeafMobile.ViewModels
 {
@@ -14,8 +14,9 @@ namespace GoldenLeafMobile.ViewModels
         public string URL { get; set; }
         public readonly string FAIL = "OnFetchingEntities";
         public readonly string SELECTED = "OnEntitySelected";
+        public Pagination<T> Pagination { get; set; }
+        public InfiniteScrollCollection<T> Entities { get; set; }
 
-        public ObservableCollection<T> Entities { get; set; }
 
         private T _selectedEntity;
         public T SelectedEntity
@@ -30,13 +31,23 @@ namespace GoldenLeafMobile.ViewModels
 
         public ListViewModel()
         {
-            Entities = new ObservableCollection<T>();
+            Entities = new InfiniteScrollCollection<T>
+            {
+                OnLoadMore = async () =>
+                {
+                    await GetEntities();
+                    return Pagination.Data;
+                },
+                OnCanLoadMore = () =>
+                {
+                    return Entities.Count < Pagination.Total;
+                }
+            };
         }
 
         public async Task GetEntities()
         {
             Wait = true;
-            Entities.Clear();
             using (HttpClient httpClient = new HttpClient())
             {
                 var api = new ApiService<T>(httpClient);
@@ -45,12 +56,8 @@ namespace GoldenLeafMobile.ViewModels
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-                    var EntityList = JsonConvert.DeserializeObject<List<T>>(result);
-
-                    foreach (var entity in EntityList)
-                    {
-                        Entities.Add(entity);
-                    }
+                    Pagination = JsonConvert.DeserializeObject<Pagination<T>>(result);
+                    Entities.AddRange(Pagination.Data);
                 }
                 else
                 {
@@ -62,9 +69,9 @@ namespace GoldenLeafMobile.ViewModels
                         FAIL);
                 }
 
-
             }
             Wait = false;
+
         }
 
     }
