@@ -3,7 +3,6 @@ using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ProductModels;
 using GoldenLeafMobile.ViewModels.ProductViewModels;
 using System;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing.Net.Mobile.Forms;

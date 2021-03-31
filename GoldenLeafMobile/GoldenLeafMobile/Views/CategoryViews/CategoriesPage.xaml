@@ -54,16 +54,27 @@
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
                                          Grid.Column="0"/>
-                                    
+
                                 </Grid>
                             </ViewCell.View>
 
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+
+                <ListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding Wait}">
+                        <!-- set the footer to have a zero height when invisible -->
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </Trigger>
+                        </Grid.Triggers>
+                        <!-- the loading content -->
+                        <Label Text="Carregando..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" />
+                    </Grid>
+                </ListView.Footer>
             </ListView>
-            <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}" 
-                           VerticalOptions="Center" HorizontalOptions="Center"/>
 
         </StackLayout>
 

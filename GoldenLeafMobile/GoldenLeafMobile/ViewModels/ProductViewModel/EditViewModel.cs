@@ -40,9 +40,8 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
         //Must be called only after GetCategories()!
         public void SetCategoryIndex()
         {
-            var cat = Categories.First(c => c.Id == Product.Id);
+            var cat = Categories.First(c => c.Id == Product.CategoryId);
             IndexValue = Categories.IndexOf(cat);
-
         }
     }
 }

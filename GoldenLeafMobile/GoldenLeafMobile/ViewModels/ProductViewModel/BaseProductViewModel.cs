@@ -1,4 +1,5 @@
-﻿using GoldenLeafMobile.Data;
+﻿using Golden_Leaf_Mobile.Models;
+using GoldenLeafMobile.Data;
 using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Models.CategoryModels;
 using GoldenLeafMobile.Models.ClerkModels;
@@ -6,7 +7,6 @@ using GoldenLeafMobile.Models.ProductModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,10 +48,10 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
             get { return Product.Description; }
             set { Product.Description = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
         }
-        public bool IsAvailable
+        public int IsAvailable
         {
-            get { return Product.IsAvailable; }
-            set { Product.IsAvailable = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
+            get { return Product.Quantity; }
+            set { Product.Quantity = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
         }
 
         public string Code
@@ -62,17 +62,42 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
 
         public float UnitCost
         {
-            get { return Product.UnitCost; }
-            set { Product.UnitCost = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
+            get { return Product.SalePrice; }
+            set { Product.SalePrice = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
         }
 
-        public ObservableCollection<Category> Categories { get; private set; }
+        public float PurchasePrice
+        {
+            get { return Product.PurchasePrice; }
+            set { Product.PurchasePrice = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
+        }
+
+        public int Quantity
+        {
+            get { return Product.Quantity; }
+            set { Product.Quantity = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
+        }
+
+        public int MinimumQuantity
+        {
+            get { return Product.MinimumQuantity; }
+            set { Product.MinimumQuantity = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
+        }
+
+        private List<Category> _categories;
+
+        public List<Category> Categories
+        {
+            get { return _categories; }
+            set { _categories = value; OnPropertyChanged(); }
+        }
+
 
         public BaseProductViewModel(Clerk clerk, Product product)
         {
             Clerk = clerk;
             Product = product;
-            Categories = new ObservableCollection<Category>();
+            Categories = new List<Category>();
         }
 
         public async void SaveProduct()
@@ -125,22 +150,16 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-                    var EtitiesList = JsonConvert.DeserializeObject<List<Category>>(result);
-                    foreach (var clientJson in EtitiesList)
-                    {
-                        Categories.Add(clientJson);
-                    }
+                    var pagination = JsonConvert.DeserializeObject<Pagination<Category>>(result);
+                    Categories = pagination.Data;
+
                 }
                 else
                 {
                     using (var connection = DependencyService.Get<ISQLite>().GetConnection())
                     {
                         var dao = new Repository<Category>(connection);
-                        foreach (var category in dao.Get())
-                        {
-                            Categories.Add(category);
-                        }
-
+                        Categories = dao.Get();
                     }
                 }
 

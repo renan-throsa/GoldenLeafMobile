@@ -1,4 +1,5 @@
-﻿using GoldenLeafMobile.Models.ClientModels;
+﻿using GoldenLeafMobile.Models;
+using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.ViewModels;
 using System;
 using System.ComponentModel;
@@ -23,8 +24,14 @@ namespace GoldenLeafMobile.Views.ClientViews
         {
             base.OnAppearing();
             listView.SelectedItem = false;
-            MessagingCenter.Subscribe<Client>(this, "SelectedClient",
+            MessagingCenter.Subscribe<Client>(this, ViewModel.SELECTED,
                 (_client) => Navigation.PushAsync(new DatailsPage(_client)));
+
+            MessagingCenter.Subscribe<SimpleHttpResponseException>(this, ViewModel.FAIL,
+               (_msg) =>
+               {
+                   DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
+               });
 
             await ViewModel.GetEntities();
         }
@@ -32,7 +39,8 @@ namespace GoldenLeafMobile.Views.ClientViews
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<Client>(this, "SelectedClient");
+            MessagingCenter.Unsubscribe<Client>(this, ViewModel.SELECTED);
+            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
         }
 
         public void OnEdit(object sender, EventArgs e)

@@ -5,8 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ProductViews.EditPage">
-    
+
     <ContentPage.Content>
+        <Frame OutlineColor="Silver" VerticalOptions="CenterAndExpand"  Margin="15">
         <StackLayout Margin="{StaticResource PageMargin}">
             <TableView Intent="Form">
                 <TableRoot>
@@ -23,18 +24,22 @@
                         </ViewCell>
                     </TableSection>
                     <TableSection Title="Dados">
-                        <EntryCell x:Name="Code" Keyboard="Numeric" Label="Código" IsEnabled="False" Text="{Binding Code,Mode=TwoWay}"/>
+                        <EntryCell x:Name="Code" Keyboard="Numeric" Label="Código" IsEnabled="False" Text="{Binding Code}"/>
                         <EntryCell Keyboard="Default" Label="Descrição" Text="{Binding Description
                             ,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Numeric" Label="Preço R$" Text="{Binding UnitCost
+                        <EntryCell Keyboard="Numeric" Label="Preço de venda" Text="{Binding SalePrice
                             ,Mode=TwoWay}"/>
+                        <EntryCell Keyboard="Numeric" Label="Preço de compra" Text="{Binding PurchasePrice
+                            ,Mode=TwoWay}"/>
+                        <EntryCell Keyboard="Numeric" Label="Quantidade" Text="{Binding Quantity,Mode=TwoWay}"/>
+                        <EntryCell Keyboard="Numeric" Label="Quantidade" Text="{Binding MinimumQuantity,Mode=TwoWay}"/>
+
                     </TableSection>
-                    <TableSection Title="Configurações">
-                        <SwitchCell Text="Dísponível" On="{Binding IsAvailable,Mode=TwoWay}"/>
-                    </TableSection>
+
                 </TableRoot>
             </TableView>
             <Button Text="Salvar" Command="{Binding SaveProductComand}"></Button>
         </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </ContentPage>

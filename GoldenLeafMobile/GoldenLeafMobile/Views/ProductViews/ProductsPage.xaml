@@ -11,8 +11,8 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:SyncronizedConverter x:Key="syncronizedConverter"/>
-        </ResourceDictionary>       
-       
+        </ResourceDictionary>
+
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
@@ -26,10 +26,10 @@
             <!-- 
             <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}"/>
             -->
-            
+
             <Grid ColumnSpacing="-1" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />                   
+                    <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -52,30 +52,30 @@
                                 <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Editar"/>
                             </ViewCell.ContextActions>
                             <ViewCell.View>
-                                
-                                    <Grid ColumnSpacing="-1"  RowSpacing="-1">                                    
+
+                                <Grid ColumnSpacing="-1"  RowSpacing="-1">
 
                                     <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                        <Label Text="{Binding Description}"                                           
+                                    <Label Text="{Binding Description}"                                           
                                            TextColor="{Binding Syncronized,Converter={StaticResource Key=syncronizedConverter}}"                                           
                                            Grid.Column="0" Style="{DynamicResource detailTablet}"/>
-                                        
-                                        <Label Text="{Binding UnitCost}" 
+
+                                    <Label Text="{Binding FormatedUnitCost}" 
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
                                            Grid.Column="1" Style="{DynamicResource detailTablet}"/>
-                                        
-                                        <Label Text="{Binding FormatedAvailability}" 
+
+                                    <Label Text="{Binding FormatedAvailability}" 
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
                                            Grid.Column="2" Style="{DynamicResource detailTablet}"/>
-                                    
-                                    </Grid>                                
+
+                                </Grid>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>

@@ -4,50 +4,49 @@ namespace GoldenLeafMobile.Models.ProductModels
 {
     public class Product : BaseModel
     {
-        [JsonProperty("category_id")]
         public int CategoryId { get; set; }
 
-        [JsonProperty("code")]
-        public string Code { get; set; }
+        public float PurchasePrice { get; set; }
 
-        [JsonProperty("description")]
+        public float SalePrice { get; set; }
+
         public string Description { get; set; }
 
-        [JsonProperty("is_available")]
-        public bool IsAvailable { get; set; }
+        public string Code { get; set; }
 
-        [JsonProperty("unit_cost")]
-        public float UnitCost { get; set; }
+        public int Quantity { get; set; }
 
-        
+        public int MinimumQuantity { get; set; }
+
+
         public string FormatedAvailability
         {
-            get { return IsAvailable ? "Sim" : "Não"; }            
+            get { return Quantity > 0 ? "Sim" : "Não"; }
         }
 
-
-        public Product()
+        public string FormatedUnitCost
         {
-            IsAvailable = true;
+            get { return $"R$ {SalePrice}"; }
         }
 
-        public string FormatedUnitCost()
+        public string FormatedPurchasePrice
         {
-            return $"R$ {UnitCost}";
+            get { return $"R$ {PurchasePrice}"; }
         }
-                
+
 
         public override string ToJson()
         {
             return JsonConvert.SerializeObject(
                 new
                 {
-                    id = Id,
-                    category_id = CategoryId,
-                    code = Code,
-                    description = Description,
-                    is_available = IsAvailable,
-                    unit_cost = UnitCost
+                    Id,
+                    CategoryId,
+                    Description,
+                    SalePrice,
+                    PurchasePrice,
+                    Quantity,
+                    MinimumQuantity
                 }
                 );
         }

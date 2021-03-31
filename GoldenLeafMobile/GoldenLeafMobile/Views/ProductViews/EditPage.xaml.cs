@@ -11,6 +11,7 @@ namespace GoldenLeafMobile.Views.ProductViews
     public partial class EditPage : ContentPage
     {
         public EditViewModel ViewModel { get; private set; }
+
         public EditPage(Product product)
         {
             InitializeComponent();

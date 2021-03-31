@@ -8,25 +8,8 @@
               Title="{Binding Client.Name}">
 
 
-    <ContentPage.Resources>
-        <!-- Implicit styles -->
-        <Style TargetType="{x:Type Editor}">
-            <Setter Property="BackgroundColor"
-                    Value="{StaticResource AppBackgroundColor}" />
-        </Style>
-
-        <Style TargetType="Button"
-               ApplyToDerivedTypes="True"
-               CanCascade="True">
-            <Setter Property="FontSize" Value="Medium" />
-            <Setter Property="BackgroundColor" Value="#1976D2" />
-            <Setter Property="TextColor" Value="White" />
-            <Setter Property="CornerRadius" Value="5" />
-        </Style>
-    </ContentPage.Resources>
-
-   
     <ContentPage.Content>
+        <Frame OutlineColor="Silver" VerticalOptions="CenterAndExpand"  Margin="15">
             <StackLayout Margin="{StaticResource PageMargin}">
                 <TableView Intent="Data">
                     <TableRoot>
@@ -42,6 +25,7 @@
                     </TableRoot>
                 </TableView>
                 <Button x:Name="buttonEdit" Text="Editar" Clicked="buttonEdit_Clicked"></Button>
-            </StackLayout>        
+            </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </ContentPage>

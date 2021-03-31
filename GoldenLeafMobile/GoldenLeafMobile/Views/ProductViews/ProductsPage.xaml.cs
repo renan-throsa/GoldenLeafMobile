@@ -1,4 +1,5 @@
-﻿using GoldenLeafMobile.Models.ProductModels;
+﻿using GoldenLeafMobile.Models;
+using GoldenLeafMobile.Models.ProductModels;
 using GoldenLeafMobile.ViewModels;
 using System;
 using Xamarin.Forms;
@@ -10,7 +11,6 @@ namespace GoldenLeafMobile.Views.ProductViews
     public partial class ProductsPage : ContentPage
     {
         public ListViewModel<Product> ViewModel { get; set; }
-        private const string MESSAGE_KEY = "SelectedProduct";
 
         public ProductsPage()
         {
@@ -23,8 +23,14 @@ namespace GoldenLeafMobile.Views.ProductViews
         {
             base.OnAppearing();
             listView.SelectedItem = false;
-            MessagingCenter.Subscribe<Product>(this, MESSAGE_KEY,
+            MessagingCenter.Subscribe<Product>(this, ViewModel.SELECTED,
                 (_product) => Navigation.PushAsync(new DetailsPage(_product)));
+
+            MessagingCenter.Subscribe<SimpleHttpResponseException>(this, ViewModel.FAIL,
+              (_msg) =>
+              {
+                  DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
+              });
 
             await ViewModel.GetEntities();
         }
@@ -32,7 +38,8 @@ namespace GoldenLeafMobile.Views.ProductViews
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<Product>(this, MESSAGE_KEY);
+            MessagingCenter.Unsubscribe<Product>(this, ViewModel.SELECTED);
+            MessagingCenter.Unsubscribe<SimpleHttpResponseException>(this, ViewModel.FAIL);
         }
 
         public void OnEdit(object sender, EventArgs e)
