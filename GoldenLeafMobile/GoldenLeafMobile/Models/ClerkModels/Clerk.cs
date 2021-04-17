@@ -14,7 +14,7 @@ namespace GoldenLeafMobile.Models.ClerkModels
         public string Photo { get; set; }
         public bool Syncronized { get; set; }
 
-        private Token Token { get; set; }
+        public Token Token { get; set; }
 
         public ImageSource ProfileImage { get; set; }
 
@@ -36,7 +36,7 @@ namespace GoldenLeafMobile.Models.ClerkModels
 
         public string GetToken()
         {
-            return this.Token.Value;
+            return Token.Value;
         }
 
         public bool IsTokenValid()

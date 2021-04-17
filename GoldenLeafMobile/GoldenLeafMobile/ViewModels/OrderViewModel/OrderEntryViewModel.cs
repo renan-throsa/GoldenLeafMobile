@@ -3,8 +3,6 @@ using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ClientModels;
 using GoldenLeafMobile.Models.OrderModels;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text;
@@ -26,7 +24,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         public readonly string ACCESS = "OnRequestUnauthorized";
 
 
-        private readonly string URL_PRODUCT = "https://goldenleafapi.herokuapp.com/api/v1.0/Product/code/";
+        private readonly string URL_PRODUCT = "https://goldenleafapi.herokuapp.com/api/v1.0/Product/";
         private readonly string URL_ORDER = "https://goldenleafapi.herokuapp.com/api/v1.0/Order";
 
         public Client Client { get; }
@@ -100,7 +98,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             Client = client;
             Clerk = clerk;
             Items = new ObservableCollection<OrderTableItem>();
-            
+
             SearchProductComand = new Command(
                 () =>
                     {
@@ -220,7 +218,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         private void FillOutTable(PartialProduct partialProduct)
         {
             Description = partialProduct.Description;
-            UnitCost = partialProduct.UnitCost;
+            UnitCost = partialProduct.SalePrice;
             Id = partialProduct.Id;
             IsSearching = false;
             IsEditing = true;
@@ -245,19 +243,11 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
 
         private string CreateOrderString()
         {
-            var payload = new Dictionary<string, object>(){
-            { "client_id", Client.Id },
-            { "clerk_id", Clerk.Id }
-            };
-
-            var secretKey = Application.Current.Properties["Secret"] as String;
-            string ids = JWT.JsonWebToken.Encode(payload, secretKey, JWT.JwtHashAlgorithm.HS256);
-
-
             return JsonConvert.SerializeObject(
            new
            {
-               token = ids,
+               ClientId = Client.Id,
+               ClerkId = Clerk.Id,
                items = Items
            }
            , Formatting.Indented);

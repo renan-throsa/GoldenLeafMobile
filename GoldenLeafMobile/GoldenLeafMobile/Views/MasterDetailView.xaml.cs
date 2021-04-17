@@ -15,7 +15,7 @@ namespace GoldenLeafMobile.Views
 
         public MasterDetailView(Clerk clerk)
         {
-            InitializeComponent();
+            InitializeComponent();            
             masterPage = new MasterView(clerk);
             this.Master = masterPage;
             this.Detail = new NavigationPage(new ClientsPage());

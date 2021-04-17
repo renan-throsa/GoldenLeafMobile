@@ -1,24 +1,28 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
 
 namespace GoldenLeafMobile.Models.OrderModels
 {
     public class Order : BaseModel
     {
-        [JsonProperty("client")]
-        public string Client { get; set; }
+        public string ClientName { get; set; }
+        public int ClientId { get; set; }
 
-        [JsonProperty("clerk")]
-        public string Clerk { get; set; }
-                
-        [JsonProperty("date")]
-        public string Date { get; set; }
+        public string ClerkName { get; set; }
+        public string ClerkId { get; set; }
 
-        [JsonProperty("total")]
-        public float Total { get; set; }
+        public DateTime Date { get; set; }
 
-        [JsonProperty("status")]
+        public float Value { get; set; }
+
         public Status Status { get; set; }
+
+        
+        public string FormatedDate
+        {            
+            get { return Date.ToString("D", new System.Globalization.CultureInfo("pt-BR")); }
+        }
+
 
         public override string ToJson()
         {

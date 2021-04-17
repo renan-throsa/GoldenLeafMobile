@@ -1,7 +1,6 @@
 ﻿using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ClientModels;
-using GoldenLeafMobile.Models.PaymentModel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -87,12 +86,12 @@ namespace GoldenLeafMobile.ViewModels.PaymentViewModel
                 {"amount", Value }
             };
 
-            var secretKey = Application.Current.Properties["Secret"] as String;
-            string token = JWT.JsonWebToken.Encode(payload, secretKey, JWT.JwtHashAlgorithm.HS256);
             var payment = JsonConvert.SerializeObject(
                 new
                 {
-                    payment = token
+                    ClientId = Client.Id,
+                    ClerkId = Clerk.Id,
+                    Value
                 }
              );
             return payment;

@@ -14,14 +14,14 @@ namespace GoldenLeafMobile.Models.OrderModels
             ExtendedCost = extendedCost;
         }
 
-        [JsonProperty("product_id")]        
+        [JsonProperty("ProductId")]        
         public int ProductId { get; set; }
 
         public string Description { get; set; }
 
         public float UnitCost { get; set; }
 
-        [JsonProperty("quantity")]
+        [JsonProperty("Quantity")]
         public int Quantity { get; set; }
 
         public float ExtendedCost { get; set; }

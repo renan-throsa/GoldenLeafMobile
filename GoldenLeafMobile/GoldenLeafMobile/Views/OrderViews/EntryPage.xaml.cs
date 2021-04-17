@@ -18,7 +18,8 @@ namespace GoldenLeafMobile.Views.OrderViews
         public EntryPage(Client client)
         {
             InitializeComponent();
-            ViewModel = new OrderEntryViewModel(Application.Current.Properties["Clerk"] as Clerk, client);
+            var clerk = Application.Current.Properties["Clerk"] as Clerk;
+            ViewModel = new OrderEntryViewModel(clerk, client);
             BindingContext = ViewModel;
         }
 

@@ -16,7 +16,7 @@ namespace GoldenLeafMobile
 
         protected override void OnStart()
         {
-            MessagingCenter.Subscribe<Clerk>(this, "SuccessLogin", (_clerk) =>
+            MessagingCenter.Subscribe<Clerk>(this, "OnSuccessLogin", (_clerk) =>
             {
                 Application.Current.Properties["Clerk"] = _clerk;
                 MainPage = new MasterDetailView(_clerk);

@@ -10,11 +10,16 @@ using Xamarin.Forms;
 
 namespace GoldenLeafMobile.ViewModels.ClerkViewModels
 {
-    class LoginViewModel : BaseViewModel
+    public class LoginViewModel : BaseViewModel
     {
         private readonly string URL_POST_CLERK = "https://goldenleafapi.herokuapp.com/api/v1.0/Account/Login";
         private string _email;
         private string _password;
+
+        public readonly string SUCCESS = "OnSuccessLogin";
+        public readonly string FAILPOST = "OnFailedPost";
+        public readonly string FAILCONNECTION = "OnFailedConnection";
+
 
         public string Password
         {
@@ -63,7 +68,7 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
                 var reasonPhrase = "Erro na comunicação";
                 var message = @"Ocorreu um erro de comunicação com o servidor. Por favor, verifique a sua conexão e tente novamente mais tarde.";
 
-                MessagingCenter.Send(new LoginException(reasonPhrase, message), "FailedConnection");
+                MessagingCenter.Send(new LoginException(reasonPhrase, message), FAILCONNECTION);
                 return;
             }
 
@@ -77,7 +82,7 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
                     clerk.ProfileImage = Base64ToImage(clerk.Photo);
                 }
 
-                MessagingCenter.Send(clerk, "SuccessLogin");
+                MessagingCenter.Send(clerk, SUCCESS);
             }
             else
             {
@@ -86,7 +91,7 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
                     response.Content.Dispose();
 
                 MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
-                    "FailedPostClerk");
+                    FAILPOST);
             }
         }
 
