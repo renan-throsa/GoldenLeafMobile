@@ -3,7 +3,6 @@ using GoldenLeafMobile.Models.ClerkModels;
 using GoldenLeafMobile.Models.ClientModels;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
@@ -13,7 +12,7 @@ namespace GoldenLeafMobile.ViewModels.PaymentViewModel
 {
     public class PaymentEntryViewModel
     {
-        private readonly string URL_PAYMENT = "https://golden-leaf.herokuapp.com/api/payment";
+        private readonly string URL_PAYMENT = "https://goldenleafapi.herokuapp.com/api/v1.0/Payment";
         public readonly string SUCCESS = "OnSuccessSavingPayment";
         public readonly string FAIL = "OnFailedSavingPayment";
         public readonly string ASK = "OnSavingPayment";
@@ -32,7 +31,6 @@ namespace GoldenLeafMobile.ViewModels.PaymentViewModel
             get { return _value; }
             set { _value = value; ((Command)PayCommand).ChangeCanExecute(); }
         }
-
 
 
         public PaymentEntryViewModel(Client client)
@@ -56,9 +54,9 @@ namespace GoldenLeafMobile.ViewModels.PaymentViewModel
         {
             using (HttpClient httpClient = new HttpClient())
             {
-
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {Clerk.GetToken()}");
                 var stringContent = new StringContent(PaymentToJson(), Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync(URL_PAYMENT, stringContent);
+                var response = await httpClient.PostAsync(URL_PAYMENT, stringContent);                
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -80,20 +78,13 @@ namespace GoldenLeafMobile.ViewModels.PaymentViewModel
 
         private string PaymentToJson()
         {
-            var payload = new Dictionary<string, object>(){
-            { "client_id", Client.Id },
-            { "clerk_id", Clerk.Id },
-                {"amount", Value }
-            };
+            var payment = JsonConvert.SerializeObject(new
+            {
+                ClientId = Client.Id,
+                ClerkId = Clerk.Id,
+                Value
+            });
 
-            var payment = JsonConvert.SerializeObject(
-                new
-                {
-                    ClientId = Client.Id,
-                    ClerkId = Clerk.Id,
-                    Value
-                }
-             );
             return payment;
         }
     }

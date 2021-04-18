@@ -12,7 +12,7 @@ namespace GoldenLeafMobile.Models.CategoryModels
             Title = "";
         }
 
-        public override string ToJson()
+        public string ToJson()
         {
             return JsonConvert.SerializeObject(
               new

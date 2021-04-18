@@ -10,6 +10,6 @@ namespace GoldenLeafMobile.Models
         public int Id { get; set; }
         public bool Syncronized { get; set; }
 
-        public abstract string ToJson();
+       
     }
 }

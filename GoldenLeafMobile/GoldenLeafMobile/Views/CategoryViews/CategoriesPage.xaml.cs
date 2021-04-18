@@ -21,7 +21,7 @@ namespace GoldenLeafMobile.Views.CategoryViews
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            listView.SelectedItem = false;
+
             MessagingCenter.Subscribe<Category>(this, ViewModel.SELECTED,
                 (_category) => Navigation.PushAsync(new DetailsPage(_category)));
 
@@ -30,7 +30,15 @@ namespace GoldenLeafMobile.Views.CategoryViews
                {
                    DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
                });
-            await ViewModel.GetEntities();
+
+            if (ViewModel.Entities.Count == 0)
+            {
+                await ViewModel.GetEntities();
+            }
+            else
+            {
+                listView.SelectedItem = false;
+            }
         }
 
         protected override void OnDisappearing()
@@ -46,7 +54,6 @@ namespace GoldenLeafMobile.Views.CategoryViews
             Navigation.PushAsync(new EditPage(mi.CommandParameter as Category));
         }
 
-
         private void OnNewProduct(object sender, System.EventArgs e)
         {
             var mi = ((MenuItem)sender);
@@ -57,5 +64,6 @@ namespace GoldenLeafMobile.Views.CategoryViews
         {
             Navigation.PushAsync(new EntryPage());
         }
+       
     }
 }

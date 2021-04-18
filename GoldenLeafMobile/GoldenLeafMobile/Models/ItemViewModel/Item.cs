@@ -18,7 +18,7 @@ namespace GoldenLeafMobile.Models.OrderModels
         public float UnitCost { get; set; }
        
 
-        public override string ToJson()
+        public string ToJson()
         {
             return JsonConvert.SerializeObject(
                 new

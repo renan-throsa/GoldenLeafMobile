@@ -35,7 +35,7 @@ namespace GoldenLeafMobile.Models.ProductModels
         }
 
 
-        public override string ToJson()
+        public string ToJson()
         {
             return JsonConvert.SerializeObject(
                 new

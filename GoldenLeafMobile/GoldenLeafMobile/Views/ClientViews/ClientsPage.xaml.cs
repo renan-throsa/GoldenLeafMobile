@@ -33,7 +33,14 @@ namespace GoldenLeafMobile.Views.ClientViews
                    DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
                });
 
-            await ViewModel.GetEntities();
+            if (ViewModel.Entities.Count == 0)
+            {
+                await ViewModel.GetEntities();
+            }
+            else
+            {
+                listView.SelectedItem = false;
+            }
         }
 
         protected override void OnDisappearing()

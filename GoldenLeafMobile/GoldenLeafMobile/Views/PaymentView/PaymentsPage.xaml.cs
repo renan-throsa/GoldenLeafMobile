@@ -1,10 +1,5 @@
 ﻿using GoldenLeafMobile.Models.PaymentModel;
 using GoldenLeafMobile.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -25,7 +20,10 @@ namespace GoldenLeafMobile.Views.PaymentView
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            await ViewModel.GetEntities();
+            if (ViewModel.Entities.Count == 0)
+            {
+                await ViewModel.GetEntities();
+            }
         }
     }
 }

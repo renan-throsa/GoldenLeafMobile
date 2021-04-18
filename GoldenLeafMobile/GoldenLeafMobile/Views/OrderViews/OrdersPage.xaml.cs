@@ -20,10 +20,14 @@ namespace GoldenLeafMobile.Views.OrderViews
 
         protected async override void OnAppearing()
         {
-            base.OnAppearing();            
-            await ViewModel.GetEntities();
+            base.OnAppearing();                        
             MessagingCenter.Subscribe<Order>(this, "SelectedOrder",
                 (_order) => Navigation.PushAsync(new DetailsPage(_order)));
+
+            if (ViewModel.Entities.Count == 0)
+            {
+                await ViewModel.GetEntities();
+            }           
         }
 
         protected override void OnDisappearing()

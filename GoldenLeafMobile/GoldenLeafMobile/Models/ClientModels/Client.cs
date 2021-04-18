@@ -39,7 +39,7 @@ namespace GoldenLeafMobile.Models.ClientModels
         }
 
 
-        public override string ToJson()
+        public string ToJson()
         {
             return JsonConvert.SerializeObject(
                 new

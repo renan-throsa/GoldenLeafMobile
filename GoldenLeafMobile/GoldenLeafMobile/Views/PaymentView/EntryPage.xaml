@@ -13,7 +13,7 @@
                 <TableRoot>
                     <TableSection Title="Dados">
                         <EntryCell Label="Cliente" IsEnabled="False" Text="{Binding Client.Name}"/>
-                        <EntryCell IsEnabled="False" Text="{Binding Client.Amount}"/>
+                        <EntryCell Label="Débito" IsEnabled="False" Text="{Binding Client.FormatedDebt}"/>
                         <EntryCell Keyboard="Numeric" Placeholder="Valor" Text="{Binding Value,Mode=TwoWay}"/>                        
                     </TableSection>                    
                 </TableRoot>

@@ -23,10 +23,5 @@ namespace GoldenLeafMobile.Models.OrderModels
             get { return Date.ToString("D", new System.Globalization.CultureInfo("pt-BR")); }
         }
 
-
-        public override string ToJson()
-        {
-            return "Not Necessary";
-        }
     }
 }

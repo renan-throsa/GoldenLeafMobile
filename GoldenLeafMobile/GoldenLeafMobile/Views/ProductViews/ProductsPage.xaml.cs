@@ -22,7 +22,6 @@ namespace GoldenLeafMobile.Views.ProductViews
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            listView.SelectedItem = false;
             MessagingCenter.Subscribe<Product>(this, ViewModel.SELECTED,
                 (_product) => Navigation.PushAsync(new DetailsPage(_product)));
 
@@ -32,7 +31,15 @@ namespace GoldenLeafMobile.Views.ProductViews
                   DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
               });
 
-            await ViewModel.GetEntities();
+            if (ViewModel.Entities.Count == 0)
+            {
+                await ViewModel.GetEntities();
+            }
+            else
+            {
+                listView.SelectedItem = false;
+            }
+
         }
 
         protected override void OnDisappearing()
