@@ -24,8 +24,8 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModels
                     {
                         return !string.IsNullOrEmpty(Product.Description)
                         && !string.IsNullOrEmpty(Product.Code)
-                        && UnitCost > 0
-                        && UnitCost < 100
+                        && SalePrice > 0
+                        && SalePrice < 100
                         && SelectedCategory != null;
                     }
                 );

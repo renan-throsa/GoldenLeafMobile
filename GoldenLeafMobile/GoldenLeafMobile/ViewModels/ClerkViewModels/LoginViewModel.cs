@@ -47,16 +47,18 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
                     },
                     () =>
                         {
-                            return !string.IsNullOrEmpty(_email) && !string.IsNullOrEmpty(_password);
+                            return !string.IsNullOrEmpty(_email) 
+                            && !string.IsNullOrEmpty(_password)
+                            && !Wait;
                         }
                 );
         }
 
         private async Task Login()
         {
-
-            HttpClient httpClient = new HttpClient();
             Wait = true;
+            HttpClient httpClient = new HttpClient();
+            
             var stringContent = new StringContent(LoginToJson(), Encoding.UTF8, "application/json");
             HttpResponseMessage response;
             try
@@ -65,14 +67,14 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
             }
             catch (Exception)
             {
+                Wait = false;
                 var reasonPhrase = "Erro na comunicação";
                 var message = @"Ocorreu um erro de comunicação com o servidor. Por favor, verifique a sua conexão e tente novamente mais tarde.";
 
                 MessagingCenter.Send(new LoginException(reasonPhrase, message), FAILCONNECTION);
                 return;
             }
-
-            Wait = false;
+           
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -93,6 +95,7 @@ namespace GoldenLeafMobile.ViewModels.ClerkViewModels
                 MessagingCenter.Send(new SimpleHttpResponseException(response.StatusCode, response.ReasonPhrase, content),
                     FAILPOST);
             }
+            Wait = false;
         }
 
         private string LoginToJson()

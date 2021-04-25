@@ -1,6 +1,5 @@
 ﻿using GoldenLeafMobile.Models.OrderModels;
 using GoldenLeafMobile.ViewModels;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,7 +13,7 @@ namespace GoldenLeafMobile.Views.OrderViews
         {
             InitializeComponent();
             ViewModel = new ListViewModel<Item>();
-            ViewModel.URL = $"https://golden-leaf.herokuapp.com/api/order/{ order.Id }/items";
+            //ViewModel.URL = $"https://golden-leaf.herokuapp.com/api/order/{ order.Id }/items";
             BindingContext = ViewModel;
         }
 

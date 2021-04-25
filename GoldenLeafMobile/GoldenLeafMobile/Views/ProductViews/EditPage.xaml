@@ -38,7 +38,7 @@
 
                 </TableRoot>
             </TableView>
-            <Button Text="Salvar" Command="{Binding SaveProductComand}"></Button>
+                <Button Text="Salvar" Command="{Binding SaveProductCommand}"></Button>
         </StackLayout>
         </Frame>
     </ContentPage.Content>

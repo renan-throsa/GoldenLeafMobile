@@ -15,19 +15,22 @@ namespace GoldenLeafMobile.Service
             this.httpClient = httpClient;
         }
 
-        public async Task<HttpResponseMessage> GetEntitiesAsync()
+        public async Task<HttpResponseMessage> GetEntitiesAsync(string queryParameter = "")
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, baseurl);
+            HttpRequestMessage request;
+            if (string.IsNullOrEmpty(queryParameter))
+            {
+                request = new HttpRequestMessage(HttpMethod.Get, baseurl);
+            }
+            else
+            {
+                request = new HttpRequestMessage(HttpMethod.Get, baseurl + queryParameter);
+            }
+
             var result = await httpClient.SendAsync(request);
             return result;
         }
 
-        public async Task<HttpResponseMessage> GetEntitiesAsync(int pageNo)
-        {
-            var request = new HttpRequestMessage(HttpMethod.Get, baseurl + $"?PageNo={pageNo}");
-            var result = await httpClient.SendAsync(request);
-            return result;
-        }
 
         public async Task<HttpResponseMessage> PostEntityAsync(string token, string payload)
         {

@@ -15,7 +15,7 @@ namespace GoldenLeafMobile.Views.ProductViews
         public EditPage(Product product)
         {
             InitializeComponent();
-            ViewModel = new EditViewModel(Application.Current.Properties["Clerk"] as Clerk,product);
+            ViewModel = new EditViewModel(Application.Current.Properties["Clerk"] as Clerk, product);
             BindingContext = ViewModel;
         }
 

@@ -60,7 +60,7 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
             set { Product.Code = value; ((Command)SaveProductCommand).ChangeCanExecute(); }
         }
 
-        public float UnitCost
+        public float SalePrice
         {
             get { return Product.SalePrice; }
             set { Product.SalePrice = value; ((Command)SaveProductCommand).ChangeCanExecute(); }

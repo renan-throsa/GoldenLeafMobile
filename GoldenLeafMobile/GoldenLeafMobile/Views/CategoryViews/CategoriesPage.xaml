@@ -22,6 +22,11 @@
 
     <ContentPage.Content>
         <StackLayout Margin="{DynamicResource PageMargin}" Spacing="0">
+            <SearchBar 
+                x:Name="searchField" 
+                Placeholder="Busca por título" 
+                TextChanged="Search_TextChanged">                
+            </SearchBar>
             <Grid ColumnSpacing="-1">
 
                 <Grid.RowDefinitions>
@@ -41,7 +46,7 @@
                         <ViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem Clicked="OnEdit"  CommandParameter="{Binding .}" Text="Editar"/>
-                                <MenuItem Clicked="OnNewProduct" CommandParameter="{Binding Id}" Text="Novo produto"/>
+                                <MenuItem Clicked="OnNewProduct" CommandParameter="{Binding .}" Text="Novo produto"/>
                             </ViewCell.ContextActions>
                             <ViewCell.View>
                                 <Grid ColumnSpacing="-1"  RowSpacing="-1">

@@ -1,5 +1,6 @@
 ﻿using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Models.CategoryModels;
+using GoldenLeafMobile.Models.ProductModels;
 using GoldenLeafMobile.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -57,13 +58,20 @@ namespace GoldenLeafMobile.Views.CategoryViews
         private void OnNewProduct(object sender, System.EventArgs e)
         {
             var mi = ((MenuItem)sender);
-            DisplayAlert("Delete", mi.CommandParameter.ToString(), "OK");
+            var c = mi.CommandParameter as Category;
+            var p = new Product { CategoryId = c.Id };
+            Navigation.PushAsync(new ProductViews.EditPage(p));
         }
 
         private void ToolbarItem_Clicked(object sender, System.EventArgs e)
         {
             Navigation.PushAsync(new EntryPage());
         }
-       
+
+        private async void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var searchString = $"?Title={searchField.Text}";
+            await ViewModel.GetEntities(searchString);
+        }
     }
 }

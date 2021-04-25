@@ -11,7 +11,6 @@ namespace GoldenLeafMobile.ViewModels
 {
     public class ListViewModel<T> : BaseViewModel where T : class
     {
-        public string URL { get; set; }
         public readonly string FAIL = "OnFetchingEntities";
         public readonly string SELECTED = "OnEntitySelected";
         public Pagination<T> Pagination { get; set; }
@@ -45,18 +44,22 @@ namespace GoldenLeafMobile.ViewModels
             };
         }
 
-        public async Task GetEntities()
+        public async Task GetEntities(string queryParameter = "")
         {
             Wait = true;
             using (HttpClient httpClient = new HttpClient())
             {
                 var api = new ApiService<T>(httpClient);
-                var response = await api.GetEntitiesAsync();
+                var response = await api.GetEntitiesAsync(queryParameter);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
                     Pagination = JsonConvert.DeserializeObject<Pagination<T>>(result);
+                    if (!string.IsNullOrEmpty(queryParameter))
+                    {
+                        Entities.Clear();
+                    }
                     Entities.AddRange(Pagination.Data);
                 }
                 else
@@ -73,6 +76,7 @@ namespace GoldenLeafMobile.ViewModels
             Wait = false;
 
         }
+
 
     }
 }

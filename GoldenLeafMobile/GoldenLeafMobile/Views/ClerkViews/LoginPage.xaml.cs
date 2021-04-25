@@ -31,7 +31,7 @@ namespace GoldenLeafMobile.Views.ClerkViews
             MessagingCenter.Subscribe<LoginException>(this, ViewModel.FAILCONNECTION,
                 (_msg) =>
                 {
-                    DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");
+                    DisplayAlert(_msg.ReasonPhrase, _msg.Message, "Ok");                    
                 });
 
         }
