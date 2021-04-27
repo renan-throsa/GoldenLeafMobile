@@ -9,7 +9,7 @@ namespace GoldenLeafMobile.ViewModels.CategoryViewModels
         public EditViewModel(Category _category)
         {
             Category = _category;
-            SaveCategoryComand = new Command
+            SaveCategoryCommand = new Command
                 (
                     () =>
                     {

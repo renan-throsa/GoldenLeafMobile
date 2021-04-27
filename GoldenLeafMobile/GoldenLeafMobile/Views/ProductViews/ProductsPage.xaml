@@ -23,9 +23,11 @@
 
     <ContentPage.Content>
         <StackLayout Margin="{DynamicResource PageMargin}" Spacing="0">
-            <!-- 
-            <ActivityIndicator IsRunning="{Binding Wait}" IsVisible="{Binding Wait}"/>
-            -->
+            <SearchBar 
+                x:Name="searchField" 
+                Placeholder="Buscar por descrição"
+                TextChanged="searchField_TextChanged">
+            </SearchBar>
 
             <Grid ColumnSpacing="-1" >
                 <Grid.RowDefinitions>
@@ -80,6 +82,18 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding Wait}">
+                        <!-- set the footer to have a zero height when invisible -->
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </Trigger>
+                        </Grid.Triggers>
+                        <!-- the loading content -->
+                        <Label Text="Carregando..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" />
+                    </Grid>
+                </ListView.Footer>
             </ListView>
         </StackLayout>
     </ContentPage.Content>

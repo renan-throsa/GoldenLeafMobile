@@ -7,12 +7,11 @@ namespace GoldenLeafMobile.ViewModels.CategoryViewModels
     public class SaveViewModel : BaseEntryPage
     {
 
-
         public SaveViewModel(Clerk clerk)
         {
             Clerk = clerk;
             Category = new Category();
-            SaveCategoryComand = new Command
+            SaveCategoryCommand = new Command
                 (
                     () =>
                     {

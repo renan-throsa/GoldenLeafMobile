@@ -5767,7 +5767,7 @@ namespace GoldenLeafMobile.Droid
 			public const int ic_mtrl_chip_close_circle = 2131165290;
 			
 			// aapt resource value: 0x7F07006B
-			public const int location = 2131165291;
+			public const int lastpurchase = 2131165291;
 			
 			// aapt resource value: 0x7F07006C
 			public const int mtrl_snackbar_background = 2131165292;
@@ -5836,16 +5836,22 @@ namespace GoldenLeafMobile.Droid
 			public const int ProductsIcon = 2131165313;
 			
 			// aapt resource value: 0x7F070082
-			public const int tooltip_frame_dark = 2131165314;
+			public const int real = 2131165314;
 			
 			// aapt resource value: 0x7F070083
-			public const int tooltip_frame_light = 2131165315;
+			public const int title = 2131165315;
 			
 			// aapt resource value: 0x7F070084
-			public const int user = 2131165316;
+			public const int tooltip_frame_dark = 2131165316;
 			
 			// aapt resource value: 0x7F070085
-			public const int UserIcon = 2131165317;
+			public const int tooltip_frame_light = 2131165317;
+			
+			// aapt resource value: 0x7F070086
+			public const int user = 2131165318;
+			
+			// aapt resource value: 0x7F070087
+			public const int UserIcon = 2131165319;
 			
 			static Drawable()
 			{

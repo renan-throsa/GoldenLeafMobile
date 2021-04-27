@@ -60,5 +60,10 @@ namespace GoldenLeafMobile.Views.ProductViews
             Navigation.PushAsync(new EntryPage());
         }
 
+        private async void searchField_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var searchString = $"?Description={searchField.Text}";
+            await ViewModel.GetEntities(searchString);
+        }
     }
 }

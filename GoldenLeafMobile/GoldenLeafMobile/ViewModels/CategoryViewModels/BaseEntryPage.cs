@@ -11,7 +11,7 @@ namespace GoldenLeafMobile.ViewModels.CategoryViewModels
 {
     public abstract class BaseEntryPage
     {
-        public ICommand SaveCategoryComand { get; set; }
+        public ICommand SaveCategoryCommand { get; set; }
 
         public Clerk Clerk { get; set; }
         public readonly string ACCESS = "OnRequestUnauthorized";
@@ -24,7 +24,7 @@ namespace GoldenLeafMobile.ViewModels.CategoryViewModels
         public string Title
         {
             get { return Category.Title; }
-            set { Category.Title = value; ((Command)SaveCategoryComand).ChangeCanExecute(); }
+            set { Category.Title = value; ((Command)SaveCategoryCommand).ChangeCanExecute(); }
         }
 
         public async void SaveCategory()

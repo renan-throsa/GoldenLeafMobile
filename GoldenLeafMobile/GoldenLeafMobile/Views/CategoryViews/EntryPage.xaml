@@ -18,7 +18,7 @@
                         </TableSection>
                     </TableRoot>
                 </TableView>
-                <Button android:Button.UseDefaultShadow="True" Text="Salvar" Command="{Binding SaveCategoryComand}" ></Button>
+                <Button android:Button.UseDefaultShadow="True" Text="Salvar" Command="{Binding SaveCategoryCommand}" ></Button>
             </StackLayout>
         </Frame>
     </ContentPage.Content>

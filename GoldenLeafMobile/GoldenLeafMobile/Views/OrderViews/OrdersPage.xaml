@@ -13,7 +13,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -24,7 +24,7 @@
                 <Label Text="Comprado em" Grid.Column="0" Style="{DynamicResource headerTablet}"/>
                 <Label Text="Atendente" Grid.Column="1" Style="{DynamicResource headerTablet}"/>
                 <Label Text="Cliente" Grid.Column="2" Style="{DynamicResource headerTablet}"/>
-                <Label Text="Valor R$" Grid.Column="3" Style="{DynamicResource headerTablet}"/>                
+                <Label Text="Valor R$" Grid.Column="3" Style="{DynamicResource headerTablet}"/>
             </Grid>
 
             <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
@@ -49,6 +49,18 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding Wait}">
+                        <!-- set the footer to have a zero height when invisible -->
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </Trigger>
+                        </Grid.Triggers>
+                        <!-- the loading content -->
+                        <Label Text="Carregando..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" />
+                    </Grid>
+                </ListView.Footer>
             </ListView>
         </StackLayout>
     </ContentPage.Content>

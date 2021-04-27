@@ -9,7 +9,7 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
 
         public EditViewModel(Clerk clerk, Client client) : base(clerk, client)
         {
-            SaveClientComand = new Command
+            SaveClientCommand = new Command
                 (
                     () =>
                     {

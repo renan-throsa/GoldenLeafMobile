@@ -18,9 +18,13 @@ namespace GoldenLeafMobile.Models.ClientModels
 
         public bool Notifiable { get; set; }
 
-        public DateTime lastPurchase { get; set; }
+        public DateTime LastPurchase { get; set; }
 
 
+        public string FormatedLastPurchase
+        {
+            get { return LastPurchase.ToString("D", new System.Globalization.CultureInfo("pt-BR")); }
+        }
         public string FormatedDebt
         {
             get { return $"R$ {Debt}"; }

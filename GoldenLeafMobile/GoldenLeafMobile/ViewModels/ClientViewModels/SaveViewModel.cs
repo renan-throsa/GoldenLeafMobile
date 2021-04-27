@@ -5,18 +5,11 @@ using Xamarin.Forms;
 namespace GoldenLeafMobile.ViewModels.ClientViewModels
 {
     public class SaveViewModel : BaseClientViewModel
-    {
-
-        public string Name
-        {
-            get { return Client.Name; }
-            set { Client.Name = value; ((Command)SaveClientComand).ChangeCanExecute(); }
-        }
-
+    {               
 
         public SaveViewModel(Clerk clerk, Client client) : base(clerk, client)
-        {            
-            SaveClientComand = new Command
+        {
+            SaveClientCommand = new Command
                 (
                     () =>
                     {

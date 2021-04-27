@@ -25,6 +25,13 @@
     <ContentPage.Content>
 
         <StackLayout Margin="{DynamicResource PageMargin}" Spacing="0">
+            
+            <SearchBar 
+                x:Name="searchField" 
+                Placeholder="Buscar por nome"
+                TextChanged="searchField_TextChanged">
+            </SearchBar>
+            
             <Grid ColumnSpacing="-1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
@@ -103,7 +110,7 @@
                         <Label Text="Carregando..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" />
                     </Grid>
                 </ListView.Footer>
-            </ListView>            
+            </ListView>
         </StackLayout>
 
     </ContentPage.Content>

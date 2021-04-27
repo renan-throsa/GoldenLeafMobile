@@ -20,22 +20,28 @@ namespace GoldenLeafMobile.ViewModels.ClientViewModels
         public readonly string ACCESS = "OnRequestUnauthorized";
 
 
-        public ICommand SaveClientComand { get; set; }
+        public ICommand SaveClientCommand { get; set; }
 
         public Client Client { get; private set; }
+
+        public string Name
+        {
+            get { return Client.Name; }
+            set { Client.Name = value; ((Command)SaveClientCommand).ChangeCanExecute(); }
+        }
 
 
         public string Address
         {
             get { return Client.Address; }
-            set { Client.Address = value; ((Command)SaveClientComand).ChangeCanExecute(); }
+            set { Client.Address = value; ((Command)SaveClientCommand).ChangeCanExecute(); }
         }
 
 
         public string PhoneNumber
         {
             get { return Client.PhoneNumber; }
-            set { Client.PhoneNumber = value; ((Command)SaveClientComand).ChangeCanExecute(); }
+            set { Client.PhoneNumber = value; ((Command)SaveClientCommand).ChangeCanExecute(); }
         }
 
         public BaseClientViewModel(Clerk clerk, Client client)
