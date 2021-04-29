@@ -8,6 +8,7 @@ namespace GoldenLeafMobile.Views.ProductViews
     public partial class DetailsPage : ContentPage
     {
         public Product Product { get; set; }
+
         public DetailsPage(Product product)
         {
             InitializeComponent();

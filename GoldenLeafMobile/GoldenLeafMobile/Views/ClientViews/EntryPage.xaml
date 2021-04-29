@@ -25,13 +25,28 @@
                         </Grid.ColumnDefinitions>
 
                         <Image Source="user" Grid.Row="0" Grid.Column="0"/>
-                        <Entry Keyboard="Text" ReturnType="Done" Grid.Row="0" Grid.Column="1" Text="{Binding Name,Mode=TwoWay}" Placeholder="Nome"/>
+                        <Entry 
+                            Grid.Row="0" Grid.Column="1"
+                            Keyboard="Text" 
+                            ReturnType="Done"  
+                            Text="{Binding Name,Mode=TwoWay}" 
+                            Placeholder="Nome"/>
 
                         <Image Source="phone" Grid.Row="1" Grid.Column="0"/>
-                        <Entry ReturnType="Done" Grid.Row="1" Grid.Column="1" Keyboard="Telephone" Placeholder="Telefone" Text="{Binding PhoneNumber,Mode=TwoWay}"/>
+                        <Entry 
+                            Grid.Row="1" Grid.Column="1"
+                            ReturnType="Next"  
+                            Keyboard="Telephone" 
+                            Placeholder="Telefone" 
+                            Text="{Binding PhoneNumber,Mode=TwoWay}"/>
 
                         <Image Source="home" Grid.Row="2" Grid.Column="0"/>
-                        <Entry ReturnType="Done" Grid.Row="2" Grid.Column="1" Keyboard="Default" Placeholder="Endereço" Text="{Binding Address,Mode=TwoWay}"/>
+                        <Entry 
+                            Grid.Row="2" Grid.Column="1"
+                            ReturnType="Done" 
+                            Keyboard="Default" 
+                            Placeholder="Endereço" 
+                            Text="{Binding Address,Mode=TwoWay}"/>
 
                     </Grid>
                     <Grid Padding="20" VerticalOptions="Center">
@@ -50,13 +65,7 @@
 
                         <Label FontSize="18" Grid.Row="1" Grid.Column="0" Text="Status"/>
                         <Switch Grid.Row="1" Grid.Column="1" IsToggled="{Binding Client.Status,Mode=TwoWay}"/>
-                    </Grid>
-                    <Grid VerticalOptions="End">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                    </Grid>
+                    </Grid>                    
                 </StackLayout>
             </Frame>
             <Button android:Button.UseDefaultShadow="True" VerticalOptions="EndAndExpand" Text="Salvar" Command="{Binding SaveClientCommand}"></Button>

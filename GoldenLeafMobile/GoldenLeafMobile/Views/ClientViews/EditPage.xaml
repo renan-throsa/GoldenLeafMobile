@@ -27,7 +27,7 @@
                         <Image Source="user" Grid.Row="0" Grid.Column="0"/>
                         <Entry 
                             Keyboard="Text" 
-                            ReturnType="Done" 
+                            ReturnType="Next" 
                             Grid.Row="0" Grid.Column="1" 
                             Text="{Binding Name}" 
                             Placeholder="Nome"
@@ -36,7 +36,7 @@
 
                         <Image Source="phone" Grid.Row="1" Grid.Column="0"/>
                         <Entry 
-                            ReturnType="Done" 
+                            ReturnType="Next" 
                             Grid.Row="1" 
                             Grid.Column="1" 
                             Keyboard="Telephone" 
@@ -44,7 +44,7 @@
                             Text="{Binding PhoneNumber,Mode=TwoWay}"/>
 
                         <Image Source="home" Grid.Row="2" Grid.Column="0"/>
-                        <Entry 
+                        <Entry                            
                             ReturnType="Done" 
                             Grid.Row="2" Grid.Column="1" 
                             Keyboard="Default" 

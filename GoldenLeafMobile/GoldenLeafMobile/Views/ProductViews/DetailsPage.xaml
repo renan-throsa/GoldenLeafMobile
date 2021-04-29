@@ -3,33 +3,124 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ProductViews.DetailsPage"
              Title="Detalhes">
 
     
     <ContentPage.Content>
-        <Frame OutlineColor="Silver" VerticalOptions="CenterAndExpand"  Margin="15">
-            <StackLayout Margin="{StaticResource PageMargin}">
-                <TableView Intent="Data">
-                    <TableRoot>
-                        <TableSection Title="Dados">
-                            <TextCell Detail="Produto" TextColor="Black" Text="{Binding Product.Description}"></TextCell>
-                            <TextCell Detail="Código" TextColor="Black" Text="{Binding Product.Code}"></TextCell>
-                            <TextCell Detail="Preço de venda" TextColor="Black" Text="{Binding Product.FormatedUnitCost}"></TextCell>
-                            <TextCell Detail="Preço de compra" TextColor="Black" Text="{Binding Product.FormatedPurchasePrice}"></TextCell>
-                            <TextCell Detail="Quantidade" TextColor="Black" Text="{Binding Product.Quantity}"></TextCell>
-                            <TextCell Detail="Quantidade mínima" TextColor="Black" Text="{Binding Product.MinimumQuantity}"></TextCell>
+        <StackLayout Margin="{StaticResource PageMargin}">
+            <Frame>
+                <StackLayout>
+                    <Grid Padding="10" VerticalOptions="Start">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                        
+                        </Grid.RowDefinitions>
 
-                        </TableSection>
-                        <TableSection Title="Configurações">
-                            <TextCell Detail="Disponível" TextColor="Black" Text="{Binding Product.FormatedAvailability}"></TextCell>
-                        </TableSection>
-                    </TableRoot>
-                </TableView>
-                <Button x:Name="buttonEdit" Text="Editar" Clicked="buttonEdit_Clicked"></Button>
-            </StackLayout>
-        </Frame>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        
+                        <Image Source="barcode.png" Grid.Row="0" Grid.Column="0"/>
+                        <Entry 
+                            ReturnType="Next" 
+                            Grid.Row="0" 
+                            Grid.Column="1" 
+                            Text="{Binding Product.Code}"
+                            IsEnabled="False"
+                            Placeholder="Código"/>
+
+                        <Image Source="title.png" Grid.Row="1" Grid.Column="0"/>
+                        <Entry 
+                            ReturnType="Next" 
+                            Grid.Row="1" 
+                            Grid.Column="1" 
+                            IsEnabled="False" 
+                            Placeholder="Descrição" 
+                            Text="{Binding Product.Description}"/>
+
+                        <Image Source="spending.png" Grid.Row="2" Grid.Column="0"/>
+                        <Entry 
+                            Grid.Row="2" 
+                            Grid.Column="1"
+                            IsEnabled="False"  
+                            Placeholder="Preço de compra" 
+                            Text="{Binding Product.PurchasePrice}"/>
+
+                        <Image Source="earnings.png" Grid.Row="3" Grid.Column="0"/>
+                        <Entry 
+                            Grid.Row="3" 
+                            Grid.Column="1"
+                            IsEnabled="False" 
+                            Placeholder="Preço de venda" 
+                            Text="{Binding Product.SalePrice}"/>
+
+
+                        <Image Source="pallet.png" Grid.Row="4" Grid.Column="0"/>
+                        <Entry 
+                            Grid.Row="4" 
+                            Grid.Column="1"
+                            Text="{Binding Product.Quantity}"
+                            IsEnabled="False"
+                            />
+
+
+                        <Image Source="stock.png" Grid.Row="5" Grid.Column="0"/>
+                        <Entry 
+                            Grid.Row="5" 
+                            Grid.Column="1"
+                            IsEnabled="False" 
+                            Placeholder="Quantidade mínima" 
+                            Text="{Binding Product.MinimumQuantity}"/>
+
+
+                        <Image Source="investment.png" Grid.Row="6" Grid.Column="0"/>
+                        <Entry 
+                            Grid.Row="6" 
+                            Grid.Column="1"
+                            IsEnabled="False" 
+                            Placeholder="Lucro" 
+                            Text="{Binding Product.Profit}"/>
+
+                    </Grid>
+                    <Grid Padding="20" VerticalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label FontSize="18" Grid.Row="0" Grid.Column="0" Text="Dísponível"/>
+                        <Switch 
+                            Grid.Row="0" 
+                            Grid.Column="1" 
+                            IsToggled="{Binding IsAvailable}"
+                            IsEnabled="False"
+                            />
+                    </Grid>
+
+                </StackLayout>
+            </Frame>
+            <Button 
+                android:Button.UseDefaultShadow="True" 
+                VerticalOptions="EndAndExpand" 
+                x:Name="buttonEdit" 
+                Text="Editar" 
+                Clicked="buttonEdit_Clicked">                
+            </Button>
+        </StackLayout>
     </ContentPage.Content>
 
 </ContentPage>

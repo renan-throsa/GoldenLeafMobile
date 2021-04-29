@@ -34,6 +34,10 @@ namespace GoldenLeafMobile.Models.ProductModels
             get { return $"R$ {PurchasePrice}"; }
         }
 
+        public float Profit
+        {
+            get { return SalePrice - PurchasePrice; }
+        }
 
         public string ToJson()
         {

@@ -3,43 +3,117 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ProductViews.EditPage">
 
     <ContentPage.Content>
-        <Frame OutlineColor="Silver" VerticalOptions="CenterAndExpand"  Margin="15">
         <StackLayout Margin="{StaticResource PageMargin}">
-            <TableView Intent="Form">
-                <TableRoot>
-                    <TableSection Title="Categorias">
-                        <ViewCell>
-                            <ViewCell.View>
-                                <Picker x:Name="categoryPicker" Title="Categoria"
-                                            ItemsSource="{Binding Categories}"
-                                            SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
-                                        SelectedIndex="{Binding IndexValue}"
-                                            ItemDisplayBinding="{Binding Title}">
-                                </Picker>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </TableSection>
-                    <TableSection Title="Dados">
-                        <EntryCell x:Name="Code" Keyboard="Numeric" Label="Código" IsEnabled="False" Text="{Binding Code}"/>
-                        <EntryCell Keyboard="Default" Label="Descrição" Text="{Binding Description
-                            ,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Numeric" Label="Preço de venda" Text="{Binding SalePrice
-                            ,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Numeric" Label="Preço de compra" Text="{Binding PurchasePrice
-                            ,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Numeric" Label="Quantidade" Text="{Binding Quantity,Mode=TwoWay}"/>
-                        <EntryCell Keyboard="Numeric" Label="Quantidade" Text="{Binding MinimumQuantity,Mode=TwoWay}"/>
+            <Frame>
+                <StackLayout>
+                    <Grid Padding="10" VerticalOptions="Start">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
 
-                    </TableSection>
+                        </Grid.RowDefinitions>
 
-                </TableRoot>
-            </TableView>
-                <Button Text="Salvar" Command="{Binding SaveProductCommand}"></Button>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="categories.png" Grid.Row="0" Grid.Column="0"/>
+                        <Picker 
+                            Grid.Row="0" 
+                            Grid.Column="1" 
+                            x:Name="categoryPicker" 
+                            Title="Categoria"
+                            ItemsSource="{Binding Categories}"
+                            SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                            ItemDisplayBinding="{Binding Title}">
+                        </Picker>
+
+                        <Image Source="barcode.png" Grid.Row="1" Grid.Column="0"/>
+                        <Entry 
+                            ReturnType="Next" 
+                            Grid.Row="1" 
+                            Grid.Column="1" 
+                            Text="{Binding Code}"
+                            IsEnabled="False"
+                            Placeholder="Código"/>
+
+                        <Image Source="title.png" Grid.Row="2" Grid.Column="0"/>
+                        <Entry 
+                            ReturnType="Next" 
+                            Grid.Row="2" 
+                            Grid.Column="1" 
+                            Keyboard="Text" 
+                            Placeholder="Descrição" 
+                            Text="{Binding Description,Mode=TwoWay}"/>
+
+                        <Image Source="spending.png" Grid.Row="3" Grid.Column="0"/>
+                        <Entry 
+                            Grid.Row="3" 
+                            Grid.Column="1"
+                            ReturnType="Next"  
+                            Keyboard="Default" 
+                            Placeholder="Preço de compra" 
+                            Text="{Binding PurchasePrice,Mode=TwoWay}"/>
+
+                        <Image Source="earnings.png" Grid.Row="4" Grid.Column="0"/>
+                        <Entry 
+                            Grid.Row="4" 
+                            Grid.Column="1"
+                            ReturnType="Next"  
+                            Keyboard="Default" 
+                            Placeholder="Preço de venda" 
+                            Text="{Binding SalePrice,Mode=TwoWay}"/>
+
+
+                        <Image Source="pallet.png" Grid.Row="5" Grid.Column="0"/>
+                        <Entry 
+                            Grid.Row="5" 
+                            Grid.Column="1"
+                            Text="{Binding Quantity}"
+                            IsEnabled="False"
+                            />
+
+
+                        <Image Source="stock.png" Grid.Row="6" Grid.Column="0"/>
+                        <Entry 
+                            Grid.Row="6" 
+                            Grid.Column="1"
+                            ReturnType="Done"  
+                            Keyboard="Default" 
+                            Placeholder="Quantidade mínima" 
+                            Text="{Binding MinimumQuantity,Mode=TwoWay}"/>
+
+                    </Grid>
+                    <Grid Padding="20" VerticalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label FontSize="18" Grid.Row="0" Grid.Column="0" Text="Dísponível"/>
+                        <Switch 
+                            Grid.Row="0" 
+                            Grid.Column="1" 
+                            IsToggled="{Binding IsAvailable,Mode=TwoWay}"/>
+                    </Grid>
+
+                </StackLayout>
+            </Frame>
+            <Button android:Button.UseDefaultShadow="True" VerticalOptions="EndAndExpand" Text="Salvar" Command="{Binding SaveProductCommand}"></Button>
         </StackLayout>
-        </Frame>
     </ContentPage.Content>
 </ContentPage>
