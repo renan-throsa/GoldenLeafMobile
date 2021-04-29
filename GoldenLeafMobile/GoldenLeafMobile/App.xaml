@@ -36,9 +36,9 @@
 
         <Style TargetType="{x:Type Button}" ApplyToDerivedTypes="True" CanCascade="True">
             <Setter Property="FontSize" Value="Medium" />
-            <Setter Property="BackgroundColor" Value="#1976D2" />
-            <Setter Property="TextColor" Value="White" />
-            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="BackgroundColor" Value="#00C0FF" />
+            <Setter Property="TextColor" Value="#EFFBFF" />
+            <Setter Property="CornerRadius" Value="10" />            
         </Style>
        
 

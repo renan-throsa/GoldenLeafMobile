@@ -76,7 +76,13 @@
                             </Trigger>
                         </Grid.Triggers>
                         <!-- the loading content -->
-                        <Label Text="Carregando..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" />
+                        <Label 
+                            Text="Carregando..." 
+                            TextColor="DeepPink" 
+                            FontSize="20" 
+                            FontAttributes="Bold" 
+                            VerticalOptions="Center" 
+                            HorizontalOptions="Center" />
                     </Grid>
                 </ListView.Footer>
             </ListView>

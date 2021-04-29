@@ -4,10 +4,11 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:controls="clr-namespace:Golden_Leaf_Mobile.Controls"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ClerkViews.LoginPage">
 
-    
+
 
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource PageMargin}">
@@ -26,12 +27,34 @@
                 </Grid.ColumnDefinitions>
 
                 <Image Source="user" Grid.Row="0" Grid.Column="0"/>
-                <Entry Keyboard="Email" ReturnType="Done" Grid.Row="0" Grid.Column="1" Text="{Binding Email}" Placeholder="Email" HorizontalOptions="FillAndExpand"/>
+                <controls:FloatingLabelInput
+                    Keyboard="Email" 
+                    ReturnType="Next" 
+                    Grid.Row="0" Grid.Column="1" 
+                    Title="Email"
+                    Text="{Binding Email}" 
+                    HorizontalOptions="FillAndExpand" 
+                    />
 
-                <Image Source="padlock" Grid.Row="1" Grid.Column="0"/>                
-                <Entry ReturnType="Done" Grid.Row="1" Grid.Column="1" Text="{Binding Password}" Placeholder="Senha" IsPassword="True" HorizontalOptions="FillAndExpand"/>
-                <Button android:Button.UseDefaultShadow="True" Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="2" Text="Entrar" Command="{Binding LoginCommand}"></Button>
-             
+                <Image Source="padlock" Grid.Row="1" Grid.Column="0"/>
+                <controls:FloatingLabelInput
+                    ReturnType="Done" 
+                    Grid.Row="1" 
+                    Grid.Column="1" 
+                    Text="{Binding Password}" 
+                    Title="Senha" 
+                    IsPassword="true" 
+                    HorizontalOptions="FillAndExpand" 
+                    />
+        
+                <Button 
+                    android:Button.UseDefaultShadow="True" 
+                    Grid.Row="2" Grid.Column="0"  
+                    Grid.ColumnSpan="2" 
+                    Text="Entrar" 
+                    Command="{Binding LoginCommand}">
+                </Button>
+
             </Grid>
         </StackLayout>
     </ContentPage.Content>
