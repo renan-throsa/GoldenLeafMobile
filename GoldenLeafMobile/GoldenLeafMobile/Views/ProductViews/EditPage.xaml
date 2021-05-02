@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ProductViews.EditPage">
 
@@ -113,7 +112,11 @@
 
                 </StackLayout>
             </Frame>
-            <Button android:Button.UseDefaultShadow="True" VerticalOptions="EndAndExpand" Text="Salvar" Command="{Binding SaveProductCommand}"></Button>
+            <Button 
+                Style="{DynamicResource primaryButtonStyle}" 
+                Text="Salvar" 
+                Command="{Binding SaveProductCommand}">                
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

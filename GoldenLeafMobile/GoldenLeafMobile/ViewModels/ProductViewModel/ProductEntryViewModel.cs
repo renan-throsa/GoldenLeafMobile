@@ -9,7 +9,7 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModels
 {
     public class ProductEntryViewModel : BaseProductViewModel
     {
-        public ICommand ReadBarCodeComand { get; set; }
+        public ICommand ReadBarCodeCommand { get; set; }
 
         public ProductEntryViewModel(Clerk clerk, Product product) : base(clerk, product)
         {
@@ -30,7 +30,7 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModels
                     }
                 );
 
-            ReadBarCodeComand = new Command(() =>
+            ReadBarCodeCommand = new Command(() =>
             {
                 var scanPage = new ZXingScannerPage();
                 scanPage.OnScanResult += (result) =>

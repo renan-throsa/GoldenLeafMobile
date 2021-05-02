@@ -12,9 +12,7 @@
                    Text="{Binding Text, Source={x:Reference this}}" 
                    ReturnType="{Binding ReturnType, Source={x:Reference this}}"
                    IsPassword="{Binding IsPassword, Source={x:Reference this}}"
-                   Keyboard="{Binding Keyboard, Source={x:Reference this}}"
-                   TextColor="#374955" 
-                   BackgroundColor="#E6F4F1"
+                   Keyboard="{Binding Keyboard, Source={x:Reference this}}"                                
                    Unfocused="Handle_Unfocused" 
                    Focused="Handle_Focused">
             </Entry>

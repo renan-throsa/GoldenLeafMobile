@@ -11,15 +11,14 @@
             xmlns:client ="clr-namespace:GoldenLeafMobile.Views.ClientViews"
             xmlns:order="clr-namespace:GoldenLeafMobile.Views.OrderViews"
             xmlns:payment="clr-namespace:GoldenLeafMobile.Views.PaymentView"
-             mc:Ignorable="d"
-             x:Class="GoldenLeafMobile.Views.MasterView"
-            BarBackgroundColor="Black"
+            mc:Ignorable="d"
+            x:Class="GoldenLeafMobile.Views.MasterView"
+            Style="{DynamicResource tabStyle}"
             Title="Perfil">
 
     <TabbedPage.Children>
         <ContentPage Title="Atendente">
-
-            <Frame OutlineColor="Silver"  Margin="15">
+            <Frame>
                 <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
                     <Image HeightRequest="200" Source="{Binding ProfileImage}"/>
                     <Label Text="{Binding Name}"></Label>
@@ -65,10 +64,13 @@
                 </ResourceDictionary>
             </ContentPage.Resources>
 
-            <Frame OutlineColor="White"  Margin="15">
+            <Frame>
                 <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
                     <Image Aspect="Fill" HeightRequest="200" Source="{Binding ProfileImage}"/>
-                    <Button Text="Tirar foto" Command="{Binding TakePictureCommand}" IsVisible="{Binding Editing}"/>
+                    <Button 
+                        Text="Tirar foto" 
+                        Command="{Binding TakePictureCommand}" 
+                        IsVisible="{Binding Editing}"/>
                     <TableView Intent="Form">
                         <TableRoot>
                             <TableSection Title="Dados">

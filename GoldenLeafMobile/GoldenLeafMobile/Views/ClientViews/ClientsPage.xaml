@@ -6,7 +6,7 @@
              xmlns:converter="clr-namespace:GoldenLeafMobile.Converters"
              xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              mc:Ignorable="d"
-             x:Class="GoldenLeafMobile.Views.ClientViews.ClientsPage"
+             x:Class="GoldenLeafMobile.Views.ClientViews.ClientsPage"             
              Title="Clientes">
 
 
@@ -24,14 +24,14 @@
 
     <ContentPage.Content>
 
-        <StackLayout Margin="{DynamicResource PageMargin}" Spacing="0">
+        <StackLayout Margin="{StaticResource PageMargin}" Spacing="0">
             
             <SearchBar 
                 x:Name="searchField" 
                 Placeholder="Buscar por nome"
                 TextChanged="searchField_TextChanged">
             </SearchBar>
-            
+
             <Grid ColumnSpacing="-1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
@@ -49,7 +49,11 @@
             </Grid>
 
 
-            <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
+            <ListView 
+                x:Name="listView" 
+                ItemsSource="{Binding Entities}" 
+                SelectedItem="{Binding SelectedEntity,Mode=TwoWay}"                         
+                >
 
                 <ListView.Behaviors>
                     <extended:InfiniteScrollBehavior IsLoadingMore="{Binding Wait}" />

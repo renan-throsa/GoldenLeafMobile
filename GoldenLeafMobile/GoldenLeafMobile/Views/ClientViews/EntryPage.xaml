@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:controls="clr-namespace:Golden_Leaf_Mobile.Controls"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ClientViews.EntryPage"
              Title="Novo Cliente">
@@ -12,7 +12,7 @@
         <StackLayout Margin="{StaticResource PageMargin}">
             <Frame>
                 <StackLayout>
-                    <Grid Padding="10" VerticalOptions="Start">
+                    <Grid Padding="15" VerticalOptions="Start">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50" />
                             <RowDefinition Height="50" />
@@ -25,27 +25,27 @@
                         </Grid.ColumnDefinitions>
 
                         <Image Source="user" Grid.Row="0" Grid.Column="0"/>
-                        <Entry 
+                        <controls:FloatingLabelInput
                             Grid.Row="0" Grid.Column="1"
                             Keyboard="Text" 
                             ReturnType="Done"  
                             Text="{Binding Name,Mode=TwoWay}" 
-                            Placeholder="Nome"/>
+                            Title="Nome"/>
 
                         <Image Source="phone" Grid.Row="1" Grid.Column="0"/>
-                        <Entry 
+                        <controls:FloatingLabelInput 
                             Grid.Row="1" Grid.Column="1"
                             ReturnType="Next"  
                             Keyboard="Telephone" 
-                            Placeholder="Telefone" 
+                            Title="Telefone" 
                             Text="{Binding PhoneNumber,Mode=TwoWay}"/>
 
                         <Image Source="home" Grid.Row="2" Grid.Column="0"/>
-                        <Entry 
+                        <controls:FloatingLabelInput 
                             Grid.Row="2" Grid.Column="1"
                             ReturnType="Done" 
                             Keyboard="Default" 
-                            Placeholder="Endereço" 
+                            Title="Endereço" 
                             Text="{Binding Address,Mode=TwoWay}"/>
 
                     </Grid>
@@ -68,7 +68,11 @@
                     </Grid>                    
                 </StackLayout>
             </Frame>
-            <Button android:Button.UseDefaultShadow="True" VerticalOptions="EndAndExpand" Text="Salvar" Command="{Binding SaveClientCommand}"></Button>
+            <Button 
+                Style="{DynamicResource primaryButtonStyle}" 
+                Text="Salvar" 
+                Command="{Binding SaveClientCommand}">                
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -13,9 +13,9 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
 {
     public class OrderEntryViewModel : BaseViewModel
     {
-        public ICommand SearchProductComand { get; private set; }
-        public ICommand AddProductComand { get; private set; }
-        public ICommand SaveOrderComand { get; private set; }
+        public ICommand SearchProductCommand { get; private set; }
+        public ICommand AddProductCommand { get; private set; }
+        public ICommand SaveOrderCommand { get; private set; }
 
         public Clerk Clerk { get; set; }
         public readonly string SUCCESS = "OnSuccessAction";
@@ -42,14 +42,14 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         public string Description
         {
             get { return _description; }
-            private set { _description = value; OnPropertyChanged(); ((Command)AddProductComand).ChangeCanExecute(); }
+            private set { _description = value; OnPropertyChanged(); ((Command)AddProductCommand).ChangeCanExecute(); }
         }
 
         private float _unitCost;
         public float UnitCost
         {
             get { return _unitCost; }
-            private set { _unitCost = value; OnPropertyChanged(); ((Command)AddProductComand).ChangeCanExecute(); }
+            private set { _unitCost = value; OnPropertyChanged(); ((Command)AddProductCommand).ChangeCanExecute(); }
         }
 
         private float _extendedCost;
@@ -68,7 +68,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
                 _quantity = value;
                 OnPropertyChanged();
                 OnPropertyChanged("ExtendedCost");
-                ((Command)AddProductComand).ChangeCanExecute();
+                ((Command)AddProductCommand).ChangeCanExecute();
             }
         }
 
@@ -76,7 +76,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         public string Code
         {
             get { return _code; }
-            set { _code = value; OnPropertyChanged(); ((Command)SearchProductComand).ChangeCanExecute(); }
+            set { _code = value; OnPropertyChanged(); ((Command)SearchProductCommand).ChangeCanExecute(); }
         }
 
         private bool _searching = true;
@@ -92,6 +92,13 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             get { return _editing; }
             set { _editing = value; OnPropertyChanged(); }
         }
+     
+
+        public string Title
+        {
+            get { return $"Novo pedido para {Client.Name.Split(' ')[0]}"; }            
+        }
+
 
         public OrderEntryViewModel(Clerk clerk, Client client)
         {
@@ -99,7 +106,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
             Clerk = clerk;
             Items = new ObservableCollection<OrderTableItem>();
 
-            SearchProductComand = new Command(
+            SearchProductCommand = new Command(
                 () =>
                     {
                         GetProduct();
@@ -109,7 +116,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
                         return !string.IsNullOrEmpty(Code) && (Code.Length >= 9 && Code.Length <= 13);
                     });
 
-            AddProductComand = new Command(
+            AddProductCommand = new Command(
                 () =>
             {
                 AddItem();
@@ -126,7 +133,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
 
             );
 
-            SaveOrderComand = new Command(() =>
+            SaveOrderCommand = new Command(() =>
                 {
                     MessagingCenter.Send(this, ASK);
                 },
@@ -200,7 +207,7 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
         internal void Remove(OrderTableItem tableItem)
         {
             Items.Remove(tableItem);
-            ((Command)SaveOrderComand).ChangeCanExecute();
+            ((Command)SaveOrderCommand).ChangeCanExecute();
         }
 
         private void ClearTable()
@@ -233,12 +240,12 @@ namespace GoldenLeafMobile.ViewModels.OrderViewModel
                 {
                     var index = Items.IndexOf(item);
                     Items[index] = new OrderTableItem(Id, Description, UnitCost, Quantity, ExtendedCost);
-                    ((Command)SaveOrderComand).ChangeCanExecute();
+                    ((Command)SaveOrderCommand).ChangeCanExecute();
                     return;
                 }
             }
             Items.Add(new OrderTableItem(Id, Description, UnitCost, Quantity, ExtendedCost));
-            ((Command)SaveOrderComand).ChangeCanExecute();
+            ((Command)SaveOrderCommand).ChangeCanExecute();
         }
 
         private string CreateOrderString()

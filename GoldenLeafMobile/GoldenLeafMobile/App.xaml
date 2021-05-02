@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.App">
     <Application.Resources>
@@ -30,21 +31,40 @@
 
         <Style TargetType="{x:Type Entry}">            
             <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="PlaceholderColor" Value="Gray"/>          
+            <Setter Property="PlaceholderColor" Value="Gray"/>
+            <Setter Property="BackgroundColor" Value="White"/>
         </Style>
 
+        <Style x:Key="tabStyle" TargetType="{x:Type TabbedPage}">
+            <Setter Property="BarBackgroundColor" Value="Black"/>
+            <Setter Property="SelectedTabColor" Value="#4f78a4"/>
+            <Setter Property="UnselectedTabColor" Value="White"/>
+        </Style>
 
-        <Style TargetType="{x:Type Button}" ApplyToDerivedTypes="True" CanCascade="True">
+        <Style x:Key="secondaryButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FontSize" Value="Medium" />
-            <Setter Property="BackgroundColor" Value="#00C0FF" />
-            <Setter Property="TextColor" Value="#EFFBFF" />
-            <Setter Property="CornerRadius" Value="10" />            
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="#4f78a4" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="android:Button.UseDefaultShadow" Value="True" />
+            <Setter Property="BorderColor" Value="#4f78a4"></Setter>
+            <Setter Property="VerticalOptions" Value="EndAndExpand"/>
+
         </Style>
-       
+
+        <Style x:Key="primaryButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor" Value="#4f78a4" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="android:Button.UseDefaultShadow" Value="True" />
+            <Setter Property="VerticalOptions" Value="EndAndExpand"/>
+
+        </Style>        
 
         <!-- Implicit styles -->
         <Style TargetType="{x:Type ListView}">
-            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#f0f0f0" />
         </Style>
 
         <Style TargetType="{x:Type ContentPage}" ApplyToDerivedTypes="True">
@@ -64,6 +84,7 @@
             <Setter Property="VerticalTextAlignment" Value="Center" />
             <Setter Property="HorizontalTextAlignment" Value="Center" />
         </Style>
+        
         <Style x:Key="detailTablet" TargetType="Label">
             <Setter Property="TextColor" Value="Black" />
             <Setter Property="BackgroundColor" Value="White" />

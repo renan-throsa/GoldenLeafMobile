@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:controls="clr-namespace:Golden_Leaf_Mobile.Controls"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ClientViews.DatailsPage"
               Title="{Binding Client.Name}">
@@ -28,32 +28,37 @@
                         </Grid.ColumnDefinitions>
 
                         <Image Source="user" Grid.Row="0" Grid.Column="0"/>
-                        <Entry                             
+                        <controls:FloatingLabelInput                           
                             Grid.Row="0"  Grid.Column="1" 
-                            Text="{Binding Client.Name}"                             
-                            IsEnabled="False"
+                            Text="{Binding Client.Name}"
+                            Title="Nome"
+                            IsEnabled="False"                            
                             />
 
                         <Image Source="phone" Grid.Row="1" Grid.Column="0"/>
-                        <Entry 
+                        <controls:FloatingLabelInput
+                            Title="Telefone"
                             Grid.Row="1" Grid.Column="1" 
                             IsEnabled="False"
                             Text="{Binding Client.PhoneNumber}"/>
 
                         <Image Source="home" Grid.Row="2" Grid.Column="0"/>
-                        <Entry                            
+                        <controls:FloatingLabelInput
+                            Title="Endereço"
                             Grid.Row="2" Grid.Column="1" 
                             IsEnabled="False" 
                             Text="{Binding Client.Address}"/>
 
                         <Image Source="real" Grid.Row="3" Grid.Column="0"/>
-                        <Entry                            
+                        <controls:FloatingLabelInput
+                            Title="Débito"
                             Grid.Row="3" Grid.Column="1" 
                             IsEnabled="False" 
                             Text="{Binding Client.FormatedDebt}"/>
 
                         <Image Source="lastpurchase" Grid.Row="4" Grid.Column="0"/>
-                        <Entry                            
+                        <controls:FloatingLabelInput
+                            Title="Última compra"
                             Grid.Row="4" Grid.Column="1" 
                             IsEnabled="False" 
                             Text="{Binding Client.FormatedLastPurchase}"/>
@@ -95,7 +100,11 @@
 
                 </StackLayout>
             </Frame>
-            <Button android:Button.UseDefaultShadow="True" VerticalOptions="EndAndExpand" Text="Editar" Clicked="buttonEdit_Clicked"></Button>
+            <Button 
+                Style="{DynamicResource secondaryButtonStyle}"
+                Text="Editar" 
+                Clicked="buttonEdit_Clicked">                
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

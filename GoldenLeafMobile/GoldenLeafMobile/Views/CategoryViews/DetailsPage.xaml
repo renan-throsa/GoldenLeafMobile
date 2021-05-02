@@ -3,25 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Golden_Leaf_Mobile.Controls"           
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.CategoryViews.DetailsPage"
              Title="Categoria">
 
 
     <ContentPage.Content>
-        <StackLayout>
-            <Frame OutlineColor="Silver" VerticalOptions="CenterAndExpand"  Margin="15">
-                <StackLayout Margin="{StaticResource PageMargin}">
-                    <TableView Intent="Data">
-                        <TableRoot>
-                            <TableSection Title="Dados">
-                                <TextCell TextColor="Black" Text="{Binding Category.Title}"/>
-                            </TableSection>
-                        </TableRoot>
-                    </TableView>
-                    <Button x:Name="buttonEdit" Text="Editar" Clicked="buttonEdit_Clicked"></Button>
+        <StackLayout Margin="{StaticResource PageMargin}">
+            <Frame>
+                <StackLayout>
+                    <Grid Padding="15" VerticalOptions="Start">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="title" Grid.Row="0" Grid.Column="0"/>
+                        <controls:FloatingLabelInput
+                            Grid.Row="0" Grid.Column="1"
+                            IsEnabled="False"  
+                            Text="{Binding Category.Title}" 
+                            Title="Título"/>
+
+                    </Grid>
                 </StackLayout>
             </Frame>
+            <Button 
+                Style="{DynamicResource secondaryButtonStyle}" 
+                Text="Editar" 
+                Clicked="buttonEdit_Clicked">
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

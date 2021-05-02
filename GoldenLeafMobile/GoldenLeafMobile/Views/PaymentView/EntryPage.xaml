@@ -18,7 +18,11 @@
                     </TableSection>                    
                 </TableRoot>
             </TableView>
-            <Button Text="Pagar" Command="{Binding PayCommand}"></Button>
+            <Button
+                Style="{DynamicResource buttonStyle}"
+                Text="Pagar" 
+                Command="{Binding PayCommand}">                
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
