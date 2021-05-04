@@ -14,87 +14,109 @@
         </ResourceDictionary>
 
     </ContentPage.Resources>
-
-    <ContentPage.ToolbarItems>
-        <ToolbarItem 
-                     IconImageSource="plus.xml"             
-                     Clicked="ToolbarItem_Clicked" />
-    </ContentPage.ToolbarItems>
+  
 
     <ContentPage.Content>
-        <StackLayout Margin="{DynamicResource PageMargin}" Spacing="0">
-            <SearchBar 
-                x:Name="searchField" 
-                Placeholder="Buscar por descrição"
-                TextChanged="searchField_TextChanged">
-            </SearchBar>
+        <RelativeLayout>
+            <StackLayout 
+                Margin="{DynamicResource PageMargin}" Spacing="0"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"  
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                
+                >
+                <!-- SEARCHBAR -->
+                <Frame Padding="5" Margin="0,5,0,10" BackgroundColor="White">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-            <Grid ColumnSpacing="-1" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
+                        <SearchBar
+                        x:Name="searchField" 
+                        Placeholder="Busca por descrição" 
+                        TextChanged="searchField_TextChanged" 
+                        BackgroundColor="White" />
+                    </Grid>
+                </Frame>
+                <Grid ColumnSpacing="-1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <Label Text="Produto"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                <Label Text="Preço" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource headerTablet}"/>
-                <Label Text="Disponível" Grid.Row="0" Grid.Column="2"  Style="{DynamicResource headerTablet}"/>
+                    <Label Text="Produto"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                    <Label Text="Preço" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource headerTablet}"/>
+                    <Label Text="Disponível" Grid.Row="0" Grid.Column="2"  Style="{DynamicResource headerTablet}"/>
 
-            </Grid>
+                </Grid>
 
-            <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Editar"/>
-                            </ViewCell.ContextActions>
-                            <ViewCell.View>
+                <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Editar"/>
+                                </ViewCell.ContextActions>
+                                <ViewCell.View>
 
-                                <Grid ColumnSpacing="-1"  RowSpacing="-1">
+                                    <Grid ColumnSpacing="-1"  RowSpacing="-1">
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
 
-                                    <Label Text="{Binding Description}"                                           
+                                        <Label Text="{Binding Description}"                                           
                                            TextColor="{Binding Syncronized,Converter={StaticResource Key=syncronizedConverter}}"                                           
                                            Grid.Column="0" Style="{DynamicResource detailTablet}"/>
 
-                                    <Label Text="{Binding FormatedUnitCost}" 
+                                        <Label Text="{Binding FormatedUnitCost}" 
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
                                            Grid.Column="1" Style="{DynamicResource detailTablet}"/>
 
-                                    <Label Text="{Binding FormatedAvailability}" 
+                                        <Label Text="{Binding FormatedAvailability}" 
                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
                                            Grid.Column="2" Style="{DynamicResource detailTablet}"/>
 
-                                </Grid>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.Footer>
-                    <Grid Padding="6" IsVisible="{Binding Wait}">
-                        <!-- set the footer to have a zero height when invisible -->
-                        <Grid.Triggers>
-                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
-                                <Setter Property="HeightRequest" Value="0" />
-                            </Trigger>
-                        </Grid.Triggers>
-                        <!-- the loading content -->
-                        <Label Text="Carregando..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" />
-                    </Grid>
-                </ListView.Footer>
-            </ListView>
-        </StackLayout>
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Footer>
+                        <Grid Padding="6" IsVisible="{Binding Wait}">
+                            <!-- set the footer to have a zero height when invisible -->
+                            <Grid.Triggers>
+                                <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                    <Setter Property="HeightRequest" Value="0" />
+                                </Trigger>
+                            </Grid.Triggers>
+                            <!-- the loading content -->
+                            <Label Text="Carregando..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" />
+                        </Grid>
+                    </ListView.Footer>
+                </ListView>
+            </StackLayout>
+            <Button
+                Clicked="Button_Clicked"
+                ImageSource="plus.png"
+                BackgroundColor="#4f78a4"
+                CornerRadius="28"
+                WidthRequest="56"
+                HeightRequest="56"                
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}"                
+                />
+        </RelativeLayout>
+    
     </ContentPage.Content>
 </ContentPage>

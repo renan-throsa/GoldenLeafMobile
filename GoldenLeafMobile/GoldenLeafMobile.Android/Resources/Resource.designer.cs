@@ -5851,31 +5851,34 @@ namespace GoldenLeafMobile.Droid
 			public const int plus = 2131165318;
 			
 			// aapt resource value: 0x7F070087
-			public const int ProductsIcon = 2131165319;
+			public const int PlusIcon = 2131165319;
 			
 			// aapt resource value: 0x7F070088
-			public const int real = 2131165320;
+			public const int ProductsIcon = 2131165320;
 			
 			// aapt resource value: 0x7F070089
-			public const int spending = 2131165321;
+			public const int real = 2131165321;
 			
 			// aapt resource value: 0x7F07008A
-			public const int stock = 2131165322;
+			public const int spending = 2131165322;
 			
 			// aapt resource value: 0x7F07008B
-			public const int title = 2131165323;
+			public const int stock = 2131165323;
 			
 			// aapt resource value: 0x7F07008C
-			public const int tooltip_frame_dark = 2131165324;
+			public const int title = 2131165324;
 			
 			// aapt resource value: 0x7F07008D
-			public const int tooltip_frame_light = 2131165325;
+			public const int tooltip_frame_dark = 2131165325;
 			
 			// aapt resource value: 0x7F07008E
-			public const int user = 2131165326;
+			public const int tooltip_frame_light = 2131165326;
 			
 			// aapt resource value: 0x7F07008F
-			public const int UserIcon = 2131165327;
+			public const int user = 2131165327;
+			
+			// aapt resource value: 0x7F070090
+			public const int UserIcon = 2131165328;
 			
 			static Drawable()
 			{

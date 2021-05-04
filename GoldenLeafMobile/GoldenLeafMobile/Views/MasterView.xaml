@@ -18,7 +18,7 @@
 
     <TabbedPage.Children>
         <ContentPage Title="Atendente">
-            <Frame>
+            
                 <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
                     <Image HeightRequest="200" Source="{Binding ProfileImage}"/>
                     <Label Text="{Binding Name}"></Label>
@@ -27,7 +27,7 @@
 
                     <BoxView HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand" />
 
-                    <ListView x:Name="listView" x:FieldModifier="public" BackgroundColor="White">
+                    <ListView x:Name="listView" x:FieldModifier="public">
                         <ListView.ItemsSource>
                             <x:Array Type="{x:Type local:MasterPageItem}">
                                 <local:MasterPageItem Title="Categorias" IconSource="CategoryIcon.png" TargetType="{x:Type category:CategoriesPage}" />
@@ -40,7 +40,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Grid Padding="5,10" BackgroundColor="White">
+                                    <Grid Padding="5,10">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="30"/>
                                             <ColumnDefinition Width="*" />
@@ -53,7 +53,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackLayout>
-            </Frame>
+            
         </ContentPage>
 
         <ContentPage Title="Editar">
@@ -64,7 +64,6 @@
                 </ResourceDictionary>
             </ContentPage.Resources>
 
-            <Frame>
                 <StackLayout Margin="{StaticResource PageMargin}" VerticalOptions="Center" HorizontalOptions="Center">
                     <Image Aspect="Fill" HeightRequest="200" Source="{Binding ProfileImage}"/>
                     <Button 
@@ -86,8 +85,7 @@
                     <Button android:Button.UseDefaultShadow="True" Text="Salvar" Command="{Binding SaveCommand}" IsVisible="{Binding Editing}"/>
                     <Button android:Button.UseDefaultShadow="True" Text="Editar" Command="{Binding EditCommand}" IsVisible="{Binding Editing,
                         Converter={StaticResource Key=negative}}" />
-                </StackLayout>
-            </Frame>
+                </StackLayout>            
         </ContentPage>
     </TabbedPage.Children>
 

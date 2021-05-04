@@ -60,7 +60,8 @@
             <Setter Property="android:Button.UseDefaultShadow" Value="True" />
             <Setter Property="VerticalOptions" Value="EndAndExpand"/>
 
-        </Style>        
+        </Style>
+      
 
         <!-- Implicit styles -->
         <Style TargetType="{x:Type ListView}">

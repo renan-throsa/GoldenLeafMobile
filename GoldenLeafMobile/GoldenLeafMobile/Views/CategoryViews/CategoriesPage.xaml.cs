@@ -73,5 +73,11 @@ namespace GoldenLeafMobile.Views.CategoryViews
             var searchString = $"?Title={searchField.Text}";
             await ViewModel.GetEntities(searchString);
         }
+               
+
+        private void Button_Clicked(object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(new EntryPage());
+        }
     }
 }
