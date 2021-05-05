@@ -38,7 +38,7 @@
         <Style x:Key="tabStyle" TargetType="{x:Type TabbedPage}">
             <Setter Property="BarBackgroundColor" Value="Black"/>
             <Setter Property="SelectedTabColor" Value="#4f78a4"/>
-            <Setter Property="UnselectedTabColor" Value="White"/>
+            <Setter Property="UnselectedTabColor" Value="Gray"/>
         </Style>
 
         <Style x:Key="secondaryButtonStyle" TargetType="{x:Type Button}">
@@ -46,8 +46,7 @@
             <Setter Property="BackgroundColor" Value="White" />
             <Setter Property="TextColor" Value="#4f78a4" />
             <Setter Property="CornerRadius" Value="10" />
-            <Setter Property="android:Button.UseDefaultShadow" Value="True" />
-            <Setter Property="BorderColor" Value="#4f78a4"></Setter>
+            <Setter Property="android:Button.UseDefaultShadow" Value="True" />            
             <Setter Property="VerticalOptions" Value="EndAndExpand"/>
 
         </Style>
