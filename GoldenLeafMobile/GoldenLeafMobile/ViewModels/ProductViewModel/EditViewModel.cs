@@ -7,7 +7,6 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
 {
     public class EditViewModel : BaseProductViewModel
     {
-
         private int _indexValue;
 
         public int IndexValue
@@ -15,7 +14,6 @@ namespace GoldenLeafMobile.ViewModels.ProductViewModel
             get { return _indexValue; }
             set { _indexValue = value; OnPropertyChanged(); }
         }
-
 
         public EditViewModel(Clerk clerk, Product product) : base(clerk, product)
         {

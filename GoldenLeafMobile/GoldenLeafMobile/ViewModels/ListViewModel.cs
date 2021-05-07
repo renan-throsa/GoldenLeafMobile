@@ -17,6 +17,14 @@ namespace GoldenLeafMobile.ViewModels
         public InfiniteScrollCollection<T> Entities { get; set; }
 
 
+        private string _searchBy;
+        public string SearchBy
+        {
+            get { return _searchBy; }
+            set { _searchBy = value; OnPropertyChanged(); }
+        }
+
+
         private T _selectedEntity;
         public T SelectedEntity
         {

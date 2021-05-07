@@ -49,11 +49,30 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Label Text="Preço" Grid.Row="0" Grid.Column="1" Style="{DynamicResource detailTablet}"/>
-                                        <Label Text="{Binding Description}" Grid.Column="0" Style="{DynamicResource detailTablet}" />
-                                        <Label Text="{Binding UnitCost}" Grid.Column="1" Style="{DynamicResource detailTablet}" />
-                                        <Label Text="{Binding Quantity}" Grid.Column="2" Style="{DynamicResource detailTablet}" />
-                                        <Label Text="{Binding ExtendedCost}" Grid.Column="3" Style="{DynamicResource detailTablet}" />
+                                        <Label                                             
+                                            Grid.Row="0" Grid.Column="1"
+                                            Text="Preço"
+                                            Style="{DynamicResource detailTablet}"/>
+
+                                        <Label 
+                                            Text="{Binding Description}" 
+                                            Grid.Column="0" 
+                                            Style="{DynamicResource detailTablet}" />
+
+                                        <Label 
+                                            Text="{Binding UnitCost}" 
+                                            Grid.Column="1" 
+                                            Style="{DynamicResource detailTablet}" />
+
+                                        <Label 
+                                            Text="{Binding Quantity}" 
+                                            Grid.Column="2" 
+                                            Style="{DynamicResource detailTablet}" />
+
+                                        <Label 
+                                            Text="{Binding ExtendedCost}" 
+                                            Grid.Column="3" 
+                                            Style="{DynamicResource detailTablet}" />
                                     </Grid>
                                 </ViewCell.View>
                             </ViewCell>
@@ -76,6 +95,20 @@
             </ContentPage.ToolbarItems>
 
             <StackLayout Margin="{StaticResource PageMargin}">
+                <Frame Padding="5" Margin="0,5,0,10" BackgroundColor="White">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <SearchBar Placeholder="Search..." BackgroundColor="White" />
+                        <Image 
+                            Source="filter.png" 
+                            HorizontalOptions="End" 
+                            Margin="0,0,10,0" Grid.Column="1" 
+                            Opacity=".8" Aspect="AspectFit" />
+                    </Grid>
+                </Frame>
                 <Frame>
                     <StackLayout>
                         <Grid Padding="12" VerticalOptions="Start">
@@ -134,7 +167,7 @@
                                 Grid.Column="1"                        
                                 Title="Total" 
                                 Text="{Binding ExtendedCost}"/>
-                        </Grid>                        
+                        </Grid>
 
                     </StackLayout>
                 </Frame>

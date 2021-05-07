@@ -34,8 +34,10 @@
                             x:Name="categoryPicker" 
                             Title="Categoria"
                             ItemsSource="{Binding Categories}"
-                            SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
-                            ItemDisplayBinding="{Binding Title}">
+                            SelectedItem="{Binding SelectedCategory}"
+                            ItemDisplayBinding="{Binding Title}"
+                            SelectedIndex="{Binding IndexValue}"
+                            >
                         </Picker>
 
                         <Image Source="barcode.png" Grid.Row="1" Grid.Column="0"/>

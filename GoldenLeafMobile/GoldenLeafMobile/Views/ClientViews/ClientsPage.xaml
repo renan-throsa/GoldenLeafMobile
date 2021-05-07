@@ -14,7 +14,7 @@
         <ResourceDictionary>
             <converter:SyncronizedConverter x:Key="syncronizedConverter"/>
         </ResourceDictionary>
-    </ContentPage.Resources>   
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <RelativeLayout>
@@ -50,16 +50,29 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Text="Cliente" Grid.Column="0" Style="{DynamicResource headerTablet}"/>
-                    <Label Text="Total" Grid.Row="0" Grid.Column="1" Style="{DynamicResource headerTablet}"/>
-                    <Label Text="Ativo" Grid.Row="0" Grid.Column="2" Style="{DynamicResource headerTablet}"/>
+                    <Label 
+                        Text="Cliente" 
+                        Grid.Column="0" 
+                        Style="{DynamicResource headerTablet}"/>
+
+                    <Label 
+                        Text="Total" 
+                        Grid.Row="0" 
+                        Grid.Column="1" 
+                        Style="{DynamicResource headerTablet}"/>
+
+                    <Label 
+                        Text="Ativo" 
+                        Grid.Row="0" 
+                        Grid.Column="2" 
+                        Style="{DynamicResource headerTablet}"/>
                 </Grid>
 
 
-                <ListView 
-                x:Name="listView" 
-                ItemsSource="{Binding Entities}" 
-                SelectedItem="{Binding SelectedEntity,Mode=TwoWay}"                         
+                <ListView
+                    x:Name="listView" 
+                    ItemsSource="{Binding Entities}" 
+                    SelectedItem="{Binding SelectedEntity,Mode=TwoWay}"                         
                 >
 
                     <ListView.Behaviors>

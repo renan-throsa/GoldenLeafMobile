@@ -20,14 +20,15 @@ namespace GoldenLeafMobile.Views.OrderViews
 
         protected async override void OnAppearing()
         {
-            base.OnAppearing();                        
+            ViewModel.SearchBy = "Cliente";
+            base.OnAppearing();
             MessagingCenter.Subscribe<Order>(this, "SelectedOrder",
                 (_order) => Navigation.PushAsync(new DetailsPage(_order)));
 
             if (ViewModel.Entities.Count == 0)
             {
                 await ViewModel.GetEntities();
-            }           
+            }
         }
 
         protected override void OnDisappearing()
@@ -35,7 +36,18 @@ namespace GoldenLeafMobile.Views.OrderViews
             base.OnDisappearing();
             MessagingCenter.Unsubscribe<Order>(this, "SelectedOrder");
         }
-               
+
+        private async void searchField_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var searchString = $"?{ViewModel.SearchBy}={searchField.Text}";
+            await ViewModel.GetEntities(searchString);
+        }
+
+        private void filterButton_Clicked(object sender, System.EventArgs e)
+        {
+            picker.Focus();
+        }
+
 
     }
 }

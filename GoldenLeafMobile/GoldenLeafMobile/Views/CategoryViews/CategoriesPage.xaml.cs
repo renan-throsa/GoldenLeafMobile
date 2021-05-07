@@ -63,11 +63,7 @@ namespace GoldenLeafMobile.Views.CategoryViews
             Navigation.PushAsync(new ProductViews.EditPage(p));
         }
 
-        private void ToolbarItem_Clicked(object sender, System.EventArgs e)
-        {
-            Navigation.PushAsync(new EntryPage());
-        }
-
+        
         private async void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             var searchString = $"?Title={searchField.Text}";

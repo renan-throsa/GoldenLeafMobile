@@ -39,6 +39,8 @@
                         BackgroundColor="White" />
                     </Grid>
                 </Frame>
+
+                <!-- TABLE -->
                 <Grid ColumnSpacing="-1" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
@@ -50,9 +52,21 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Text="Produto"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                    <Label Text="Preço" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource headerTablet}"/>
-                    <Label Text="Disponível" Grid.Row="0" Grid.Column="2"  Style="{DynamicResource headerTablet}"/>
+                    <Label 
+                        Text="Produto" 
+                        Grid.Row="0" 
+                        Style="{DynamicResource headerTablet}"/>
+                    
+                    <Label 
+                        Text="Preço" 
+                        Grid.Row="0" 
+                        Grid.Column="1"  
+                        Style="{DynamicResource headerTablet}"/>
+                    
+                    <Label 
+                        Text="Disponível" 
+                        Grid.Row="0" Grid.Column="2"  
+                        Style="{DynamicResource headerTablet}"/>
 
                 </Grid>
 
@@ -73,19 +87,23 @@
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
 
-                                        <Label Text="{Binding Description}"                                           
-                                           TextColor="{Binding Syncronized,Converter={StaticResource Key=syncronizedConverter}}"                                           
-                                           Grid.Column="0" Style="{DynamicResource detailTablet}"/>
+                                        <Label 
+                                            Text="{Binding Description}"                                           
+                                            TextColor="{Binding Syncronized,Converter={StaticResource Key=syncronizedConverter}}"                                           
+                                            Grid.Column="0" 
+                                            Style="{DynamicResource detailTablet}"/>
 
-                                        <Label Text="{Binding FormatedUnitCost}" 
-                                           TextColor="{Binding Syncronized,Converter=
+                                        <Label 
+                                            Text="{Binding FormatedUnitCost}" 
+                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
-                                           Grid.Column="1" Style="{DynamicResource detailTablet}"/>
+                                            Grid.Column="1" Style="{DynamicResource detailTablet}"/>
 
-                                        <Label Text="{Binding FormatedAvailability}" 
-                                           TextColor="{Binding Syncronized,Converter=
+                                        <Label 
+                                            Text="{Binding FormatedAvailability}" 
+                                            TextColor="{Binding Syncronized,Converter=
                                             {StaticResource Key=syncronizedConverter}}" 
-                                           Grid.Column="2" Style="{DynamicResource detailTablet}"/>
+                                            Grid.Column="2" Style="{DynamicResource detailTablet}"/>
 
                                     </Grid>
                                 </ViewCell.View>
