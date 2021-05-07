@@ -15,13 +15,13 @@ namespace GoldenLeafMobile.Views.OrderViews
         {
             InitializeComponent();
             ViewModel = new ListViewModel<Order>();
+            ViewModel.AddChoises("Cliente", "Atendente");
             BindingContext = ViewModel;
         }
 
         protected async override void OnAppearing()
-        {
-            ViewModel.SearchBy = "Cliente";
-            base.OnAppearing();
+        {            
+            base.OnAppearing();            
             MessagingCenter.Subscribe<Order>(this, "SelectedOrder",
                 (_order) => Navigation.PushAsync(new DetailsPage(_order)));
 
@@ -47,7 +47,6 @@ namespace GoldenLeafMobile.Views.OrderViews
         {
             picker.Focus();
         }
-
-
+                
     }
 }

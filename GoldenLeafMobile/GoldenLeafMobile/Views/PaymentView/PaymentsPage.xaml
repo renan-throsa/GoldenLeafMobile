@@ -7,15 +7,52 @@
              x:Class="GoldenLeafMobile.Views.PaymentView.PaymentsPage"
              Title="Pagamentos">
 
-   
+
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource PageMargin}" Spacing="0">
+            <!-- SEARCHBAR -->
+            <Frame Padding="5" Margin="0,5,0,10" BackgroundColor="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+
+                    <SearchBar
+                        x:Name="searchField" 
+                        Placeholder="{Binding SearchBy,Mode=TwoWay}" 
+                        TextChanged="searchField_TextChanged"
+                        BackgroundColor="White" />
+
+                    <ImageButton
+                        Clicked="ImageButton_Clicked"
+                        Source="filter.png" 
+                        HorizontalOptions="End" 
+                        Margin="0,0,10,0" 
+                        Grid.Column="1" 
+                        Opacity=".8" 
+                        Aspect="AspectFit"
+                        BackgroundColor="Transparent"
+                        />
+
+                    <Picker 
+                        x:Name="picker"
+                        Title="Selecione para filtrar por:"                                                
+                        IsVisible="false"
+                        ItemsSource="{Binding Choises}"
+                        SelectedItem="{Binding SearchBy}"
+                        />
+
+                </Grid>
+            </Frame>
+
+            <!-- TABLE -->
             <Grid ColumnSpacing="-1">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -28,7 +65,7 @@
                 <Label Text="Atendente" Grid.Column="1" Style="{DynamicResource headerTablet}"/>
                 <Label Text="Cliente" Grid.Column="2" Style="{DynamicResource headerTablet}"/>
                 <Label Text="Valor R$" Grid.Column="3" Style="{DynamicResource headerTablet}"/>
-               
+
             </Grid>
 
             <ListView x:Name="listView" ItemsSource="{Binding Entities}">

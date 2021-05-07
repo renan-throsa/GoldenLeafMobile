@@ -14,6 +14,7 @@ namespace GoldenLeafMobile.Views.PaymentView
         {
             InitializeComponent();
             ViewModel = new ListViewModel<Payment>();
+            ViewModel.AddChoises("Cliente", "Atendente");
             BindingContext = ViewModel;
         }
 
@@ -24,6 +25,17 @@ namespace GoldenLeafMobile.Views.PaymentView
             {
                 await ViewModel.GetEntities();
             }
+        }
+
+        private void ImageButton_Clicked(object sender, System.EventArgs e)
+        {
+            picker.Focus();
+        }
+
+        private async void searchField_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var searchString = $"?{ViewModel.SearchBy}={searchField.Text}";
+            await ViewModel.GetEntities(searchString);
         }
     }
 }

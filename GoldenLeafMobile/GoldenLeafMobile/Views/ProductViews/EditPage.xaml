@@ -30,8 +30,7 @@
                         <Image Source="categories.png" Grid.Row="0" Grid.Column="0"/>
                         <Picker 
                             Grid.Row="0" 
-                            Grid.Column="1" 
-                            x:Name="categoryPicker" 
+                            Grid.Column="1"                            
                             Title="Categoria"
                             ItemsSource="{Binding Categories}"
                             SelectedItem="{Binding SelectedCategory}"

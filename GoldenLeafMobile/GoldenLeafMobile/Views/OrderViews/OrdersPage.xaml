@@ -20,7 +20,7 @@
 
                     <SearchBar
                         x:Name="searchField" 
-                        Placeholder="{Binding Source={x:Reference picker}, Path=SelectedItem}" 
+                        Placeholder="{Binding SearchBy,Mode=TwoWay}" 
                         TextChanged="searchField_TextChanged"
                         BackgroundColor="White" />
 
@@ -38,15 +38,11 @@
                     <Picker 
                         x:Name="picker"
                         Title="Selecione para filtrar por:"                                                
-                        IsVisible="false"                        
-                        >
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>Cliente</x:String>
-                                <x:String>Atendente</x:String>                                
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                        IsVisible="false"
+                        ItemsSource="{Binding Choises}"
+                        SelectedItem="{Binding SearchBy}"
+                        />
+
 
                 </Grid>
             </Frame>

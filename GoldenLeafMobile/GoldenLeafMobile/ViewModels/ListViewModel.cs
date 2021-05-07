@@ -2,6 +2,7 @@
 using GoldenLeafMobile.Models;
 using GoldenLeafMobile.Service;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -16,6 +17,7 @@ namespace GoldenLeafMobile.ViewModels
         public Pagination<T> Pagination { get; set; }
         public InfiniteScrollCollection<T> Entities { get; set; }
 
+        public List<string> Choises { get; set; }
 
         private string _searchBy;
         public string SearchBy
@@ -38,6 +40,7 @@ namespace GoldenLeafMobile.ViewModels
 
         public ListViewModel()
         {
+            Choises = new List<string>();
             Entities = new InfiniteScrollCollection<T>
             {
                 OnLoadMore = async () =>
@@ -50,6 +53,12 @@ namespace GoldenLeafMobile.ViewModels
                     return Entities.Count < Pagination.Total;
                 }
             };
+        }
+
+        public void AddChoises(params string[] list)
+        {
+            Choises.AddRange(list);
+            SearchBy = Choises[0];
         }
 
         public async Task GetEntities(string queryParameter = "")
