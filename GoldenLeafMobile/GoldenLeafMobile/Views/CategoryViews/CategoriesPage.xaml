@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converter="clr-namespace:GoldenLeafMobile.Converters"
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.CategoryViews.CategoriesPage"
              Title="Categorias">
@@ -14,7 +15,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-   
+
     <ContentPage.Content>
         <RelativeLayout>
             <StackLayout 
@@ -53,7 +54,16 @@
 
                 </Grid>
 
-                <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
+                <ListView 
+                    x:Name="listView" 
+                    ItemsSource="{Binding Entities}" 
+                    SelectedItem="{Binding SelectedEntity,Mode=TwoWay}"
+                    CachingStrategy="RecycleElement">
+
+                    <ListView.Behaviors>
+                        <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
+                    </ListView.Behaviors>
+
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -75,7 +85,6 @@
 
                                     </Grid>
                                 </ViewCell.View>
-
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

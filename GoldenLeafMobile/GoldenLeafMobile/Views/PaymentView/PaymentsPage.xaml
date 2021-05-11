@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.PaymentView.PaymentsPage"
              Title="Pagamentos">
@@ -21,7 +22,7 @@
                     <SearchBar
                         x:Name="searchField" 
                         Placeholder="{Binding SearchBy,Mode=TwoWay}" 
-                        TextChanged="searchField_TextChanged"
+                        TextChanged="SearchField_TextChanged"
                         BackgroundColor="White" />
 
                     <ImageButton
@@ -68,7 +69,16 @@
 
             </Grid>
 
-            <ListView x:Name="listView" ItemsSource="{Binding Entities}">
+            <ListView 
+                x:Name="listView" 
+                ItemsSource="{Binding Entities}"
+                CachingStrategy="RecycleElement"
+                >
+
+                <ListView.Behaviors>
+                    <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
+                </ListView.Behaviors>
+                
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

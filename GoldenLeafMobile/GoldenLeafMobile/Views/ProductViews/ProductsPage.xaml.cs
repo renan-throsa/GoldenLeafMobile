@@ -55,10 +55,10 @@ namespace GoldenLeafMobile.Views.ProductViews
             Navigation.PushAsync(new EditPage(mi.CommandParameter as Product));
         }
               
-        private async void searchField_TextChanged(object sender, TextChangedEventArgs e)
+        private async void SearchField_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var searchString = $"?Description={searchField.Text}";
-            await ViewModel.GetEntities(searchString);
+            var searchString = $"Description={searchField.Text}";
+            await ViewModel.GetEntities(parameter: searchString);
         }
 
         private void Button_Clicked(object sender, EventArgs e)

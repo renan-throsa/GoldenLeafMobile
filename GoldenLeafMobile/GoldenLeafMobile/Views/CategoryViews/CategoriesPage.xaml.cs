@@ -63,13 +63,13 @@ namespace GoldenLeafMobile.Views.CategoryViews
             Navigation.PushAsync(new ProductViews.EditPage(p));
         }
 
-        
+
         private async void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var searchString = $"?Title={searchField.Text}";
-            await ViewModel.GetEntities(searchString);
+            var searchString = $"Title={searchField.Text}";
+            await ViewModel.GetEntities(page: 1, parameter: searchString);
         }
-               
+
 
         private void Button_Clicked(object sender, System.EventArgs e)
         {

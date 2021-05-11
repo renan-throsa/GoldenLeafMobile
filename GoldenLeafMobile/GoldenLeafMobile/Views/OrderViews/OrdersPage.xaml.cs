@@ -37,13 +37,13 @@ namespace GoldenLeafMobile.Views.OrderViews
             MessagingCenter.Unsubscribe<Order>(this, "SelectedOrder");
         }
 
-        private async void searchField_TextChanged(object sender, TextChangedEventArgs e)
+        private async void SearchField_TextChanged(object sender, TextChangedEventArgs e)
         {
             var searchString = $"?{ViewModel.SearchBy}={searchField.Text}";
-            await ViewModel.GetEntities(searchString);
+            await ViewModel.GetEntities(parameter: searchString);
         }
 
-        private void filterButton_Clicked(object sender, System.EventArgs e)
+        private void FilterButton_Clicked(object sender, System.EventArgs e)
         {
             picker.Focus();
         }

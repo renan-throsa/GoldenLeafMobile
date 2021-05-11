@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:converter="clr-namespace:GoldenLeafMobile.Converters"            
+             xmlns:converter="clr-namespace:GoldenLeafMobile.Converters"
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.ProductViews.ProductsPage"
              Title="Produtos">
@@ -35,7 +36,7 @@
                         <SearchBar
                         x:Name="searchField" 
                         Placeholder="Busca por descrição" 
-                        TextChanged="searchField_TextChanged" 
+                        TextChanged="SearchField_TextChanged" 
                         BackgroundColor="White" />
                     </Grid>
                 </Frame>
@@ -70,7 +71,17 @@
 
                 </Grid>
 
-                <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
+                <ListView 
+                    x:Name="listView" 
+                    ItemsSource="{Binding Entities}" 
+                    SelectedItem="{Binding SelectedEntity,Mode=TwoWay}"
+                    CachingStrategy="RecycleElement"
+                    >
+                    
+                    <ListView.Behaviors>
+                        <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
+                    </ListView.Behaviors>
+                    
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

@@ -34,7 +34,7 @@
                         <SearchBar
                         x:Name="searchField" 
                         Placeholder="Busca por nome" 
-                        TextChanged="searchField_TextChanged" 
+                        TextChanged="SearchField_TextChanged" 
                         BackgroundColor="White" />
                     </Grid>
                 </Frame>
@@ -72,7 +72,8 @@
                 <ListView
                     x:Name="listView" 
                     ItemsSource="{Binding Entities}" 
-                    SelectedItem="{Binding SelectedEntity,Mode=TwoWay}"                         
+                    SelectedItem="{Binding SelectedEntity,Mode=TwoWay}"
+                    CachingStrategy="RecycleElement"
                 >
 
                     <ListView.Behaviors>

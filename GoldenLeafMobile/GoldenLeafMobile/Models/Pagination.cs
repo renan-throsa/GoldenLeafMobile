@@ -7,7 +7,7 @@ namespace Golden_Leaf_Mobile.Models
     {
         public int Total { get; set; }
         public int Pages { get; set; }
-        public int PerPage { get; set; }        
+        public int Size { get; set; }        
         public int Page { get; set; }
         public List<T> Data { get; set; }
         public string Previous { get; set; }

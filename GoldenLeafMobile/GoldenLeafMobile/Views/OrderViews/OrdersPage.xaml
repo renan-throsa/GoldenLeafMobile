@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              mc:Ignorable="d"
              x:Class="GoldenLeafMobile.Views.OrderViews.OrdersPage"
              Title="Pedidos">
@@ -21,11 +22,11 @@
                     <SearchBar
                         x:Name="searchField" 
                         Placeholder="{Binding SearchBy,Mode=TwoWay}" 
-                        TextChanged="searchField_TextChanged"
+                        TextChanged="SearchField_TextChanged"
                         BackgroundColor="White" />
 
                     <ImageButton
-                        Clicked="filterButton_Clicked"
+                        Clicked="FilterButton_Clicked"
                         Source="filter.png" 
                         HorizontalOptions="End" 
                         Margin="0,0,10,0" 
@@ -66,7 +67,17 @@
                 <Label Text="Valor R$" Grid.Column="3" Style="{DynamicResource headerTablet}"/>
             </Grid>
 
-            <ListView x:Name="listView" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity,Mode=TwoWay}">
+            
+            <ListView 
+                x:Name="listView" 
+                ItemsSource="{Binding Entities}" 
+                SelectedItem="{Binding SelectedEntity,Mode=TwoWay}"
+                CachingStrategy="RecycleElement"
+                >
+                <ListView.Behaviors>
+                    <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
+                </ListView.Behaviors>
+                
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

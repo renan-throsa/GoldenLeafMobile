@@ -87,7 +87,8 @@
             <StackLayout>
                 <Frame>
                     <Image 
-                    Aspect="Fill" 
+                    Aspect="Fill"
+                        WidthRequest="100"
                     HeightRequest="200" 
                     Source="{Binding ProfileImage}"/>
                 </Frame>

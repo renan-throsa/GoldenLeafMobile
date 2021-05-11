@@ -62,17 +62,17 @@ namespace GoldenLeafMobile.Views.ClientViews
             Navigation.PushAsync(new OrderViews.EntryPage(mi.CommandParameter as Client));
         }
 
-       
+
         private void OnNewPayment(object sender, EventArgs e)
         {
             var mi = ((MenuItem)sender);
             Navigation.PushAsync(new PaymentView.EntryPage(mi.CommandParameter as Client));
         }
 
-        private async void searchField_TextChanged(object sender, TextChangedEventArgs e)
+        private async void SearchField_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var searchString = $"?Name={searchField.Text}";
-            await ViewModel.GetEntities(searchString);
+            var searchString = $"Name={searchField.Text}";
+            await ViewModel.GetEntities(parameter: searchString);
         }
 
         private void Button_Clicked(object sender, EventArgs e)

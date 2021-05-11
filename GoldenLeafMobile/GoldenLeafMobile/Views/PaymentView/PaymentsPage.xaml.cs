@@ -32,10 +32,10 @@ namespace GoldenLeafMobile.Views.PaymentView
             picker.Focus();
         }
 
-        private async void searchField_TextChanged(object sender, TextChangedEventArgs e)
+        private async void SearchField_TextChanged(object sender, TextChangedEventArgs e)
         {
             var searchString = $"?{ViewModel.SearchBy}={searchField.Text}";
-            await ViewModel.GetEntities(searchString);
+            await ViewModel.GetEntities(parameter: searchString);
         }
     }
 }

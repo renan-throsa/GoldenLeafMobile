@@ -41,11 +41,12 @@ namespace GoldenLeafMobile.ViewModels
         public ListViewModel()
         {
             Choises = new List<string>();
+            Pagination = new Pagination<T>();
             Entities = new InfiniteScrollCollection<T>
             {
                 OnLoadMore = async () =>
                 {
-                    await GetEntities();
+                    await GetEntities(Pagination.Page + 1);
                     return Pagination.Data;
                 },
                 OnCanLoadMore = () =>
@@ -61,19 +62,20 @@ namespace GoldenLeafMobile.ViewModels
             SearchBy = Choises[0];
         }
 
-        public async Task GetEntities(string queryParameter = "")
+        public async Task GetEntities(int page = 1, string parameter = "")
         {
             Wait = true;
             using (HttpClient httpClient = new HttpClient())
             {
                 var api = new ApiService<T>(httpClient);
-                var response = await api.GetEntitiesAsync(queryParameter);
+                var s = BuildParamter(page, parameter);
+                var response = await api.GetEntitiesAsync(s);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
                     Pagination = JsonConvert.DeserializeObject<Pagination<T>>(result);
-                    if (!string.IsNullOrEmpty(queryParameter))
+                    if (!string.IsNullOrEmpty(parameter))
                     {
                         Entities.Clear();
                     }
@@ -91,6 +93,13 @@ namespace GoldenLeafMobile.ViewModels
 
             }
             Wait = false;
+
+        }
+
+        private string BuildParamter(int page = 1, string queryParameter = "")
+        {
+            return string.IsNullOrEmpty(queryParameter)
+                ? $"?pageNo={page}" : $"?pageNO={page}&{queryParameter}";
 
         }
 

@@ -15,6 +15,13 @@ namespace GoldenLeafMobile.Service
             this.httpClient = httpClient;
         }
 
+        public async Task<HttpResponseMessage> GetEntitiesAsync()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, baseurl);
+            var result = await httpClient.SendAsync(request);
+            return result;
+        }
+
         public async Task<HttpResponseMessage> GetEntitiesAsync(string queryParameter = "")
         {
             HttpRequestMessage request;
